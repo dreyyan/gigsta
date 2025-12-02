@@ -7,10 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Sign Up - Gigsta</title>
+    <title>Sign In - Gigsta</title>
 </head>
 
 <body>
+
     <main class="auth-wrapper">
         <section class="auth-left">
             <div class="auth-logo">
@@ -18,8 +19,8 @@
             </div>
 
             <div class="auth-card">
-                <h1 class="auth-title">Sign up</h1>
-                <p class="auth-subtitle">Welcome to Gigsta - let's get started!</p>
+                <h1 class="auth-title">Login</h1>
+                <p class="auth-subtitle">Great to see you again, Gigsta!</p>
 
                 <form class="auth-form" action="#" method="post">
                     <label class="input-group">
@@ -32,31 +33,24 @@
                         <input type="password" name="password" placeholder="Password" required>
                     </label>
 
-                    <ul class="password-requirements">
-                        <p><img src="../images/check-indicator.png" alt="check"> At least 8 characters</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 uppercase letter</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 lowercase letter</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 number</p>
-                    </ul>
-
                     <div class="auth-row">
                         <label class="checkbox-label"><input type="checkbox" name="remember"> Remember Me</label>
                         <a class="forgot-link" href="#">Forgot Password?</a>
                     </div>
 
-                    <button class="primary-action" type="submit">Sign Up</button>
+                    <button class="primary-action" type="submit">Login</button>
 
                     <div class="divider"><span>or</span></div>
 
                     <button class="social-btn google" type="button">
-                        <img src="../images/google-icon 1.png" alt="Google"> Continue with Google
+                        <img src="https://via.placeholder.com/18x18?text=G" alt="Google"> Continue with Google
                     </button>
 
                     <button class="social-btn facebook" type="button">
-                        <img src="../images/fb-icon 1.png" alt="Facebook"> Continue with Facebook
+                        <img src="https://via.placeholder.com/18x18?text=F" alt="Facebook"> Continue with Facebook
                     </button>
 
-                    <p class="signup-link">Already have an account? <a href="signIn.php">Sign In</a></p>
+                    <p class="signup-link">Don't have an account? <a href="signUp.php">Sign Up</a></p>
                 </form>
             </div>
         </section>
