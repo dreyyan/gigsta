@@ -1,3 +1,9 @@
+<?php
+// [IMPORT] Components
+require_once __DIR__ . '/../components/InputGroup.php';
+require_once __DIR__ . '/../components/SocialButton.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +28,26 @@
                 <h1 class="auth-title">Login</h1>
                 <p class="auth-subtitle">Great to see you again, Gigsta!</p>
 
-                <form class="auth-form" action="#" method="post">
+                <form class="auth-form" action="#" method="post" id="loginForm">
+                    <!-- [INPUT FIELD] Username / Email -->
+                    <?php renderInputGroup([
+                        'name' => 'loginUser',
+                        'id' => 'loginUser',
+                        'placeholder' => 'Email or username',
+                        'icon' => '../images/email-icon.svg',
+                        'required' => true
+                    ]); ?>
+
+                    <!-- [INPUT FIELD] Password -->
+                    <?php renderInputGroup([
+                        'type' => 'password',
+                        'name' => 'loginPassword',
+                        'id' => 'loginPassword',
+                        'placeholder' => 'Password',
+                        'icon' => '../images/password-icon.svg',
+                        'required' => true
+                    ]); ?>
+
                     <label class="input-group">
                         <img src="https://via.placeholder.com/20x20?text=@" alt="user icon" class="input-icon">
                         <input type="text" name="username" placeholder="Email or username" required>
@@ -38,9 +63,27 @@
                         <a class="forgot-link" href="#">Forgot Password?</a>
                     </div>
 
+                    <!-- [COMPONENT] Primary Button: Login -->
+                    <?php $label = "Login"; $href = "#"; include '../components/PrimaryButton.php'; ?>
+
                     <button class="primary-action" type="submit">Login</button>
 
                     <div class="divider"><span>or</span></div>
+
+                    <!-- OAuth Buttons -->
+                    <?php renderSocialButton([
+                        'label' => 'Continue with Google',
+                        'icon'  => '../images/google-icon 1.png',
+                        'class' => 'google',
+                        'onClick' => "window.location.href='/auth/google'"
+                    ]); ?>
+
+                    <?php renderSocialButton([
+                        'label' => 'Continue with Facebook',
+                        'icon'  => '../images/fb-icon 1.png',
+                        'class' => 'facebook',
+                        'onClick' => "window.location.href='/auth/facebook'"
+                    ]); ?>
 
                     <button class="social-btn google" type="button">
                         <img src="https://via.placeholder.com/18x18?text=G" alt="Google"> Continue with Google

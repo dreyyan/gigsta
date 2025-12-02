@@ -1,83 +1,136 @@
+<?php
+// [IMPORT] SignUp.php
+require_once __DIR__ . '/../components/InputGroup.php';
+require_once __DIR__ . '/../components/SocialButton.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- [IMPORT] Website Icon -->
+    <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+
+    <!-- [IMPORT] Fonts: Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Sign Up - Gigsta</title>
+    <title>Gigsta: Sign Up</title>
 </head>
 
 <body>
     <main class="auth-wrapper">
-        <section class="auth-left">
+        <!-- [SECTION] Left Auth Container -->
+        <section class="auth-left-container">
             <div class="auth-logo">
                 <img src="../images/gigsta-logo-minimal.svg" alt="Gigsta logo">
             </div>
 
             <div class="auth-card">
-                <h1 class="auth-title">Sign up</h1>
+                <h1 class="auth-title">Sign Up</h1>
                 <p class="auth-subtitle">Welcome to Gigsta - let's get started!</p>
 
-                <form class="auth-form" action="#" method="post">
-                    <label class="input-group">
-                        <img src="https://via.placeholder.com/20x20?text=@" alt="user icon" class="input-icon">
-                        <input type="text" name="username" placeholder="Email or username" required>
-                    </label>
+                <!-- [SECTION] Authentication Form -->
+                <form class="auth-form" action="#" method="post" id="signUpForm">
 
-                    <label class="input-group">
-                        <img src="https://via.placeholder.com/20x20?text=🔒" alt="password icon" class="input-icon">
-                        <input type="password" name="password" placeholder="Password" required>
-                    </label>
+                    <!-- Step 1: Only Username + Continue -->
+                    <div class="form-step" id="step1">
+                        <?php renderInputGroup([
+                            'name' => 'signUpUsername',
+                            'id' => 'signUpUsername',
+                            'placeholder' => 'juandela_cruz01',
+                            'icon' => '../images/user-icon.svg',
+                            'required' => true
+                        ]); ?>
 
-                    <ul class="password-requirements">
-                        <p><img src="../images/check-indicator.png" alt="check"> At least 8 characters</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 uppercase letter</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 lowercase letter</p>
-                        <p><img src="../images/check-indicator.png" alt="check" alt="check"> At least 1 number</p>
-                    </ul>
-
-                    <div class="auth-row">
-                        <label class="checkbox-label"><input type="checkbox" name="remember"> Remember Me</label>
-                        <a class="forgot-link" href="#">Forgot Password?</a>
+                        <?php $label = "Continue"; $id = "primaryBtn"; include '../components/PrimaryButton.php'; ?>
                     </div>
 
-                    <button class="primary-action" type="submit">Sign Up</button>
+                    <!-- Step 2: Full form + Sign Up -->
+                    <div class="form-step" id="step2" style="display:none;">
+                        <?php renderInputGroup([
+                            'name' => 'signUpEmail',
+                            'id' => 'signUpEmail',
+                            'placeholder' => 'example@domain.com',
+                            'icon' => '../images/email-icon.svg',
+                            'required' => true
+                        ]); ?>
 
-                    <div class="divider"><span>or</span></div>
+                        <?php renderInputGroup([
+                            'type' => 'password',
+                            'name' => 'signUpPassword',
+                            'id' => 'signUpPassword',
+                            'placeholder' => '******',
+                            'icon' => '../images/password-icon.svg',
+                            'required' => true
+                        ]); ?>
 
-                    <button class="social-btn google" type="button">
-                        <img src="../images/google-icon 1.png" alt="Google"> Continue with Google
-                    </button>
+                        <?php renderInputGroup([
+                            'type' => 'password',
+                            'name' => 'signUpConfirm',
+                            'id' => 'signUpConfirm',
+                            'placeholder' => '******',
+                            'icon' => '../images/password-icon.svg',
+                            'required' => true
+                        ]); ?>
 
-                    <button class="social-btn facebook" type="button">
-                        <img src="../images/fb-icon 1.png" alt="Facebook"> Continue with Facebook
-                    </button>
+                        <!-- Password Requirements -->
+                        <ul class="password-requirements">
+                            <p><img src="../images/check-indicator.png" alt="check"> At least 8 characters</p>
+                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 uppercase letter</p>
+                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 lowercase letter</p>
+                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 number</p>
+                        </ul>
 
-                    <p class="signup-link">Already have an account? <a href="signIn.php">Sign In</a></p>
+                        <?php $label = "Sign Up"; $id = "primaryBtn2"; include '../components/PrimaryButton.php'; ?>
+                    </div>
+
+                    <!-- Divider and OAuth buttons -->
+                    <div class="divider-container">
+                        <img src="../images/or-line-divider.svg" class="line-divider">
+                        <span>or</span>
+                        <img src="../images/or-line-divider.svg" class="line-divider">
+                    </div>
+
+                    <div>
+                        <?php renderSocialButton([
+                            'label' => 'Continue with Google',
+                            'icon'  => '../images/google-icon 1.png',
+                            'class' => 'google',
+                            'onClick' => "window.location.href='/auth/google'"
+                        ]); ?>
+
+                        <?php renderSocialButton([
+                            'label' => 'Continue with Facebook',
+                            'icon'  => '../images/fb-icon 1.png',
+                            'class' => 'facebook',
+                            'onClick' => "window.location.href='/auth/facebook'"
+                        ]); ?>
+                    </div>
+                    <!-- Sign In Link -->
+                    <p class="signup-link">Already have an account?&nbsp;<a href="signIn.php">Sign In</a></p>
                 </form>
             </div>
         </section>
 
-        <section class="auth-right">
+        <!-- [SECTION] Right Auth Container -->
+        <section class="auth-right-container">
             <div class="auth-hero">
-                <h2 class="hero-title">Get Gigs Done at <span class="highlight">Lightning Speed.</span></h2>
-                <p class="hero-sub">Fixed-price gigs delivered in hours, not weeks.</p>
+                <div>
+                    <h2 class="hero-title">Get Gigs Done at &nbsp;<span class="highlight">Lightning Speed.</span></h2>
+                    <p class="hero-description">Fixed-price gigs delivered in hours, not weeks.</p>
+                </div>
 
                 <div class="hero-image">
                     <img src="../images/odette.jpg" alt="Hero image">
                 </div>
-
-                <div class="carousel-dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
             </div>
         </section>
     </main>
-
+    <script src="../js/signup.js"></script>
 </body>
 </html>

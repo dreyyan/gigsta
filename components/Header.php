@@ -6,7 +6,7 @@
     </div>
 
     <!-- [COMPONENT] Search Bar -->
-    <?php include 'components/SearchBar.php'; ?>
+    <?php $width="460px"; include 'components/SearchBar.php'; ?>
 
     <!-- Header Links -->
     <div class="header-links">
@@ -17,8 +17,8 @@
 
     <!-- Auth Buttons -->
     <div id="auth-buttons">
-        <a class="header-navigation-link" href="#">Sign In</a>
+        <a class="header-navigation-link" href="pages/SignIn.php">Sign In</a>
         <!-- [COMPONENT] Primary Button: Join -->
-        <?php $label = "Join"; $href="#"; include 'components/PrimaryButton.php'; ?>
+        <?php $label = "Join"; $href="pages/SignUp.php"; include 'components/PrimaryButton.php'; ?>
     </div>
 </header>

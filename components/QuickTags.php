@@ -4,9 +4,9 @@ $tags = $tags ?? ['website development', 'architecture & interior design', 'vide
 
 <div class="quick-tags">
     <?php foreach ($tags as $tag): ?>
-        <div id="tag-container">
+        <div class="tag-container">
             <span><?= htmlspecialchars($tag) ?></span>
-            <img src="../images/tag-arrow-icon.svg"/>
+            <img class="tag-arrow" src="../images/tag-arrow-icon.svg" alt="Arrow"/>
         </div>
     <?php endforeach; ?>
 </div>
