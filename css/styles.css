@@ -1,3 +1,21 @@
+/* Color Palette: Light Theme */
+:root {
+  --text: oklch(20.70% 0.038 265.07);
+  --background: oklch(98.51% 0.000 89.88);
+  --primary: oklch(20.70% 0.038 265.07);
+  --secondary: oklch(88.28% 0.181 94.46);
+  --accent: oklch(67.62% 0.213 18.84);
+}
+
+/* Color Palette: Dark Theme */
+[data-theme="dark"] {
+  --text: oklch(97% 0.015 265.07);
+  --background: oklch(15% 0.01 89.88);
+  --primary: oklch(85% 0.035 265.07);
+  --secondary: oklch(35% 0.15 94.46);
+  --accent: oklch(80% 0.22 18.84);
+}
+
 :root {
     --header-font: "DM Sans";
     --body-font: "Inter";

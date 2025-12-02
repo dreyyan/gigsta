@@ -6,114 +6,105 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Gigsta</title>
 </head>
+
 <body>
 
+    <!---- HEADER -->
     <header>
-        <!-- Logo -->
-        <div>
-            <img src="../images/gigsta-logo.svg"  >
+        <div class="logo">
+            <img src="../images/gigsta-logo.svg">
         </div>
 
-        <!-- Header Right Section-->
-        <div class="header-btns">
-            <!-- Explore & Become a Freelancer Btn-->
+        <div class="header-btns">  
             <div class="header-links">
-                <a> Explore </a>
-                <a> Become a Freelancer </a>
+                <a href="#">Explore</a>
+                <a href="#">Become a Freelancer</a>
             </div>
 
-            <!-- Signin & Join Btn-->
             <div class="header-links">
-                <a> Sign In </a>
-                <a id="primary-btn"> Join </a>
+                <a href="#">Sign In</a>
+                <a id="primary-btn" href="#">Join</a>
             </div>
         </div>
     </header>
-    <!-- Hero Section --->
+
     <div class="gradient-divider"></div>
-    <main>
-        <!-- Hero title -->
-         <div class="hero-title"> 
-            <h1> 
-                Get Gigs Done at
-            </h1>
-            <h1 class="highlighted-title"> 
-                Lightning Speed
-            </h1> 
-         </div>
 
-        <!-- Hero description -->
-         <div> 
-            <h2> 
-                Fixed-price gigs delivered in hours, not weeks.
-            </h2>
-        </div> 
+    <!--- MAIN -->
+    <main class="hero-container">
 
-        <!-- Hero Search Bar Section -->
-            
-        <div> 
-            <!-- Search Bar -->
-            <div>
-                <input type="search"/>
+        <!---- HERO TITLE ---->
+        <div class="hero-title">
+            <h1>Get Gigs Done at</h1>
+            <h1 class="highlighted-title">Lightning Speed.</h1>
+        </div>
+
+        <!--- HERO DESCRIPTION --->
+        <div class="hero-description">
+            <h2>Fixed-price gigs delivered in hours, not weeks.</h2>
+        </div>
+
+        <!---- SEARCH BAR --->
+        <div class="search-wrapper">
+
+            <div class="search-bar">
+                <input type="search" placeholder="Search for any service…" />
                 <button>Search</button>
             </div>
-            
-            <!-- Quick Links -->
-            <div> 
-                <div> 
-                    Web Dev
-                </div>
-                <div>
-                    Archi & Interior Design 
-                <div> 
-                <div>
-                    Video Editing 
-                <div> 
+
+            <!----- TAGS ---->
+            <div class="quick-tags">
+                <span>website development</span>
+                <span>architecture & interior design</span>
+                <span>video editing</span>
             </div>
-            
-        </div> 
-        
-        <!-- Hero ratings -->
-        <div>
-            RATINGS 
+
         </div>
 
-        <!-- Hero 3 Columns -->
-
-        <div>
-            <div>
-                <div> 
-                    <img src="../images/temp.png">
-                    <h3>DELIVERY</h3>
-                </div>
-                <p> 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, vel itaque ab ullam blanditiis ad incidunt tempore at facere commodi id, eaque inventore minus delectus debitis. Beatae blanditiis temporibus soluta!
-                </p>
-            </div>
-
-            <div>
-                <div> 
-                    <img src="../images/temp.png">
-                    <h3>LOCAL TALENT</h3>
-                </div>
-                <p> 
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae vero ab sapiente tenetur doloribus, voluptatibus fugit. Quam, exercitationem. Porro maiores nihil, alias ad quasi odit nemo voluptates recusandae officiis perferendis.
-                </p>
-            </div>
-
-            <div>
-                 <div> 
-                    <img src="../images/temp.png">
-                    <h3>PRICE</h3>
-                </div>
-                <p> 
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quo, deserunt at? Quisquam animi voluptas maxime ab? Aut architecto at voluptatem quis ut eos nostrum ea, deleniti reiciendis laboriosam iusto quidem?
-                </p>
-            </div>
+        <!---- RATINGS ---->
+        <div class="ratings">
+            <span>50k+ gigs completed •  4.9 • Secure payments • Proudly localized in Iloilo, Philippines</span>
         </div>
+
+        <!---- THREE INFO BOXES --->
+        <div class="info-boxes">
+
+            <div class="info-card">
+                <div class="info-header">
+                    <img src="../images/temp.png">
+                    <h3>Delivered in Hours, Not Weeks</h3>
+                </div>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum aspernatur ab totam rerum voluptates. Tempore quaerat vitae quidem incidunt voluptates. Provident ratione modi cumque eius et maxime at repellendus amet?
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-header">
+                    <img src="../images/temp.png">
+                    <h3>Local Talent + Global Reach</h3>
+                </div>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam voluptatem, dolores excepturi tempore sequi saepe laudantium, exercitationem consequatur totam aut, aliquid id illo doloribus in qui quisquam? Tempora, natus sint?
+                </p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-header">
+                    <img src="../images/temp.png">
+                    <h3>Fixed Price, Zero Drama</h3>
+                </div>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rerum omnis, animi recusandae quaerat ipsum numquam unde, sint illum porro voluptas error distinctio eius voluptates dicta odio quo! Obcaecati, culpa qui!.
+                </p>
+            </div>
+
+        </div>
+
     </main>
+
 </body>
 </html>
