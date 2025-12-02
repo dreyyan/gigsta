@@ -203,7 +203,7 @@ body {
     letter-spacing: 1%;
 
     text-decoration: none;
-    color: #0F1729;
+    color: var(--primary);
     border-radius: 8px;
     margin-right: 32px;
     position: relative;
@@ -437,7 +437,7 @@ body {
 }
 
 .search-bar-top input:focus {
-    border-color: #0F1729;
+    border-color: var(--primary);
 }
 
 .search-bar-top button {
@@ -465,7 +465,7 @@ body {
 
 .filter-btn {
     padding: 8px 16px;
-    border: 2px solid #0F1729;
+    border: 2px solid var(--primary);
     background: #FAFAFA;
     border-radius: 8px;
     cursor: pointer;
@@ -492,7 +492,7 @@ body {
 }
 
 .sort-section strong {
-    color: #0F1729;
+    color: var(--primary);
 }
 
 /* Results Count */
@@ -553,11 +553,11 @@ body {
 .gig-seller {
     font-size: 17px;
     font-weight: 500;
-    color: #0F1729;
+    color: var(--primary);
 }
 
 .pro-badge {
-    background: #0F1729;
+    background: var(--primary);
     color: #FAFAFA;
     padding: 4px 8px;
     border-radius: 4px;
@@ -605,7 +605,7 @@ body {
 
 .rating-value {
     font-weight: 600;
-    color: #0F1729;
+    color: var(--primary);
 }
 
 .rating-count {
@@ -615,7 +615,7 @@ body {
 .gig-price {
     margin: 0;
     font-size: 17px;
-    color: #0F1729;
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -650,14 +650,14 @@ body {
     font-family: var(--header-font);
     font-size: 64px;
     margin-bottom: 6px;
-    color: #0F1729;
+    color: var(--primary);
 }
 
 .auth-subtitle {
     font-family: var(--header-font);
     font-size: 36px;
     font-weight: bold;
-    color: #0F1729;
+    color: var(--primary);
     margin-bottom: 18px;
 }
 
@@ -665,7 +665,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    border: 2px solid #0F1729;
+    border: 2px solid var(--primary);
     padding: 14px 16px;
     border-radius: 10px;
     margin-bottom: 16px;
@@ -705,7 +705,7 @@ body {
     font-family: var(--body-font);
     width:100%;
     padding:14px 20px;
-    background:#0F1729;
+    background:var(--primary);
     color:#FAFAFA;
     border:none;
     border-radius:10px;
@@ -722,7 +722,7 @@ body {
     width:100%;
     padding:12px 16px;
     border-radius:10px;
-    border:1px solid #0F1729;
+    border:1px solid var(--primary);
     background:#FAFAFA;
     display:flex;
     align-items:center;
@@ -739,7 +739,7 @@ body {
     align-items:center;
     justify-content:center;
     padding:80px;
-    background: #0F1729;
+    background: var(--primary);
     color: #FAFAFA;
     overflow: hidden;
 }
