@@ -1,3 +1,36 @@
+<?php
+// Sample gigs data
+$gigs = [
+    [
+        'image' => 'https://via.placeholder.com/250x200?text=Web+Design',
+        'seller' => 'Jane Doe',
+        'isPro' => true,
+        'description' => 'Professional web design services...',
+        'ratingValue' => 4.9,
+        'ratingCount' => 120,
+        'price' => 500
+    ],
+    [
+        'image' => 'https://via.placeholder.com/250x200?text=Logo+Design',
+        'seller' => 'John Smith',
+        'isPro' => false,
+        'description' => 'Creative logo design for your brand...',
+        'ratingValue' => 5.0,
+        'ratingCount' => 87,
+        'price' => 200
+    ],
+    [
+        'image' => 'https://via.placeholder.com/250x200?text=SEO+Services',
+        'seller' => 'Alice Brown',
+        'isPro' => true,
+        'description' => 'Boost your website SEO and rankings...',
+        'ratingValue' => 4.8,
+        'ratingCount' => 50,
+        'price' => 300
+    ],
+    // Add more gigs as needed
+];
+?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -44,186 +77,12 @@
 
             <!-- GIG LISTINGS GRID -->
             <div class="gigs-grid">
-
-                <!-- GIG CARD 1 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <p class="gig-seller">John Doe</p>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 2 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 3 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 4 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 5 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="../images/thunder-badge-icon.svg" alt="pro" class="badge-icon">Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 6 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 7 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GIG CARD 8 -->
-                <div class="gig-card">
-                    <div class="gig-image">
-                        <img src="https://via.placeholder.com/250x200?text=Gig+Image" alt="Gig">
-                    </div>
-                    <div class="gig-info">
-                        <div class="gig-header">
-                            <span class="gig-seller">John Doe</span>
-                            <span class="pro-badge"><img src="https://via.placeholder.com/16x16?text=star" alt="pro" class="badge-icon"> Gigsta Pro</span>
-                        </div>
-                        <p class="gig-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
-                        <div class="gig-footer">
-                            <div class="rating">
-                                <img src="https://via.placeholder.com/16x16?text=star" alt="star" class="rating-star">
-                                <span class="rating-value">5.0</span>
-                                <span class="rating-count">(420)</span>
-                            </div>
-                            <p class="gig-price">From $1000</p>
-                        </div>
-                    </div>
-                </div>
-
-                    </div>
-                </div>
-
+                <?php
+                foreach ($gigs as $gig) {
+                    extract($gig);
+                    include '../components/GigCard.php';
+                }
+                ?>
             </div>
 
         </main>
