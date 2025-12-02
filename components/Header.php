@@ -28,7 +28,7 @@
                 ['text' => 'Programming & Tech', 'href' => '#']
             ];
             $navMode = true;
-            include __DIR__ . '/NavigationLinkDropdown.php';
+            include __DIR__ . '/Dropdown.php';
         ?>
 
         <a class="header-navigation-link" href="#">Become a Freelancer</a>

@@ -61,7 +61,7 @@ $gigs = [
                     ['text' => '$100+', 'href' => '#'],
                 ];
                 $boldFirst = true;
-                include __DIR__ . '/../components/NavigationLinkDropdown.php';
+                include __DIR__ . '/../components/Dropdown.php';
 
                 $label = "Delivery Time";
                 $items = [
@@ -71,7 +71,7 @@ $gigs = [
                     ['text' => '7 days', 'href' => '#'],
                 ];
                 $boldFirst = true;
-                include __DIR__ . '/../components/NavigationLinkDropdown.php';
+                include __DIR__ . '/../components/Dropdown.php';
                 ?>
             </div>
 
@@ -86,7 +86,7 @@ $gigs = [
                 ];
                 $rightAlign = true;
                 $activeIndex = 0;
-                include __DIR__ . '/../components/NavigationLinkDropdown.php';
+                include __DIR__ . '/../components/Dropdown.php';
                 ?>
             </div>
         </div>
