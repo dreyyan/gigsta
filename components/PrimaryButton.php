@@ -7,8 +7,8 @@ $onClick = $onClick ?? '';
 
 <button 
     type="button" 
-    class="btn-primary <?= htmlspecialchars($class) ?>" 
-    id="primary-btn"
+    class="primary-btn <?= htmlspecialchars($class) ?>" 
+    id="<?= htmlspecialchars($id ?? 'primary-btn') ?>"
     <?php if ($href): ?>
         onclick="window.location.href='<?= htmlspecialchars($href) ?>'"
     <?php elseif ($onClick): ?>
