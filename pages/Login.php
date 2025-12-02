@@ -4,6 +4,7 @@ require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
