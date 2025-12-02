@@ -1,72 +1,194 @@
-:root{
+:root {
     --header-font: "DM Sans";
     --body-font: "Inter";
     --lightning-yellow: #FFD500;
 }
-*{
-    margin: 0px;
-    padding: 0px;
+
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
-header{
+
+body {
+    font-family: var(--body-font);
+}
+
+/* ----- HEADER ----*/
+
+header {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
+    align-items: center;
     padding: 24px 48px;
-    border-bottom: 2px solid rgb(213, 213, 213);
-    
+    border-bottom: 2px solid #d5d5d5;
 }
-main{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.header-btns { 
+
+.header-btns {
     display: flex;
     align-items: center;
     gap: 54px;
 }
-.gradient-divider {
-    height: 80px;
-    width: 100%;
-    background: linear-gradient(
-        to bottom,
-        var(--lightning-yellow), 
-        rgba(159, 159, 149, 0)  
-    );
-}
+
 .header-links {
-    display:flex;
+    display: flex;
     gap: 24px;
     font-family: var(--header-font);
+    font-size: 15px;
 }
-#primary-btn{
-    background-color: black;
-    color:white;
-    border-radius: 8px; 
-}
-#primary-btn:hover{
-    background-color: rgb(239, 225, 30);
-}
-.header-links a{
-    padding: 8px;
-}
-.header-links a:hover{
-    background-color: black;
+
+.header-links a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: black;
     border-radius: 8px;
+}
+
+.header-links a:hover {
+    background: black;
     color: white;
 }
-/* Hero Section Stylings */
-.hero-title{
-    font-family: var(--header-font);
-    font-size: 36px;
+
+#primary-btn {
+    background: black;
+    color: white;
+}
+
+#primary-btn:hover {
+    background: var(--lightning-yellow);
+    color: black;
+}
+
+/* ----- HERO SECTION --- */
+
+.gradient-divider {
+    height: 80px;
+    background: linear-gradient(to bottom, var(--lightning-yellow), transparent);
+}
+
+.hero-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    align-items: center;
+    padding: 40px 0 100px;
 }
-.highlighted-title{
+
+.hero-title h1 {
+    font-family: var(--header-font);
+    font-size: 60px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.highlighted-title {
     color: var(--lightning-yellow);
 }
 
+.hero-description h2 {
+    font-size: 30px;
+    margin-top: 12px;
+    font-weight: 400;
+    text-align: center;
+}
 
+/* --- SEARCH BAR --- */
+
+.search-wrapper {
+    margin-top: 35px;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+    display: flex;
+    padding: 6px;
+    border: 2px solid #000;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 14px 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-bar button {
+    padding: 14px 24px;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 40px;
+}
+
+.quick-tags {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.quick-tags span {
+    padding: 6px 14px;
+    background: white;
+    border: 1px solid #bbb;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+/* ------ RATINGS --- */
+
+.ratings {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #444;
+}
+
+/* ---- 3 COLUMNS --- */
+
+.info-boxes {
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 90%;
+    max-width: 1100px;
+}
+
+.info-card {
+    width: 30%;
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-header img {
+    width: 40px;
+}
+
+.info-card h3 {
+    font-size: 16px;
+    font-family: var(--header-font);
+}
+
+.info-card p {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444;
+}
 
