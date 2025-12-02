@@ -26,9 +26,12 @@ require_once __DIR__ . '/../components/SocialButton.php';
     <main class="auth-wrapper">
         <!-- [SECTION] Left Auth Container -->
         <section class="auth-left-container">
-            <div class="auth-logo">
-                <img src="../images/gigsta-logo-minimal.svg" alt="Gigsta logo">
-            </div>
+            <!-- [COMPONENT] Minimal Logo -->
+            <a href="../index.php">
+                <div class="auth-logo">
+                    <img src="../images/gigsta-logo-minimal.svg" alt="Gigsta logo">
+                </div>
+            </a>
 
             <div class="auth-card">
                 <h1 class="auth-title">Sign Up</h1>
@@ -36,22 +39,8 @@ require_once __DIR__ . '/../components/SocialButton.php';
 
                 <!-- [SECTION] Authentication Form -->
                 <form class="auth-form" action="#" method="post" id="signUpForm">
-
-                    <!-- Step 1: Only Username + Continue -->
+                    <!-- Step 1: Email + Password + Confirm -->
                     <div class="form-step" id="step1">
-                        <?php renderInputGroup([
-                            'name' => 'signUpUsername',
-                            'id' => 'signUpUsername',
-                            'placeholder' => 'juandela_cruz01',
-                            'icon' => '../images/user-icon.svg',
-                            'required' => true
-                        ]); ?>
-
-                        <?php $label = "Continue"; $id = "primaryBtn"; include '../components/PrimaryButton.php'; ?>
-                    </div>
-
-                    <!-- Step 2: Full form + Sign Up -->
-                    <div class="form-step" id="step2" style="display:none;">
                         <?php renderInputGroup([
                             'name' => 'signUpEmail',
                             'id' => 'signUpEmail',
@@ -77,16 +66,29 @@ require_once __DIR__ . '/../components/SocialButton.php';
                             'icon' => '../images/password-icon.svg',
                             'required' => true
                         ]); ?>
-
+                        
                         <!-- Password Requirements -->
                         <ul class="password-requirements">
-                            <p><img src="../images/check-indicator.png" alt="check"> At least 8 characters</p>
-                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 uppercase letter</p>
-                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 lowercase letter</p>
-                            <p><img src="../images/check-indicator.png" alt="check"> At least 1 number</p>
+                            <li data-rule="length"><img src="../images/check-indicator-icon.svg" alt="check"> At least 8 characters</li>
+                            <li data-rule="uppercase"><img src="../images/check-indicator-icon.svg" alt="check"> At least 1 uppercase letter</li>
+                            <li data-rule="lowercase"><img src="../images/check-indicator-icon.svg" alt="check"> At least 1 lowercase letter</li>
+                            <li data-rule="number"><img src="../images/check-indicator-icon.svg" alt="check"> At least 1 number</li>
                         </ul>
 
-                        <?php $label = "Sign Up"; $id = "primaryBtn2"; include '../components/PrimaryButton.php'; ?>
+                        <?php $label = "Continue"; $id = "primary-btn"; include '../components/PrimaryButton.php'; ?>
+                    </div>
+
+                    <!-- Step 2: Username -->
+                    <div class="form-step" id="step2" style="display:none;">
+                        <?php renderInputGroup([
+                            'name' => 'signUpUsername',
+                            'id' => 'signUpUsername',
+                            'placeholder' => 'juandela_cruz01',
+                            'icon' => '../images/user-icon.svg',
+                            'required' => true
+                        ]); ?>
+
+                        <?php $label = "Sign Up"; $id = "primary-btn2"; include '../components/PrimaryButton.php'; ?>
                     </div>
 
                     <!-- Divider and OAuth buttons -->
@@ -112,7 +114,7 @@ require_once __DIR__ . '/../components/SocialButton.php';
                         ]); ?>
                     </div>
                     <!-- Sign In Link -->
-                    <p class="signup-link">Already have an account?&nbsp;<a href="signIn.php">Sign In</a></p>
+                    <p class="signup-link">Already have an account?&nbsp;<a href="Login.php">Sign In</a></p>
                 </form>
             </div>
         </section>

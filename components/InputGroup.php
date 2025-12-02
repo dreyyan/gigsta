@@ -2,6 +2,7 @@
 function renderInputGroup($props = []) {
     $type        = $props['type'] ?? 'text';
     $name        = $props['name'] ?? '';
+    $id          = $props['id'] ?? ''; // <-- add this
     $placeholder = $props['placeholder'] ?? '';
     $icon        = $props['icon'] ?? 'https://via.placeholder.com/20x20?text=@';
     $required    = $props['required'] ?? false;
@@ -11,7 +12,8 @@ function renderInputGroup($props = []) {
         <img src="<?= htmlspecialchars($icon) ?>" alt="icon" class="input-icon">
         <input 
             type="<?= htmlspecialchars($type) ?>" 
-            name="<?= htmlspecialchars($name) ?>" 
+            name="<?= htmlspecialchars($name) ?>"
+            <?= $id ? 'id="' . htmlspecialchars($id) . '"' : '' ?>
             placeholder="<?= htmlspecialchars($placeholder) ?>"
             <?= $required ? 'required' : '' ?>
         >

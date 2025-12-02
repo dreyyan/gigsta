@@ -16,6 +16,7 @@
     <title>Gigsta: Get Gigs Done at Lightning Speed</title>
 </head>
 <body>
+    <!-- <img src="images/vector-art.png" id="vector-art"/> -->
     <!-- [COMPONENT] Header -->
     <?php include 'components/Header.php'; ?>
     <!-- [SECTION] Hero Section -->

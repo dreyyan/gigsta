@@ -9,27 +9,36 @@ require_once __DIR__ . '/../components/SocialButton.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- [IMPORT] CSS -->
     <link rel="stylesheet" href="../css/styles.css">
+
+    <!-- [IMPORT] Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Sign In - Gigsta</title>
+
+    <title>Gigsta: Log In</title>
 </head>
 
 <body>
-
     <main class="auth-wrapper">
-        <section class="auth-left">
-            <div class="auth-logo">
-                <img src="../images/gigsta-logo-minimal.svg" alt="Gigsta logo">
-            </div>
+        <!-- [SECTION] Left Auth Container -->
+        <section class="auth-left-container">
+            <!-- Logo -->
+            <a href="../index.php">
+                <div class="auth-logo">
+                    <img src="../images/gigsta-logo-minimal.svg" alt="Gigsta logo">
+                </div>
+            </a>
 
             <div class="auth-card">
-                <h1 class="auth-title">Login</h1>
+                <h1 class="auth-title">Log In</h1>
                 <p class="auth-subtitle">Great to see you again, Gigsta!</p>
 
                 <form class="auth-form" action="#" method="post" id="loginForm">
-                    <!-- [INPUT FIELD] Username / Email -->
+
+                    <!-- Email / Username -->
                     <?php renderInputGroup([
                         'name' => 'loginUser',
                         'id' => 'loginUser',
@@ -38,7 +47,7 @@ require_once __DIR__ . '/../components/SocialButton.php';
                         'required' => true
                     ]); ?>
 
-                    <!-- [INPUT FIELD] Password -->
+                    <!-- Password -->
                     <?php renderInputGroup([
                         'type' => 'password',
                         'name' => 'loginPassword',
@@ -48,27 +57,26 @@ require_once __DIR__ . '/../components/SocialButton.php';
                         'required' => true
                     ]); ?>
 
-                    <label class="input-group">
-                        <img src="https://via.placeholder.com/20x20?text=@" alt="user icon" class="input-icon">
-                        <input type="text" name="username" placeholder="Email or username" required>
-                    </label>
-
-                    <label class="input-group">
-                        <img src="https://via.placeholder.com/20x20?text=🔒" alt="password icon" class="input-icon">
-                        <input type="password" name="password" placeholder="Password" required>
-                    </label>
-
                     <div class="auth-row">
-                        <label class="checkbox-label"><input type="checkbox" name="remember"> Remember Me</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="remember">Remember Me
+                        </label>
                         <a class="forgot-link" href="#">Forgot Password?</a>
                     </div>
 
-                    <!-- [COMPONENT] Primary Button: Login -->
-                    <?php $label = "Login"; $href = "#"; include '../components/PrimaryButton.php'; ?>
+                    <!-- Login Button -->
+                    <?php 
+                        $label = "Login"; 
+                        $id = "login-btn";
+                        include '../components/PrimaryButton.php'; 
+                    ?>
 
-                    <button class="primary-action" type="submit">Login</button>
-
-                    <div class="divider"><span>or</span></div>
+                    <!-- Divider -->
+                    <div class="divider-container">
+                        <img src="../images/or-line-divider.svg" class="line-divider">
+                        <span>or</span>
+                        <img src="../images/or-line-divider.svg" class="line-divider">
+                    </div>
 
                     <!-- OAuth Buttons -->
                     <?php renderSocialButton([
@@ -85,36 +93,28 @@ require_once __DIR__ . '/../components/SocialButton.php';
                         'onClick' => "window.location.href='/auth/facebook'"
                     ]); ?>
 
-                    <button class="social-btn google" type="button">
-                        <img src="https://via.placeholder.com/18x18?text=G" alt="Google"> Continue with Google
-                    </button>
-
-                    <button class="social-btn facebook" type="button">
-                        <img src="https://via.placeholder.com/18x18?text=F" alt="Facebook"> Continue with Facebook
-                    </button>
-
-                    <p class="signup-link">Don't have an account? <a href="signUp.php">Sign Up</a></p>
+                    <p class="signup-link">
+                        Don't have an account? <a href="signUp.php">Sign Up</a>
+                    </p>
                 </form>
             </div>
         </section>
 
-        <section class="auth-right">
+        <!-- [SECTION] Right Auth Container -->
+        <section class="auth-right-container">
             <div class="auth-hero">
-                <h2 class="hero-title">Get Gigs Done at <span class="highlight">Lightning Speed.</span></h2>
-                <p class="hero-sub">Fixed-price gigs delivered in hours, not weeks.</p>
+                <div>
+                    <h2 class="hero-title">Get Gigs Done at &nbsp;<span class="highlight">Lightning Speed.</span></h2>
+                    <p class="hero-description">Fixed-price gigs delivered in hours, not weeks.</p>
+                </div>
 
                 <div class="hero-image">
                     <img src="../images/odette.jpg" alt="Hero image">
-                </div>
-
-                <div class="carousel-dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
                 </div>
             </div>
         </section>
     </main>
 
+    <script src="../js/login.js"></script>
 </body>
 </html>

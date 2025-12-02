@@ -6,7 +6,7 @@
   --primary: oklch(20.70% 0.038 265.07);
   --secondary: oklch(88.28% 0.181 94.46);
   --accent: oklch(67.62% 0.213 18.84);
-  --neutral: oklch(34.4% 3.2% 303°);
+  --neutral: oklch(34.4% 3.2% 303);
 }
 
 /* Color Palette: Dark Theme */
@@ -86,9 +86,17 @@ body {
     justify-content: center;
     align-items: center;
 
+    gap: 8px;                  /* or whatever spacing you want */
+    height: 100%;               /* important! */
     .header-navigation-link {
         white-space: nowrap;
     }
+}
+
+.header-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*** SECTIONS ***/
@@ -96,7 +104,6 @@ body {
 #header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 
     height: 88px;
     padding: 24px 56px;
@@ -218,15 +225,27 @@ body {
 }
 
 /*** COMPONENTS ***/
+/* [COMPONENT] Vector Art */
+#vector-art {
+    position: absolute;      /* remove it from document flow */
+    top: 30%;
+    left: 30%;
+    width: 60%;
+
+    object-fit: cover;       /* scale image nicely */
+    z-index: -1;             /* place it behind other content */
+}
+
 /* [COMPONENT] Buttons */
-#primary-btn {
+.primary-btn {
     font-family: var(--header);
     font-weight: 600;
     font-size: 20px;
+    line-height: 1;
     letter-spacing: 1%;
 
     width: 100%;
-    height: 40px;
+    height: 44px;
 
     display: flex;
     justify-content: center;
@@ -244,7 +263,7 @@ body {
     transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
-#primary-btn:hover {
+.primary-btn:hover {
     transform: scale(1.02);
     background-color: var(--secondary);
 }
@@ -439,35 +458,6 @@ body {
     margin: 0 auto;
 }
 
-.search-bar-top {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 40px;
-    width: 100%;
-    max-width: 600px;
-}
-
-.search-bar-top input {
-    flex: 1;
-    padding: 12px 20px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    font-size: 17px;
-    outline: none;
-}
-
-.search-bar-top input:focus {
-    border-color: var(--primary);
-}
-
-.search-bar-top button {
-    padding: 12px 20px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-}
-
 /* Filters Section */
 .filters-section {
     display: flex;
@@ -579,9 +569,9 @@ body {
 .pro-badge {
     background: var(--primary);
     color: var(--background);
-    padding: 4px 8px;
+    padding: 6px 12px 6px 8px;
     border-radius: 4px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -640,31 +630,65 @@ body {
 }
 
 /* ---- AUTH / SIGN IN ---- */
+/* [COMPONENT] Forgot Password */
+.forgot-link {
+    color: var(--primary);
+
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+    line-height: 32px;
+    letter-spacing: 1%;
+
+    text-decoration: none;
+    position: relative;
+}
+
+.forgot-link::after {
+    color: var(--neutral);
+}
+
+.forgot-link:hover {
+    color: var(--neutral);
+    opacity: 60%;
+    transition: color 0.3s ease, opacity 0.3s ease; /* ⬅ smooth transitions */
+}
+
+.forgot-link:active {
+    color: var(--neutral);
+}
+
+.forgot-link:focus {
+    color: var(--neutral);
+}
+
 .auth-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: 100vh;
+    height: 100vh;
     align-items: stretch;
 }
 
-.auth-left-container {
-    padding: 136px 96px;
+.auth-left-container,
+.auth-right-container {
+    height: 100vh;       /* ensure full height */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    justify-content: start; /* vertically center content */
+    padding: 80px;           /* adjust as needed */
+}
 
-    gap: 24px;
+.auth-left-container {
     background: transparent;
+    gap: 24px;
+        padding: 116px 110px;
 }
 
 .auth-right-container {
-    display: flex;
-    justify-content: center;
-
-    padding: 80px;
-
     background: #0F1729;
     color: #FAFAFA;
-
     overflow: hidden;
 }
 
@@ -774,7 +798,7 @@ body {
     margin-bottom: 32px;
     color: #94A3B8;
 
-    p {
+    li {
         display: flex;
         align-items: center;
 
@@ -816,9 +840,18 @@ body {
     margin-bottom:18px;
 }
 
-.checkbox-label input { 
-    margin-right:8px; 
-    
+.checkbox-label input[type="checkbox"] {
+    accent-color: var(--primary);
+    cursor: pointer;
+    margin-right:8px;
+}
+
+.checkbox-label {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 32px;
+    letter-spacing: 1.5%;
 }
 
 .primary-action {
@@ -913,12 +946,6 @@ body {
 /* Active state */
 .signup-link a:active {
     color: var(--text); 
-}
-
-/* Focus state (for accessibility) */
-.signup-link a:focus {
-    outline: 2px solid var(--text);
-    outline-offset: 2px;
 }
 
 /* Responsive: stack columns on small screens */
