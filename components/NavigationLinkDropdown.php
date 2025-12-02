@@ -3,25 +3,16 @@ $label = $label ?? 'Menu';
 $items = $items ?? [];
 $boldFirst = $boldFirst ?? false;
 $rightAlign = $rightAlign ?? false;
-$navMode = $navMode ?? false; // true = navigation, false = selectable
 $selectedIndex = $selectedIndex ?? 0;
 ?>
 
-<div class="header-navigation-link dropdown <?= $rightAlign ? 'dropdown-right' : '' ?>" data-nav-mode="<?= $navMode ? '1' : '0' ?>">
+<div class="header-navigation-link dropdown no-underline <?= $rightAlign ? 'dropdown-right' : '' ?>">
     <span class="dropdown-label">
-        <!-- Label always visible -->
-        <span class="dropdown-static-label"><?= htmlspecialchars($label) ?>:</span>
-
-        <!-- Show selected value if selectable -->
-        <?php if (!$navMode): ?>
-            <span class="dropdown-selected-value">
-                <?= htmlspecialchars($items[$selectedIndex]['text'] ?? 'Select') ?>
-            </span>
-        <?php endif; ?>
-
+        <span class="dropdown-static-label"><?= htmlspecialchars($label) ?>:&nbsp;</span>
+        <!-- Only show the selected item text, not label again -->
+        <span class="dropdown-selected-value"><?= htmlspecialchars($items[$selectedIndex]['text'] ?? 'Select') ?></span>
         <img src="../images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon">
     </span>
-
     <div class="dropdown-content">
         <?php foreach ($items as $index => $item): ?>
             <a href="<?= htmlspecialchars($item['href'] ?? '#') ?>"

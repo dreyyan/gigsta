@@ -36,11 +36,12 @@
 
     <!-- Auth Buttons -->
     <div id="auth-buttons">
-        <a class="header-navigation-link" href="../pages/SignIn.php">Sign In</a>
+        <a class="header-navigation-link" href="../pages/Login.php">Log In</a>
         <!-- [COMPONENT] Primary Button: Join -->
         <?php
             $label = "Join";
             $href = "../pages/SignUp.php";
+            $navMode = true;
             include __DIR__ . '/PrimaryButton.php'; 
         ?>
     </div>
