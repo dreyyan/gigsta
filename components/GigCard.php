@@ -25,14 +25,14 @@ $price       = $price ?? '0';
 
 <div class="gig-card">
     <div class="gig-image">
-        <img src="<?= htmlspecialchars($image) ?>" alt="Gig">
+        <img src="<?= htmlspecialchars($image) ?>">
     </div>
     <div class="gig-info">
         <div class="gig-header">
             <span class="gig-seller"><?= htmlspecialchars($seller) ?></span>
             <?php if ($isPro): ?>
                 <span class="pro-badge">
-                    <img src="" alt="pro" class="badge-icon">
+                    <img src="../images/thunder-badge-icon.svg" alt="pro" class="badge-icon">
                     Gigsta Pro
                 </span>
             <?php endif; ?>
@@ -40,7 +40,7 @@ $price       = $price ?? '0';
         <p class="gig-description"><?= htmlspecialchars($description) ?></p>
         <div class="gig-footer">
             <div class="rating">
-                <img src="" alt="star" class="rating-star">
+                <img src="../images/star-rating-icon.svg" alt="star" class="rating-star">
                 <span class="rating-value"><?= htmlspecialchars($ratingValue) ?></span>
                 <span class="rating-count">(<?= htmlspecialchars($ratingCount) ?>)</span>
             </div>

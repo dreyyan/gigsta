@@ -296,6 +296,46 @@ body {
 }
 
 /* [COMPONENT] Dropdown */
+/* Right aligned dropdown */
+.dropdown.dropdown-right .dropdown-content {
+    right: 0;
+    left: auto;
+}
+
+/* Prevent underline animation for filter buttons */
+.filters-section .filter-buttons .header-navigation-link {
+    /* Remove the ::after underline entirely */
+}
+
+.filters-section .filter-buttons .header-navigation-link::after {
+    content: none;
+}
+
+.header-navigation-link.dropdown,
+.header-navigation-link.dropdown::after {
+    content: none;   /* Remove underline */
+}
+
+.header-navigation-link.dropdown:hover::after {
+    width: 0;        /* Ensure no animation on hover */
+}
+
+/* Show dropdown on hover (navMode) */
+.header-navigation-link.dropdown[data-nav-mode="1"]:hover .dropdown-content {
+    display: block;
+}
+
+/* Show dropdown when open (selectable mode) */
+.dropdown-content.open {
+    display: block;
+}
+
+/* Selected item styling */
+.dropdown-content a.selected {
+    font-weight: 700;
+}
+
+/* Dropdown container */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -313,24 +353,26 @@ body {
     transition: transform 0.2s ease;
 }
 
-.dropdown-btn:hover {
-    transform: scale(1.05);
+.dropdown-static-label {
+    font-weight: bold;
 }
 
+/* Dropdown content */
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #fff;
+    background-color: var(--background);
     min-width: 160px;
     box-shadow: 0px 8px 17px rgba(0,0,0,0.2);
     border-radius: 6px;
-    z-index: 1;
+    z-index: 1000;
     overflow: hidden;
 }
 
+/* Dropdown links */
 .dropdown-content a {
     color: black;
-    padding: 12px 17px;
+    padding: 12px 16px;
     text-decoration: none;
     display: block;
     transition: background-color 0.2s ease;
@@ -338,11 +380,7 @@ body {
 
 .dropdown-content a:hover {
     background-color: var(--primary);
-    color: var(--background);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
+    color: white;
 }
 
 /* [COMPONENT] Feature Card */
@@ -620,7 +658,8 @@ body {
 
 .rating-star {
     width: 14px;
-    height: 14px;
+    margin-top: 2px;
+    margin-right: 2px;
 }
 
 .rating-value {

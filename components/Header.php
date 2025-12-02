@@ -17,8 +17,18 @@
     <div class="header-links">
         <!-- [COMPONENT] Navigation Link Dropdown: Explore -->
         <?php 
-            $label = "Explore"; 
-            include __DIR__ . '/NavigationLinkDropdown.php'; 
+            $label = "Explore";
+            $items = [
+                ['text' => 'All Gigs', 'href' => '#'],
+                ['text' => 'Graphics & Design', 'href' => '#'],
+                ['text' => 'Digital Marketing', 'href' => '#'],
+                ['text' => 'Writing & Translation', 'href' => '#'],
+                ['text' => 'Video & Animation', 'href' => '#'],
+                ['text' => 'Music & Audio', 'href' => '#'],
+                ['text' => 'Programming & Tech', 'href' => '#']
+            ];
+            $navMode = true;
+            include __DIR__ . '/NavigationLinkDropdown.php';
         ?>
 
         <a class="header-navigation-link" href="#">Become a Freelancer</a>
