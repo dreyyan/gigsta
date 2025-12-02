@@ -78,7 +78,7 @@ body {
     /* line-height: 28; */
     letter-spacing: 1.5%;
     font-size: 17px;
-    background-color: #FAFAFA;
+    background-color: var(--background);
 }
 
 #auth-buttons {
@@ -130,7 +130,7 @@ body {
     letter-spacing: 1%;
 
     text-decoration: none;
-    color: #0F1729;
+    color: var(--primary);
     border-radius: 8px;
     margin-right: 32px;
     position: relative;
@@ -457,7 +457,7 @@ body {
 }
 
 .search-bar-top input:focus {
-    border-color: #0F1729;
+    border-color: var(--primary);
 }
 
 .search-bar-top button {
@@ -485,8 +485,8 @@ body {
 
 .filter-btn {
     padding: 8px 16px;
-    border: 2px solid #0F1729;
-    background: #FAFAFA;
+    border: 2px solid var(--primary);
+    background: var(--background);
     border-radius: 8px;
     cursor: pointer;
     font-family: var(--body-font);
@@ -512,7 +512,7 @@ body {
 }
 
 .sort-section strong {
-    color: #0F1729;
+    color: var(--primary);
 }
 
 /* Results Count */
@@ -573,12 +573,12 @@ body {
 .gig-seller {
     font-size: 17px;
     font-weight: 500;
-    color: #0F1729;
+    color: var(--primary);
 }
 
 .pro-badge {
-    background: #0F1729;
-    color: #FAFAFA;
+    background: var(--primary);
+    color: var(--background);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 15px;
@@ -625,7 +625,7 @@ body {
 
 .rating-value {
     font-weight: 600;
-    color: #0F1729;
+    color: var(--primary);
 }
 
 .rating-count {
@@ -635,7 +635,7 @@ body {
 .gig-price {
     margin: 0;
     font-size: 17px;
-    color: #0F1729;
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -745,11 +745,11 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    border: 2px solid #0F1729;
+    border: 2px solid var(--primary);
     padding: 14px 16px;
     border-radius: 10px;
     margin-bottom: 16px;
-    background: #FAFAFA;
+    background: var(--background);
 }
 
 .input-icon { width: 20px; height: 20px; opacity: 0.9 }
