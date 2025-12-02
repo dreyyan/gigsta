@@ -17,9 +17,8 @@
 }
 
 :root {
-    --header-font: "DM Sans";
-    --body-font: "Inter";
-    --lightning-yellow: #FFD500;
+    --header: "DM Sans";
+    --body: "Inter";
 }
 
 * {
@@ -28,20 +27,159 @@
     box-sizing: border-box;
 }
 
+/* Typefaces */
+h1 {
+    font-family: var(--header);
+    font-weight: bold;
+    font-size: 64px;
+    /* line-height: 64; */
+    letter-spacing: -2%;
+}
+
+h2 {
+    font-family: var(--header);
+    font-weight: bold;
+    font-size: 56px;
+    /* line-height: 56; */
+    letter-spacing: -1.5%;
+}
+
+h3 {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 45px;
+    /* line-height: 48; */
+    letter-spacing: -1%;
+}
+
+h4 {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 28px;
+    /* line-height: 40; */
+    letter-spacing: 0.5%;
+}
+
+h5 {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 22px;
+    /* line-height: 32; */
+    letter-spacing: 1%;
+}
+
 body {
-    font-family: var(--body-font);
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 17px;
+    /* line-height: 28; */
+    letter-spacing: 1.5%;
     font-size: 17px;
     background-color: #FAFAFA;
 }
 
-/* ----- HEADER ----*/
-
-header {
+/* Header */
+#header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 24px 48px;
-    border-bottom: 2px solid #94A3B8;
+
+    height: 88px;
+    padding: 24px 56px;
+    border-bottom: 2px solid #d5d5d5;
+}
+
+.logo-banner-div {
+    display: flex;
+    height: 100%;
+    padding: 0;
+}
+
+/* Buttons */
+#primary-btn {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 20px;
+    letter-spacing: 1%;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--background);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary);
+
+    cursor: pointer;
+    
+    /* Add smooth transition for scaling */
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Hover effect */
+#primary-btn:hover {
+    transform: scale(1.05); /* zoom 105% */
+    /* Optional: slightly darken background */
+    background-color: var(--secondary);
+}
+
+#auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dropdown-btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.dropdown-btn:hover {
+    transform: scale(1.05);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }
 
 .header-btns {
@@ -50,64 +188,128 @@ header {
     gap: 54px;
 }
 
-.header-links {
+.header-navigation-links {
     display: flex;
-    gap: 24px;
+    gap: 32px;
     font-family: var(--header-font);
     font-size: 17px;
 }
 
-.header-links a {
-    padding: 8px 12px;
+.header-navigation-link {
+    font-family: var(--header);
+    font-weight: 400;
+    font-size: 17px;
+    /* line-height: 32; */
+    letter-spacing: 1%;
+
     text-decoration: none;
     color: #0F1729;
     border-radius: 8px;
+    margin-right: 32px;
+    position: relative;
 }
 
-.header-links a:hover {
-    background: #0F1729;
-    color: #FAFAFA;
+/* Create the underline element using ::after */
+.header-navigation-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;         /* start from the center */
+    bottom: 0;         /* align at the bottom of the link */
+    width: 0;          /* initial width */
+    height: 2px;       /* underline thickness */
+    background-color: var(--primary); /* underline color */
+    transition: width 0.3s ease, left 0.3s ease;
 }
 
-#primary-btn {
-    background: #0F1729;
-    color: #FAFAFA;
+/* On hover, expand the underline to full width */
+.header-navigation-link:hover::after {
+    width: 100%;
+    left: 0;
 }
 
-#primary-btn:hover {
-    background: var(--lightning-yellow);
-    color: #0F1729;
+.header-navigation-link.no-underline::after {
+    content: none; /* removes the pseudo-element entirely */
+}
+
+/* Components */
+#search-bar-container {
+    display: flex;
+    width: 476px;
+    height: 40px;
+
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#search-bar-container.rounded {
+    border-radius: 12px;
+}
+
+#search-bar {
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 32;
+    letter-spacing: 1.5%;
+    color: var(--text);
+
+    width: 100%;
+    height: 100%;
+    
+    border: none;
+    border-radius: 0;
+
+    padding: 12px 14px;
+}
+
+#search-button {
+    background-color: var(--primary);
+
+    width: 40px;
+    height: 100%;
+
+    border: none;
+    border-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+
+    cursor: pointer;
 }
 
 /* ----- HERO SECTION --- */
-
-.gradient-divider {
-    height: 80px;
-    background: linear-gradient(to bottom, var(--lightning-yellow), transparent);
-}
-
 .hero-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 0 100px;
+
+    flex-direction: column;
+    margin-bottom: 64px;
+    padding: 80px 80px 0 80px;
 }
 
-.hero-title h1 {
+.hero-section-header {
     font-family: var(--header-font);
     font-size: 60px;
     text-align: center;
-    line-height: 1.2;
+    line-height: 64px;
+
+    margin-bottom: 32px;
+}
+
+#hero-section-highlighted {
+    color: var(--secondary);
 }
 
 .highlighted-title {
     color: var(--lightning-yellow);
 }
 
-.hero-description h2 {
-    font-size: 30px;
-    margin-top: 12px;
-    font-weight: 400;
+.hero-tagline {
+
+}
+
+.hero-tagline h3 {
     text-align: center;
 }
 
@@ -122,56 +324,52 @@ header {
     align-items: center;
 }
 
-.search-bar {
-    width: 100%;
-    display: flex;
-    padding: 6px;
-    border: 2px solid #0F1729;
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-.search-bar input {
-    flex: 1;
-    border: none;
-    padding: 14px 20px;
-    font-size: 16px;
-    outline: none;
-}
-
-.search-bar button {
-    padding: 14px 24px;
-    background: #0F1729;
-    color: #FAFAFA;
-    border: none;
-    cursor: pointer;
-    border-radius: 40px;
-}
-
 .quick-tags {
-    margin-top: 18px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 18px;
     flex-wrap: wrap;
     gap: 12px;
 }
 
 .quick-tags span {
-    padding: 6px 14px;
-    background: #FAFAFA;
-    border: 1px solid #bbb;
-    border-radius: 30px;
-    font-size: 17px;
+    font-family: var(--body);
+    font-size: 14px;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: 1.5%;
+
+    margin-right: 8px;
+    font-size: 14px;
 }
 
-/* ------ RATINGS --- */
+#tag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.ratings {
-    margin-top: 25px;
-    font-size: 17px;
-    color: #444;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 4px 16px;
 }
 
-/* ---- 3 COLUMNS --- */
+#trust-content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--header);
+    font-size: 22px;
+    text-align: center;
+    line-height: 32px;
+    letter-spacing: 1%;
+}
+
+#star-icon {
+    color: var(--secondary);
+}
 
 .info-boxes {
     margin-top: 45px;
@@ -183,17 +381,17 @@ header {
 }
 
 .info-card {
-    width: 30%;
+    display: flex;
+    flex-direction: column;
+
+    width: auto;
     background: #FAFAFA;
     padding: 24px;
     border-radius: 16px;
-    border: 1px solid #ddd;
 }
 
 .info-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+
 }
 
 .info-header img {
@@ -626,3 +824,15 @@ header {
 }
 
 
+/* ------ RATINGS --- */
+
+.ratings {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #444;
+}
+
+/*? Remove Default Outline */
+input, textarea, select, button {
+    outline: none;
+}
