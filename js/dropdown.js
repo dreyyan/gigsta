@@ -1,13 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const dropdowns = document.querySelectorAll(".dropdown");
+    const dropdowns = document.querySelectorAll(".header-navigation-link.dropdown");
 
     dropdowns.forEach(dropdown => {
-        const staticLabel = dropdown.querySelector(".dropdown-static-label");
-        const valueSpan = dropdown.querySelector(".dropdown-selected-value");
+        const labelSpan = dropdown.querySelector(".dropdown-selected-value");
         const content = dropdown.querySelector(".dropdown-content");
         const links = content.querySelectorAll("a");
-
-        const labelText = staticLabel.textContent.replace(":", "");
 
         // Toggle dropdown
         dropdown.querySelector(".dropdown-label").addEventListener("click", e => {
@@ -15,20 +12,28 @@ document.addEventListener("DOMContentLoaded", () => {
             content.classList.toggle("open");
         });
 
-        // Close dropdown when clicking outside
+        // Close dropdown if clicked outside
         document.addEventListener("click", () => content.classList.remove("open"));
 
-        // Select a value
+        // Click link: update label & navigate
         links.forEach(link => {
             link.addEventListener("click", e => {
                 e.preventDefault();
                 e.stopPropagation();
 
-                valueSpan.textContent = link.textContent; // Only the selected text
+                // Update selected text
+                labelSpan.textContent = link.textContent;
+
+                // Update selected class
                 links.forEach(l => l.classList.remove("selected"));
                 link.classList.add("selected");
 
+                // Close dropdown
                 content.classList.remove("open");
+
+                // Navigate
+                const url = link.getAttribute("href");
+                if (url && url !== "#") window.location.href = url;
             });
         });
     });
