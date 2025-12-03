@@ -9,7 +9,7 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
         <!-- Logo Banner -->
         <a href="../index.php">
             <div class="logo-banner-div">
-                <img id="logo-banner" src="../images/gigsta-logo.svg">
+                <img id="logo-banner" src="../images/gigsta-logo.svg" alt="Gigsta Logo">
             </div>
         </a>
 
@@ -23,7 +23,7 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
         <div class="header-links">
             <?php if (!$isLoggedIn): ?>
                 <?php
-                // Use dynamic dropdown component for not logged-in users
+                // Not logged in: use dynamic dropdown component
                 $label = "Explore";
                 $items = [
                     ['text' => 'All Gigs', 'href' => 'pages/FindFreelancers.php?query=All'],
@@ -39,21 +39,22 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
                 ?>
             <?php else: ?>
                 <?php
-                // Logged-in client links as standard <a> elements
+                // Logged-in client links as single-line <a> elements
                 $links = [
-                    ['text' => 'Browse Gigs', 'href' => 'pages/FindFreelancers.php'],
+                    ['text' => 'Browse Gigs', 'href' => '../pages/FindFreelancers.php'],
                     ['text' => 'My Orders', 'href' => 'pages/MyOrders.php'],
-                    ['text' => 'Messages', 'href' => 'pages/Chats.php'],
+                    ['text' => 'Messages', 'href' => '../pages/Chats.php'],
                 ];
                 foreach ($links as $link) {
-                    echo '<a class="header-navigation-link" href="' . htmlspecialchars($link['href']) . '">' . htmlspecialchars($link['text']) . '</a>';
+                    echo '<a class="header-navigation-link" href="' . htmlspecialchars($link['href']) . '">' 
+                        . htmlspecialchars($link['text']) . '</a>';
                 }
                 ?>
             <?php endif; ?>
         </div>
     </div>
 
-    <!-- Auth Buttons -->
+    <!-- Auth Buttons / Profile -->
     <div id="auth-buttons">
         <?php if (!$isLoggedIn): ?>
             <a class="header-navigation-link" href="../pages/Login.php">Log In</a>
