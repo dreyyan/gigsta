@@ -30,6 +30,11 @@
     box-sizing: border-box;
 }
 
+/*? Remove Default Outline */
+input, textarea, select, button {
+    outline: none;
+}
+
 /*** TYPEFACES ***/
 h1 {
     font-family: var(--header);
@@ -108,6 +113,10 @@ body {
     height: 100%;
     padding: 0;
 }
+#header-left-container {
+    display: flex;
+    gap: 0 64px;
+}
 
 .header-btns {
     display: flex;
@@ -126,7 +135,6 @@ body {
     font-family: var(--header);
     font-weight: 400;
     font-size: 17px;
-    /* line-height: 32; */
     letter-spacing: 1%;
 
     text-decoration: none;
@@ -154,6 +162,31 @@ body {
 
 .header-navigation-link.no-underline::after {
     content: none;
+}
+
+#auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
+    height: 100%;
+    .header-navigation-link {
+        white-space: nowrap;
+    }
+}
+
+.header-links {
+    display: flex;
+    align-items: center;
+
+    min-width: 320px;
+
+    .header-navigation-link {
+        margin-right: 32px;
+        white-space: nowrap;
+        display: inline-block;
+    } 
 }
 
 /* [SECTION] Hero Section */
@@ -210,6 +243,10 @@ body {
     }
 }
 
+.profile-placeholder-icon {
+    width: 40px;
+}
+
 /* [SECTION] Feature Cards */
 .feature-cards-container {
     display: flex;
@@ -239,9 +276,6 @@ body {
     background-color: var(--primary);
 
     cursor: pointer;
-    
-    /* Add smooth transition for scaling */
-    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 #primary-btn:hover {
@@ -349,20 +383,20 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #fff;
-    min-width: 160px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    right: 0;
+    top: 100%; /* appear below the profile icon */
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
     z-index: 1000;
-    border-radius: 6px;
-    
 }
 
 .dropdown-content a {
     color: var(--text);
     font-size: 15px;
     padding: 12px 16px;
+    color: #333;
     text-decoration: none;
-    color: #000;
 }
 
 .dropdown-content a.selected {
@@ -636,7 +670,7 @@ body {
 
 .filter-buttons {
     display: flex;
-    gap: 12px;
+    gap: 0 32px;
 }
 
 .filter-btn {
@@ -671,7 +705,6 @@ body {
     color: var(--primary);
 }
 
-/* Results Count */
 .results-count {
     margin-bottom: 30px;
     font-size: 17px;
@@ -682,14 +715,14 @@ body {
     margin: 0;
 }
 
-/* Gigs Grid */
+/* [SECTION] Gig Cards */
 .gigs-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+    margin-top: 40px;
 }
 
-/* Gig Card */
 .gig-card {
     border-radius: 12px;
     overflow: hidden;
@@ -825,6 +858,7 @@ body {
     overflow: hidden;
 }
 
+/* [SECTION] Right: Hero Section */
 .auth-hero {
     max-width: 560px;
     width: 100%;
@@ -966,7 +1000,7 @@ body {
     height: 10px;
 }
 
-.auth-row{
+.auth-row {
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -999,7 +1033,7 @@ body {
     padding: 0 12px
 }
 
-/* OAuth Button */
+/* [COMPONENT] OAuth Button */
 .social-btn {
     display: flex;
     justify-content: center;
@@ -1026,6 +1060,13 @@ body {
     cursor:pointer;
 }
 
+.clear-search {
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+
 .signup-link {
     text-align: center;
     font-family: var(--body);
@@ -1047,27 +1088,24 @@ body {
 .signup-link a::after {
     content: '';
     position: absolute;
-    left: 50%;         /* start from the center */
-    bottom: 0;         /* align at the bottom of the text */
-    width: 0;          /* initial width */
-    height: 2px;       /* thickness of the underline */
-    background-color: var(--primary); /* underline color */
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
     border-radius: 1px;
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-/* Hover effect: expand underline */
 .signup-link a:hover::after {
     width: 100%;
     left: 0;
 }
 
-/* Hover state */
 .signup-link a:hover {
     color: var(--neutral);
 }
 
-/* Active state */
 .signup-link a:active {
     color: var(--text); 
 }
@@ -1287,13 +1325,6 @@ input, textarea, select, button {
     font-weight: 600;
     margin-bottom: 32px;
     font-family: var(--header);
-}
-
-/* Gig Grid - 4 per row */
-.gigs-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
 }
 
 /* Gig Card */

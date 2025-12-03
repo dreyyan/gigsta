@@ -4,9 +4,19 @@ $tags = $tags ?? ['website development', 'architecture & interior design', 'vide
 
 <div class="quick-tags">
     <?php foreach ($tags as $tag): ?>
-        <div class="tag-container">
+        <div class="tag-container" onclick="searchTag('<?= htmlspecialchars($tag, ENT_QUOTES) ?>')">
             <span><?= htmlspecialchars($tag) ?></span>
             <img class="tag-arrow" src="../images/tag-arrow-icon.svg" alt="Arrow"/>
         </div>
     <?php endforeach; ?>
 </div>
+
+<script>
+function searchTag(tag) {
+    // Encode tag for URL
+    const query = encodeURIComponent(tag);
+
+    // Navigate to FindFreelancers.php with query param
+    window.location.href = "/pages/FindFreelancers.php?query=" + query;
+}
+</script>

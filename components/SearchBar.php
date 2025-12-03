@@ -8,16 +8,21 @@ $buttonId    = $buttonId ?? 'search-button';
 $icon        = $icon ?? '../images/search-icon.svg';
 ?>
 
-<div id="search-bar-container"
+<form 
+    id="search-bar-container"
     class="<?= $rounded ? 'rounded' : '' ?>"
     style="<?= $width ? 'width:' . htmlspecialchars($width) . ';' : '' ?>"
-    >
+    method="GET"
+    action="../pages/FindFreelancers.php"
+>
     <input 
         id="<?= htmlspecialchars($id) ?>" 
+        name="query"
         type="<?= htmlspecialchars($type) ?>" 
         placeholder="<?= htmlspecialchars($placeholder) ?>" 
+        value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>"
     />
-    <button id="<?= htmlspecialchars($buttonId) ?>">
+    <button id="<?= htmlspecialchars($buttonId) ?>" type="submit">
         <img src="<?= htmlspecialchars($icon) ?>" alt="Search"/>
     </button>
-</div>
+</form>

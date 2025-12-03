@@ -9,7 +9,6 @@ $selectedIndex = $selectedIndex ?? 0;
 <div class="header-navigation-link dropdown no-underline <?= $rightAlign ? 'dropdown-right' : '' ?>">
     <span class="dropdown-label">
         <span class="dropdown-static-label"><?= htmlspecialchars($label) ?>:&nbsp;</span>
-        <!-- Only show the selected item text, not label again -->
         <span class="dropdown-selected-value"><?= htmlspecialchars($items[$selectedIndex]['text'] ?? 'Select') ?></span>
         <img src="../images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon">
     </span>

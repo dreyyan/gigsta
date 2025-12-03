@@ -33,7 +33,7 @@
         <!-- [CONTAINER] Search -->
         <div class="search-container">
             <!-- [COMPONENT] Search Bar -->
-            <?php $placeholder="Search for any service..."; $rounded=true; $width="640px"; include 'components/SearchBar.php'; ?>
+            <?php $placeholder="Search for any service..."; $rounded=true; $width="640px"; $id="search-bar"; include 'components/SearchBar.php'; ?>
 
             <!-- [COMPONENT] Quick Tags -->
             <?php include 'components/QuickTags.php'; ?>
