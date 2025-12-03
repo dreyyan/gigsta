@@ -14,6 +14,9 @@ require_once __DIR__ . '/../components/SocialButton.php';
     <!-- [IMPORT] CSS -->
     <link rel="stylesheet" href="../css/styles.css">
 
+    <!-- [IMPORT] Website Icon -->
+    <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+
     <!-- [IMPORT] Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
