@@ -4,7 +4,6 @@
     padding: 40px 20px;
 }
 
-/* Profile Card (single card with border) */
 .profile-card {
     background: var(--background);
     border: 2px solid var(--neutral);
@@ -20,7 +19,6 @@
     align-items: flex-start;
 }
 
-/* Profile Picture - CIRCLE on LEFT */
 .profile-picture-container {
     flex-shrink: 0;
 }
@@ -30,15 +28,13 @@
     height: 156px;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--secondary); /* Fallback color if image doesn't load */
+    background: var(--secondary);
 }
 
-/* Profile Info Container */
 .profile-info-container {
     flex: 1;
 }
 
-/* Name and Rating Row */
 .name-rating-row {
     margin-bottom: 20px;
     flex-wrap: wrap;
@@ -63,7 +59,7 @@
 .star-icon {
     width: 17px;
     height: 17px;
-    color: var(--accent); /* Star color */
+    color: var(--accent);
 }
 
 .rating-display strong {
@@ -76,7 +72,6 @@
     opacity: 0.7;
 }
 
-/* Profile Bio */
 .profile-bio {
     color: var(--text);
     font-size: 17px;
@@ -86,7 +81,6 @@
     font-weight: 400;
 }
 
-/* Profile Details */
 .profile-details {
     display: flex;
     flex-direction: column;
@@ -106,7 +100,6 @@
     color: var(--text);
 }
 
-/* Skills Row */
 .skills-row {
     display: flex;
     gap: 12px;
@@ -126,14 +119,13 @@
     background: var(--background);
 }
 
-/* Target each skill by position */
-.skill-item:nth-child(1) { /* Producer */
+.skill-item:nth-child(1) {
     background-color: var(--accent);
     color: var(--background);
     border: none;
 }
 
-.skill-item:nth-child(2) { /* Rapper */
+.skill-item:nth-child(2) {
     background-color: var(--secondary);
     color: var(--background);
     border: none;
@@ -145,7 +137,6 @@
     color: var(--background);
 }
 
-/* Contact Button */
 .contact-btn {
     background: var(--primary);
     color: var(--background);
@@ -169,7 +160,6 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Recent Gigs Section */
 .recent-gigs-section {
     margin-top: 40px;
 }
@@ -182,7 +172,6 @@
     font-family: var(--header);
 }
 
-/* Gig Card */
 .gig-card {
     background: var(--background);
     border-radius: 12px;
@@ -196,12 +185,11 @@
     border-color: var(--accent);
 }
 
-/* Gig Image */
 .gig-image {
     width: 100%;
     height: 140px;
     overflow: hidden;
-    background: var(--secondary); /* Fallback color */
+    background: var(--secondary);
 }
 
 .gig-image img {
@@ -215,7 +203,6 @@
     transform: scale(1.05);
 }
 
-/* Gig Content */
 .gig-content {
     padding: 20px;
 }
@@ -277,7 +264,6 @@
     margin-right: 5px;
 }
 
-/* Gig Image Fallback Styling */
 .gig-image {
     position: relative;
     width: 100%;
@@ -297,7 +283,6 @@
     z-index: 2;
 }
 
-/* When image fails - hide it and show question mark */
 .gig-image img.image-failed {
     opacity: 0;
     position: absolute;
