@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">   
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/hero-section.css">
-    <link rel="stylesheet" href="css/feature-card.css">
-    <link rel="stylesheet" href="css/quick-tags.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
@@ -39,7 +35,7 @@
             <!-- [COMPONENT] Search Bar -->
             <?php
                 $placeholder="Search for any service...";
-                $width = "460px"; 
+                $width = "460px";
                 $rounded = true;
                 include 'components/SearchBar.php'; 
             ?>

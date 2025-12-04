@@ -14,10 +14,12 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
         </a>
 
         <!-- [COMPONENT] Search Bar -->
-        <?php
-            $width = "460px"; 
-            include __DIR__ . '/SearchBar.php'; 
-        ?>
+        <?php if ($isLoggedIn): ?>
+            <?php
+                $width = "460px";
+                include __DIR__ . '/SearchBar.php';
+            ?>
+        <?php endif; ?>
 
         <!-- Header Links -->
         <div class="header-links">
@@ -61,9 +63,7 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
             <?php
                 $label = "Join";
                 $href = "../pages/SignUp.php";
-                $id = "join-button";
                 $navMode = true;
-                $icon = "";
                 include __DIR__ . '/PrimaryButton.php';
             ?>
         <?php else: ?>

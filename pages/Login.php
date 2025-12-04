@@ -1,5 +1,7 @@
 <?php
 session_start();
+$error = ""; // FIX #1 added
+
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
@@ -16,31 +18,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $loginPassword = $_POST['loginPassword'] ?? '';
 
     if (!$loginUser || !$loginPassword) {
-        http_response_code(400);
-        echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
-        exit;
-    }
-
-    $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
-    $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
-    $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
-    $result = $stmt->execute();
-    $user = $result->fetchArray(SQLITE3_ASSOC);
-
-
-    if ($user && password_verify($loginPassword, $user['password'])) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-
-        echo json_encode(['status' => 'success', 'message' => 'Login successful', 'role' => $user['role'] ?? null]);
-        exit;
+        $error = "All fields are required.";
     } else {
-        http_response_code(401);
-        echo json_encode(['status' => 'error', 'message' => 'Incorrect username or password']);
-        exit;
+        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
+        $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
+        $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
+        $result = $stmt->execute();
+        $user = $result->fetchArray(SQLITE3_ASSOC);
+
+        if ($user && password_verify($loginPassword, $user['password'])) {
+
+            // Store login session data
+            $_SESSION['logged_in'] = true;
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            // Safe role handling
+            $_SESSION['role'] = isset($user['role']) ? $user['role'] : 'client';
+
+            header("Location: ../index.php");
+            exit;
+        } 
+        else {
+            $error = "Invalid email/username or password.";
+        }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
