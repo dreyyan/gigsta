@@ -194,7 +194,7 @@
 .checkbox-container input[type="checkbox"] {
     accent-color: var(--primary);
     cursor: pointer;
-    margin-right:8px;
+    margin-right: 4px;
 }
 
 .checkbox-container {
@@ -267,6 +267,8 @@
     font-size: 15px;
     line-height: 32px;
     letter-spacing: 1.5%;
+
+    margin-top: 32px;
 
     a {
         font-weight: bold;

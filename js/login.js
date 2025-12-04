@@ -69,33 +69,34 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userVal || !passVal)
             return showConsoleAlert("Error", "All fields are required");
 
-        let response;
+        const formData = new FormData();
+        formData.append('loginUser', userVal);
+        formData.append('loginPassword', passVal);
+
         try {
-            response = await fetch("http://localhost:8000/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ identifier: userVal, password: passVal })
+            const response = await fetch('../pages/LogIn.php', {
+                method: 'POST',
+                body: formData
             });
-        } catch (error) {
-            return showConsoleAlert("Error", "Cannot connect to server.");
+            const result = await response.json();
+
+            if (result.status === 'success') {
+                showConsoleAlert("Success", result.message, "success");
+                setTimeout(() => {
+                    if (!result.role) {
+                        // role is null -> first time login -> onboarding
+                        window.location.replace("Onboarding.php");
+                    } else {
+                        // role exists -> normal dashboard
+                        window.location.replace("FindFreelancers.php");
+                    }
+                }, 1000);
+            } else {
+                showConsoleAlert("Error", result.message || "Login failed");
+            }
+        } catch (err) {
+            showConsoleAlert("Error", "Cannot connect to server");
+            console.error(err);
         }
-
-        const result = await response.json();
-
-        if (result.status !== "success") {
-            return showConsoleAlert("Error", result.message || "Login failed.");
-        }
-
-        showConsoleAlert("Success", "Login successful!", "success");
-
-        localStorage.setItem("currentUser", JSON.stringify({
-            identifier: userVal
-        }));
-
-        setTimeout(() => {
-            window.location.replace("FindFreelancers.php"); // redirect after login
-        }, 1000);
     });
 });

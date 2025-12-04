@@ -1,40 +1,43 @@
 <?php
+session_start();
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
-
-try { // Connect to the database
+try {
     $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
-    die("Unable to connect to database: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
+    exit;
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { //checks if form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $loginUser = $_POST['loginUser'] ?? '';
     $loginPassword = $_POST['loginPassword'] ?? '';
 
-    //fetch user from database
+    if (!$loginUser || !$loginPassword) {
+        http_response_code(400);
+        echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
+        exit;
+    }
+
     $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
     $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
     $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
     $result = $stmt->execute();
     $user = $result->fetchArray(SQLITE3_ASSOC);
 
-    if ($user) { //verify password
-        if (password_verify($loginPassword, $user['password'])) {
-            session_start(); //log the user in
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
 
-            echo "Login successful! Welcome, " . $user['username'];
-            header("Location: ../index.php"); //redirect to dashboard or homepage
-            exit;
-        } else {
-            $error = "Incorrect password!";
-        }
+    if ($user && password_verify($loginPassword, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+
+        echo json_encode(['status' => 'success', 'message' => 'Login successful', 'role' => $user['role'] ?? null]);
+        exit;
     } else {
-        $error = "User not found!";
+        http_response_code(401);
+        echo json_encode(['status' => 'error', 'message' => 'Incorrect username or password']);
+        exit;
     }
 }
 ?>
@@ -48,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //checks if form is submitted
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/authentication.css">
     <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/social-button.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">

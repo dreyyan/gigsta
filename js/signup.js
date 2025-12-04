@@ -4,20 +4,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('signUpEmail');
     const usernameInput = document.getElementById('signUpUsername');
     const requirements = document.querySelectorAll('.password-requirements li');
-    const step1 = document.getElementById('step1');
-    const step2 = document.getElementById('step2');
     const primaryBtn = document.getElementById('primary-btn');
-    const primaryBtn2 = document.getElementById('primary-btn2');
     const signUpForm = document.getElementById('signUpForm');
 
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
-    function saveUsers() {
-        localStorage.setItem('users', JSON.stringify(users));
-    }
+    // Email error message container
+    const emailError = document.createElement('div');
+    emailError.style.color = 'red';
+    emailError.style.marginTop = '5px';
+    emailInput.parentNode.appendChild(emailError);
 
-    if (!passwordInput) console.warn("Password input not found");
-    if (!requirements.length) console.warn("Password requirements not found");
+    // Live email check
+    let debounce;
+    emailInput.addEventListener('input', () => {
+        clearTimeout(debounce);
+        const email = emailInput.value.trim();
+        if (!email) {
+            emailError.textContent = '';
+            return;
+        }
+        debounce = setTimeout(() => {
+            fetch(`SignUp.php?check_email=1&email=${encodeURIComponent(email)}`)
+                .then(res => res.json())
+                .then(data => {
+                    emailError.textContent = data.exists ? 'This email is already taken.' : '';
+                })
+                .catch(err => console.error(err));
+        }, 400);
+    });
 
+    // Password requirement check
     if (passwordInput && requirements.length) {
         passwordInput.addEventListener('input', () => {
             const value = passwordInput.value;
@@ -25,39 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const img = req.querySelector('img');
                 let fulfilled = false;
                 switch (req.dataset.rule) {
-                    case 'length':
-                        fulfilled = value.length >= 8;
-                        break;
-                    case 'uppercase':
-                        fulfilled = /[A-Z]/.test(value);
-                        break;
-                    case 'lowercase':
-                        fulfilled = /[a-z]/.test(value);
-                        break;
-                    case 'number':
-                        fulfilled = /[0-9]/.test(value);
-                        break;
+                    case 'length': fulfilled = value.length >= 8; break;
+                    case 'uppercase': fulfilled = /[A-Z]/.test(value); break;
+                    case 'lowercase': fulfilled = /[a-z]/.test(value); break;
+                    case 'number': fulfilled = /[0-9]/.test(value); break;
                 }
                 if (img) {
                     img.src = fulfilled
                         ? '../images/check-indicator-checked-icon.svg'
                         : '../images/check-indicator-icon.svg';
-                } else {
-                    console.warn("Image element not found for", req.dataset.rule);
                 }
             });
         });
     }
 
-    function isEmail(v) { return /^[A-Za-z0-9_-]+@[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(v); }
-    function minLength(v, n = 6) { return v.length >= n; }
-    function passwordsMatch(a, b) { return a === b; }
-
+    // Show alerts
     function showConsoleAlert(title, message, type = 'error') {
         const existing = document.getElementById('console-alert-modal');
         if (existing) existing.remove();
 
-        // Create modal container (toast style)
         const modal = document.createElement('div');
         modal.id = 'console-alert-modal';
         modal.style.position = 'fixed';
@@ -74,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.zIndex = '9999';
         modal.style.animation = 'slideIn 0.3s ease';
 
-        // Title
         const h5 = document.createElement('h5');
         h5.innerText = title.toUpperCase();
         h5.style.margin = '0 0 8px 0';
@@ -83,14 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
         h5.style.color = type === 'error' ? '#FF4C4C' : '#28A745';
         modal.appendChild(h5);
 
-        // Message
         const p = document.createElement('p');
         p.innerText = message;
         p.style.margin = '0';
         p.style.fontSize = '15px';
         modal.appendChild(p);
 
-        // Close button
         const btn = document.createElement('span');
         btn.innerText = '×';
         btn.style.position = 'absolute';
@@ -103,71 +101,84 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.appendChild(btn);
 
         document.body.appendChild(modal);
-
-        // Auto-dismiss after 4 seconds
-        setTimeout(() => {
-            if (modal.parentNode) modal.remove();
-        }, 4000);
+        setTimeout(() => { if (modal.parentNode) modal.remove(); }, 4000);
 
         if (type === 'error') console.error(message);
         else console.log(message);
     }
 
+    // AJAX: Check if email exists
+    async function checkEmailExists(email) {
+        try {
+            const res = await fetch(`SignUp.php?check_email=1&email=${encodeURIComponent(email)}`);
+            const data = await res.json();
+            return data.exists;
+        } catch { return false; }
+    }
+
+    // AJAX: Check if username exists
+    async function checkUsernameExists(username) {
+        try {
+            const formData = new FormData();
+            formData.append('checkUsername', username);
+            const res = await fetch('SignUp.php', { method: 'POST', body: formData });
+            const data = await res.json();
+            return data.exists;
+        } catch { return false; }
+    }
+
+    // Submit signup form
     if (primaryBtn) {
-        primaryBtn.addEventListener('click', (e) => {
+        primaryBtn.addEventListener('click', async (e) => {
             e.preventDefault();
+
             const email = emailInput.value.trim();
+            const username = usernameInput.value.trim();
             const password = passwordInput.value;
             const confirm = confirmInput.value;
 
-            if (!email || !password || !confirm) return showConsoleAlert("Error", "All fields required");
-            if (!isEmail(email)) return showConsoleAlert("Error", "Invalid email");
-            if (!minLength(password, 8)) return showConsoleAlert("Error", "Password must be at least 8 characters");
-            if (!passwordsMatch(password, confirm)) return showConsoleAlert("Error", "Passwords do not match");
-            step1.style.display = 'none';
-            step2.style.display = 'block';
-            if (usernameInput) usernameInput.focus();
-        });
-    }
-
-    if (primaryBtn2) {
-        primaryBtn2.addEventListener('click', (e) => {
-            e.preventDefault();
-            const username = usernameInput.value.trim();
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            if (!username || !email || !password)
+            // Client-side validation
+            if (!email || !username || !password || !confirm) {
                 return showConsoleAlert("Error", "All fields are required");
-
-            if (!isEmail(email))
-                return showConsoleAlert("Error", "Invalid email");
-
-            if (!minLength(password, 8))
+            }
+            if (password.length < 8) {
                 return showConsoleAlert("Error", "Password must be at least 8 characters");
+            }
+            if (password !== confirm) {
+                return showConsoleAlert("Error", "Passwords do not match");
+            }
 
-            if (users.some(u => u.username === username))
-                return showConsoleAlert("Error", "Username already taken");
+            try {
+                const formData = new FormData();
+                formData.append('signUpEmail', email);
+                formData.append('signUpUsername', username);
+                formData.append('signUpPassword', password);
+                formData.append('signUpConfirm', confirm);
 
-            if (users.some(u => u.email === email))
-                return showConsoleAlert("Error", "Email already registered");
+                const res = await fetch('SignUp.php', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            // Save the new user
-            users.push({ username, email, password });
-            saveUsers();
+                // Only attempt JSON parse if response is JSON
+                const contentType = res.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    throw new Error("Server did not return JSON");
+                }
 
-            // Show success message using the console-style modal
-            showConsoleAlert("Success", "Registration successful!", "success");
+                const data = await res.json();
 
-            // Reset form
-            signUpForm.reset();
-            step1.style.display = 'block';
-            step2.style.display = 'none';
+                if (data.status === 'error') {
+                    return showConsoleAlert("Error", data.message);
+                }
 
-            // Redirect to SignIn.php after a short delay
-            setTimeout(() => {
-                window.location.replace("SignIn.php");
-            }, 1000); // 1 second delay
+                showConsoleAlert("Success", data.message, "success");
+                signUpForm.reset();
+                window.location.replace("Login.php");
+            } catch (err) {
+                showConsoleAlert("Error", "Registration failed");
+                console.error(err);
+            }
         });
     }
 });

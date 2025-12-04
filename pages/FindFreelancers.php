@@ -1,40 +1,52 @@
 <?php
-// Sample gigs data
-$gigs = [
-    ['title' => 'Web Development Service','image'=>'','seller'=>'Jane Doe','isPro'=>true,'description'=>'Professional web design services...','ratingValue'=>4.9,'ratingCount'=>120,'price'=>500],
-    ['title' => 'Logo Design for Brands','image'=>'','seller'=>'John Smith','isPro'=>false,'description'=>'Creative logo design for your brand...','ratingValue'=>5.0,'ratingCount'=>87,'price'=>200],
-    ['title' => 'SEO Optimization','image'=>'','seller'=>'Alice Brown','isPro'=>true,'description'=>'Boost your website SEO and rankings...','ratingValue'=>4.8,'ratingCount'=>50,'price'=>300],
-];
+require_once __DIR__ . '/../database/db.php'; 
 
-// ---- SEARCH LOGIC ----
-$query = isset($_GET['query']) ? trim($_GET['query']) : '';
-$budget = isset($_GET['budget']) ? $_GET['budget'] : 'Any';
+$query = trim($_GET['query'] ?? '');
+$budget = $_GET['budget'] ?? 'Any';
 
-// Filter gigs by search query
-$filtered = [];
-foreach ($gigs as $gig) {
-    if ($query === '' || stripos($gig['title'], $query) !== false) {
-        $filtered[] = $gig;
+// query merged users table (gigsters only)
+$sql = "SELECT * FROM users WHERE role = 'gigster'";
+$params = [];
+
+if ($query !== '') {
+    $sql .= " AND (full_name LIKE :q OR skills LIKE :q OR bio LIKE :q)";
+    $params[':q'] = '%' . $query . '%';
+}
+
+// add budget filter
+if ($budget !== 'Any') {
+    switch ($budget) {
+        case 'Under $50':
+            $sql .= " AND hourly_rate < :budget";
+            $params[':budget'] = 50;
+            break;
+        case '$50 - $100':
+            $sql .= " AND hourly_rate BETWEEN :min AND :max";
+            $params[':min'] = 50;
+            $params[':max'] = 100;
+            break;
+        case '$100+':
+            $sql .= " AND hourly_rate > :budget";
+            $params[':budget'] = 100;
+            break;
     }
 }
 
-// Filter gigs by budget
-if ($budget !== 'Any') {
-    $filtered = array_filter($filtered, function($gig) use ($budget) {
-        $price = $gig['price'];
-        switch ($budget) {
-            case 'Under $50': return $price < 50;
-            case '$50 - $100': return $price >= 50 && $price <= 100;
-            case '$100+': return $price > 100;
-            default: return true;
-        }
-    });
+$sql .= " ORDER BY created_at DESC";
+$stmt = $db->prepare($sql);
+foreach ($params as $k => $v) {
+    $type = is_int($v) ? SQLITE3_INTEGER : SQLITE3_FLOAT;
+    $stmt->bindValue($k, $v, $type);
+}
+
+$result = $stmt->execute();
+$filtered = [];
+while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    $filtered[] = $row;
 }
 
 // Budget options for dropdown
 $budgetOptions = ["Any","Under $50","$50 - $100","$100+"];
-
-// Determine selected index based on $_GET['budget']
 $selectedBudgetIndex = array_search($budget, $budgetOptions);
 if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
 ?>
@@ -48,12 +60,12 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/header-navigation-link.css">
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/search-bar.css">
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/hero-section.css">
     <link rel="stylesheet" href="../css/feature-card.css">
     <link rel="stylesheet" href="../css/quick-tags.css">
     <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/gig-card.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->

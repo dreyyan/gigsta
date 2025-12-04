@@ -1,0 +1,127 @@
+.onboarding-container {
+    max-width: 1000px;
+    margin: 160px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+    gap: 16px;
+}
+
+.progress-step {
+    width: 48px;
+    height: 48px;
+    background: #E2E8F0;
+    color: #64748B;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.progress-step.active {
+    background: #FF4D61;
+    color: white;
+}
+
+.progress-line {
+    width: 120px;
+    height: 3px;
+    background: #E2E8F0;
+}
+
+.onboarding-header h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.highlight { color: #FFD300; }
+
+.onboarding-header h3 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 24px;
+    color: #64748B;
+    margin-bottom: 48px;
+}
+
+.role-selection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 900px;
+    margin: 0 auto 60px;
+}
+
+.role-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.role-card:hover { transform: translateY(-4px); }
+
+.role-box {
+    border: 2px solid #E2E8F0;
+    border-radius: 28px;
+    padding: 48px 32px;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.role-box.client:hover,
+.role-card.selected .role-box.client {
+    border-color: #FF4D61;
+    background: #FFFBFC;
+    box-shadow: 0 0 0 6px rgba(255, 77, 97, 0.08);
+}
+
+.role-box.gigster:hover,
+.role-card.selected .role-box.gigster {
+    border-color: #FFD300;
+    background: #FFFBEB;
+    box-shadow: 0 0 0 6px rgba(255, 211, 0, 0.12);
+}
+
+.role-icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+}
+
+.role-box h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.role-box p {
+    font-size: 18px;
+    color: #64748B;
+    line-height: 1.6;
+}
+
+.btn-primary {
+    background: #FF4D61;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 16px 56px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: #e03e50;
+    transform: translateY(-2px);
+}

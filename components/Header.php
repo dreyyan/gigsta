@@ -14,7 +14,7 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
         </a>
 
         <!-- [COMPONENT] Search Bar -->
-        <?php 
+        <?php
             $width = "460px"; 
             include __DIR__ . '/SearchBar.php'; 
         ?>

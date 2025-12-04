@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/privacy-and-support.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
@@ -14,11 +16,8 @@
     <title>Gigsta • Privacy Policy & Support</title>
 </head>
 <body>
-
     <?php include '../components/Header.php'; ?>
-
     <div class="privacy-support-container">
-
         <h1 class="page-title">Privacy Policy & Support</h1>
         <p class="page-subtitle">
             Your trust is everything to us. Here’s exactly how we protect your data and how you can get help whenever you need it.

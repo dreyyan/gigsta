@@ -1,48 +1,88 @@
 <?php
+// Disable warnings/notices for AJAX responses
+error_reporting(E_ERROR | E_PARSE);
+
 // [IMPORT] PHP Components
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
-try { //connect to the database
-    $db = new SQLite3(__DIR__ . '/../database/gigsta.db'); // adjust path if needed
+try {
+    $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
-    die("Unable to connect to database: " . $e->getMessage());
-}
-
-$error = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { //check if form is submitted
-    $email = trim($_POST['signUpEmail']);
-    $username = trim($_POST['signUpUsername'] ?? '');
-    $password = trim($_POST['signUpPassword']);
-    $confirmPassword = trim($_POST['signUpConfirm'] ?? '');
-
-    if ($password !== $confirmPassword) { //check if passwords match
-        $error = "Passwords do not match!";
-    } elseif (empty($username) || empty($email) || empty($password)) {
-        $error = "Please fill in all fields!";
+    if ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '' === 'XMLHttpRequest') {
+        http_response_code(500);
+        header('Content-Type: application/json');
+        echo json_encode(['status'=>'error','message'=>'Database connection failed']);
+        exit;
     } else {
-    
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT); //hash the password
-
-        
-        $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"); //prepare insert statement
-        $stmt->bindValue(':username', $username, SQLITE3_TEXT);
-        $stmt->bindValue(':email', $email, SQLITE3_TEXT);
-        $stmt->bindValue(':password', $hashedPassword, SQLITE3_TEXT);
-
-        $result = $stmt->execute();
-
-        if ($result) { //registration successful
-            header("Location: Login.php");
-            exit;
-        } else {
-            $error = "Error: " . $db->lastErrorMsg();
-        }
+        die('Database connection failed');
     }
 }
-?>
 
+// Handle AJAX POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['signUpEmail'] ?? '');
+    $username = trim($_POST['signUpUsername'] ?? '');
+    $password = trim($_POST['signUpPassword'] ?? '');
+    $confirmPassword = trim($_POST['signUpConfirm'] ?? '');
+
+    header('Content-Type: application/json');
+
+    if (empty($email) || empty($username) || empty($password)) {
+        http_response_code(400);
+        echo json_encode(['status'=>'error','message'=>'Please fill in all fields!']);
+        exit;
+    }
+
+    if ($password !== $confirmPassword) {
+        http_response_code(400);
+        echo json_encode(['status'=>'error','message'=>'Passwords do not match!']);
+        exit;
+    }
+
+    // Check if email exists
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM users WHERE email = :email");
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+    if ($row['count'] > 0) {
+        http_response_code(400);
+        echo json_encode(['status'=>'error','message'=>'Email already exists!']);
+        exit;
+    }
+
+    // Check if username exists
+    $stmt = $db->prepare("SELECT COUNT(*) as count FROM users WHERE username = :username");
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+    if ($row['count'] > 0) {
+        http_response_code(400);
+        echo json_encode(['status'=>'error','message'=>'Username already taken!']);
+        exit;
+    }
+
+    // Insert user
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $stmt = $db->prepare("INSERT INTO users (username,email,password) VALUES (:username,:email,:password)");
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    $stmt->bindValue(':email', $email, SQLITE3_TEXT);
+    $stmt->bindValue(':password', $hashedPassword, SQLITE3_TEXT);
+
+    $result = @$stmt->execute(); // suppress warnings
+
+    if ($result) {
+        http_response_code(200);
+        echo json_encode(['status'=>'success','message'=>'Registration successful']);
+    } else {
+        http_response_code(500);
+        echo json_encode(['status'=>'error','message'=>'Database insert failed']);
+    }
+
+    exit; // stop PHP to avoid HTML output
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //check if form is submitted
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/authentication.css">
-    <link rel="stylesheet" href="../css/primary-button.css">
     <link rel="stylesheet" href="../css/social-button.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
@@ -82,15 +122,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //check if form is submitted
                         <?= htmlspecialchars($error) ?>
                     </div>
                 <?php endif; ?>
+
                 <!-- [SECTION] Authentication Form -->
                 <form class="auth-form" action="#" method="post" id="signUpForm">
-                    <!-- Step 1: Email + Password + Confirm Password -->
-                    <div class="form-step" id="step1">
+                    <div>
                         <?php renderInputGroup([
                             'name' => 'signUpEmail',
                             'id' => 'signUpEmail',
                             'placeholder' => 'example@domain.com',
                             'icon' => '../images/email-icon.svg',
+                            'required' => true
+                        ]); ?>
+                        
+                        <?php renderInputGroup([
+                            'name' => 'signUpUsername',
+                            'id' => 'signUpUsername',
+                            'placeholder' => 'juandelacruz_01',
+                            'icon' => '../images/user-icon.svg',
                             'required' => true
                         ]); ?>
 
@@ -119,53 +167,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { //check if form is submitted
                             <li data-rule="number"><img src="../images/check-indicator-icon.svg" alt="check"> At least 1 number</li>
                         </ul>
 
-                        <!-- [COMPONENT: Primary Button] Continue -->
-                        <?php
-                        $label = "Continue";
-                        $id = "primary-btn";
-                        include '../components/PrimaryButton.php';
-                        ?>
-                    </div>
-
-                    <!-- Step 2: Username -->
-                    <div class="form-step" id="step2" style="display:none;">
-                        <?php renderInputGroup([
-                            'name' => 'signUpUsername',
-                            'id' => 'signUpUsername',
-                            'placeholder' => 'juandela_cruz01',
-                            'icon' => '../images/user-icon.svg',
-                            'required' => true
-                        ]); ?>
-
                         <!-- [COMPONENT: Primary Button] Sign Up -->
                         <?php
                         $label = "Sign Up";
-                        $id = "primary-btn2";
+                        $id = "primary-btn";
                         include '../components/PrimaryButton.php'; ?>
-                    </div>
-
-                    <!-- [COMPONENT] Divider -->
-                    <div class="divider-container">
-                        <img src="../images/or-line-divider.svg" class="line-divider">
-                        <span>or</span>
-                        <img src="../images/or-line-divider.svg" class="line-divider">
-                    </div>
-
-                    <!-- [SECTION] Social Buttons -->
-                    <div id="social-buttons-container">
-                        <?php renderSocialButton([
-                            'label' => 'Continue with Google',
-                            'icon'  => '../images/google-icon.png',
-                            'class' => 'google',
-                            'onClick' => "window.location.href='/auth/google'"
-                        ]); ?>
-
-                        <?php renderSocialButton([
-                            'label' => 'Continue with Facebook',
-                            'icon'  => '../images/fb-icon.png',
-                            'class' => 'facebook',
-                            'onClick' => "window.location.href='/auth/facebook'"
-                        ]); ?>
                     </div>
                     
                     <!-- Redirect Link -->
