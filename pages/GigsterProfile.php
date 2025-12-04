@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
