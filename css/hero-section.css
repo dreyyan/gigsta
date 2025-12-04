@@ -1,0 +1,55 @@
+.hero-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex-direction: column;
+    margin-bottom: 64px;
+    padding: 80px 80px 0 80px;
+}
+
+.hero-section-header {
+    font-family: var(--header-font);
+    font-size: 60px;
+    text-align: center;
+    line-height: 64px;
+
+    margin-bottom: 32px;
+
+    #hero-section-header-highlighted {
+        color: var(--secondary);
+    }
+}
+
+#vector-art {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    width: 60%;
+
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* [SECTION] Search */
+.search-container {
+    margin-top: 35px;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* [SECTION] Feature Cards */
+.feature-cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.header-profile-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}

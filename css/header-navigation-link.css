@@ -1,0 +1,35 @@
+.header-navigation-link {
+    font-family: var(--header);
+    font-weight: 400;
+    font-size: 17px;
+    letter-spacing: 1%;
+    text-decoration: none;
+
+    color: var(--primary);
+    
+    border-radius: 8px;
+    margin-right: 0;
+    position: relative;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.header-navigation-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary);
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.header-navigation-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.header-navigation-link.no-underline::after {
+    content: none;
+}

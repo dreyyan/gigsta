@@ -1,0 +1,38 @@
+/* [COMPONENT] Feature Card */
+.info-card {
+    display: flex;
+    flex-direction: row;
+
+    flex: 1;
+    max-width: 423px;
+    min-width: 361px;
+    height: 158px;
+
+    background: var(--background);
+    padding: 24px;
+
+    border-radius: 17px;
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4);
+
+    #info-card-title {
+        font-family: var(--header);
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 1.5%;
+
+        margin-bottom: 8px;
+    }
+
+    #info-card-description {
+        font-family: var(--body);
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 24px;
+        letter-spacing: 1.5%;
+    }
+
+    img {
+        width: 32px;
+        margin-right: 24px;
+    }
+}

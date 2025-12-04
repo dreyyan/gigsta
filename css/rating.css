@@ -1,0 +1,21 @@
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 17px;
+}
+
+.rating-star {
+    width: 14px;
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+.rating-value {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.rating-count {
+    color: #999;
+}

@@ -3,140 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
+    <!-- [IMPORT] CSS: Stylesheet -->
+    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+    <!-- [IMPORT] Fonts: Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Gigsta: My Chats</title>
-    <style>
-        /* Additional styles specific to the chat screen */
-        .chats-container {
-            display: grid;
-            grid-template-columns: 352px 1fr;
-            height: calc(100vh - 88px); /* minus header height */
-            padding: 0;
-            gap: 0;
-        }
-
-        .chats-list-container {
-            background: var(--background);
-            border-right: 2px solid #e0e0e0;
-            padding: 40px 24px;
-            overflow-y: auto;
-        }
-
-        .conversation-container {
-            display: flex;
-            flex-direction: column;
-            background: var(--background);
-        }
-
-        .conversation-header-container img {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .messages-area {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .message {
-            max-width: 70%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            line-height: 1.4;
-            font-family: var(--body);
-            font-size: 15px;
-        }
-
-        .message.sent {
-            align-self: flex-end;
-            background: var(--primary);
-            color: white;
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.received {
-            align-self: flex-start;
-            background: #e8e8e8;
-            color: var(--text);
-            border-bottom-left-radius: 4px;
-        }
-
-        .message-time {
-            font-size: 11px;
-            margin-top: 4px;
-            opacity: 0.7;
-        }
-
-        .message-input-container {
-            display: flex;
-            padding: 16px 24px;
-            background: var(--background);
-            border-top: 2px solid #e0e0e0;
-            gap: 12px;
-        }
-
-        #message-input {
-            flex: 1;
-            padding: 12px 16px;
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            font-family: var(--body);
-            font-size: 15px;
-            background: var(--background);
-            color: var(--text);
-        }
-
-        #message-input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        #send-button {
-            width: 44px;
-            height: 44px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.2s;
-        }
-
-        #send-button:hover {
-            background: var(--accent);
-            transform: scale(1.05);
-        }
-
-        /* Placeholder state when no conversation selected */
-        .no-conversation {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: var(--neutral);
-            font-size: 18px;
-            font-family: var(--body);
-        }
-
-        .no-conversation img {
-            width: 120px;
-            opacity: 0.4;
-            margin-bottom: 24px;
-        }
-    </style>
+    <title>Gigsta • My Chats</title>
 </head>
 <body>
     <?php include '../components/Header.php'; ?>

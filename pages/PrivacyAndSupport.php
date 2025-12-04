@@ -3,138 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/styles.css">
+    <!-- [IMPORT] CSS: Stylesheet -->
+    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+    <!-- [IMPORT] Fonts: Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Gigsta • Privacy Policy & Support</title>
-
-    <style>
-        .privacy-support-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 40px;
-            line-height: 1.7;
-        }
-
-        .page-title {
-            font-family: var(--header);
-            font-weight: 700;
-            font-size: 48px;
-            letter-spacing: -1.5%;
-            color: var(--text);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .page-subtitle {
-            font-family: var(--body);
-            font-size: 20px;
-            color: var(--neutral);
-            text-align: center;
-            max-width: 720px;
-            margin: 0 auto 64px auto;
-        }
-
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section h2 {
-            font-family: var(--header);
-            font-weight: 600;
-            font-size: 32px;
-            color: var(--text);
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary);
-            display: inline-block;
-        }
-
-        .section h3 {
-            font-family: var(--header);
-            font-weight: 600;
-            font-size: 24px;
-            color: var(--text);
-            margin: 32px 0 16px 0;
-        }
-
-        .section p,
-        .section li {
-            font-family: var(--body);
-            font-size: 17px;
-            color: var(--text);
-            margin-bottom: 16px;
-        }
-
-        .section ul {
-            padding-left: 28px;
-            margin-bottom: 24px;
-        }
-
-        .section ul li {
-            margin-bottom: 12px;
-            position: relative;
-        }
-
-        .section ul li::marker {
-            color: var(--primary);
-        }
-
-        .highlight-box {
-            background: var(--secondary);
-            border-left: 5px solid var(--primary);
-            padding: 24px;
-            border-radius: 8px;
-            margin: 32px 0;
-            font-size: 17px;
-            color: var(--text);
-        }
-
-        .contact-support {
-            background: var(--background);
-            border: 2px solid var(--primary);
-            border-radius: 16px;
-            padding: 40px;
-            text-align: center;
-            margin: 48px 0;
-        }
-
-        .contact-support h3 {
-            font-size: 28px;
-            margin-bottom: 16px;
-        }
-
-        .contact-support p {
-            font-size: 18px;
-            color: var(--neutral);
-            margin-bottom: 32px;
-        }
-
-        .btn-support {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            font-family: var(--header);
-            font-weight: 600;
-            font-size: 18px;
-            padding: 14px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-support:hover {
-            background: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .last-updated {
-            text-align: center;
-            color: var(--neutral);
-            font-size: 15px;
-            margin-top: 80px;
-        }
-    </style>
 </head>
 <body>
 

@@ -42,14 +42,17 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/styles.css">
-<link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-<title>Gigsta: Find Freelancers</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- [IMPORT] CSS: Stylesheet -->
+    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <!-- [IMPORT] Website Icon -->
+    <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+    <!-- [IMPORT] Fonts: Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Gigsta • Find Freelancers</title>
 </head>
 <body>
 

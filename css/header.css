@@ -1,0 +1,54 @@
+/* [SECTION] Header */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 88px;
+    padding: 24px 56px;
+    border-bottom: 2px solid #d5d5d5;
+}
+
+.logo-banner-div {
+    display: flex;
+    height: 100%;
+    padding: 0;
+}
+
+#header-left-container {
+    display: flex;
+    gap: 0 64px;
+}
+
+.header-btns {
+    display: flex;
+    align-items: center;
+    gap: 54px;
+}
+
+/* Navigation Links */
+.header-links {
+    display: flex;
+    align-items: center;
+    min-width: 320px;
+    gap: 32px;
+}
+
+/* Auth Buttons */
+#auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+}
+
+.header-profile-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-profile-container .profile-placeholder-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}

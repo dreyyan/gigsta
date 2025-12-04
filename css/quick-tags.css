@@ -1,0 +1,48 @@
+/* [COMPONENT] Quick Tags */
+.quick-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    max-width: 660px;
+    margin-top: 17px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.quick-tags span {
+    font-family: var(--body);
+    font-size: 14px;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: 1.5%;
+    margin-right: 8px;
+}
+
+.tag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 4px 17px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tag-container img {
+    margin-top: 2px;
+    transition: all 0.3s ease;
+}
+
+.tag-container:hover {
+    color: var(--background);
+    background-color: var(--primary);
+        transform: translateX(4px);
+    transition: transform 0.3s ease;
+}
+
+.tag-container:hover img {
+    content: url('../images/tag-arrow-hover-icon.svg');
+}
