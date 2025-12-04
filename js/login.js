@@ -83,10 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (result.status === 'success') {
                 showConsoleAlert("Success", result.message, "success");
                 setTimeout(() => {
-                    if (!result.role) {
+                    if (result.role === null) {
                         // role is null -> first time login -> onboarding
                         window.location.replace("Onboarding.php");
-                    } else {
+                    } else if (result.role === 'gigster') {
+                        // role exists -> normal dashboard
+                        window.location.replace("FindFreelancers.php");
+                    } else if (result.role === 'client') {
                         // role exists -> normal dashboard
                         window.location.replace("FindFreelancers.php");
                     }
