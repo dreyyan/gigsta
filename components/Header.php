@@ -1,6 +1,6 @@
 <?php
 session_start();
-$isLoggedIn = $_SESSION['logged_in'] ?? true; // true if logged in
+$isLoggedIn = $_SESSION['logged_in'] ?? false; // true if logged in
 $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
 ?>
 

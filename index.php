@@ -6,6 +6,13 @@
     <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/header-navigation-link.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/search-bar.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/hero-section.css">
+    <link rel="stylesheet" href="css/feature-card.css">
+    <link rel="stylesheet" href="css/quick-tags.css">
+    <link rel="stylesheet" href="css/primary-button.css">
 
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">

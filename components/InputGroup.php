@@ -2,7 +2,7 @@
 function renderInputGroup($props = []) {
     $type        = $props['type'] ?? 'text';
     $name        = $props['name'] ?? '';
-    $id          = $props['id'] ?? ''; // <-- add this
+    $id          = $props['id'] ?? '';
     $placeholder = $props['placeholder'] ?? '';
     $icon        = $props['icon'] ?? 'https://via.placeholder.com/20x20?text=@';
     $required    = $props['required'] ?? false;

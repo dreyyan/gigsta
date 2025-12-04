@@ -93,13 +93,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4px 0;
+    gap: 2px 0;
 
     margin-top: 17px;
     margin-bottom: 32px;
     color: #94A3B8;
 
     li {
+        line-height: 24px;
         display: flex;
         align-items: center;
 
@@ -258,8 +259,8 @@
     font-size: 14px;
 }
 
-/* [COMPONENT] Sign Up Link */
-.login-link {
+/* [COMPONENT] Redirect Link */
+.redirect-link {
     text-align: center;
     font-family: var(--body);
     font-weight: 400;
@@ -277,7 +278,7 @@
     }
 }
 
-.login-link a::after {
+.redirect-link a::after {
     content: '';
     position: absolute;
     left: 50%;
@@ -289,16 +290,16 @@
     transition: width 0.3s ease, left 0.3s ease;
 }
 
-.login-link a:hover::after {
+.redirect-link a:hover::after {
     width: 100%;
     left: 0;
 }
 
-.login-link a:hover {
+.redirect-link a:hover {
     color: var(--neutral);
 }
 
-.login-link a:active {
+.redirect-link a:active {
     color: var(--text); 
 }
 

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function isEmail(v) { return /\S+@\S+\.\S+/.test(v); }
+    function isEmail(v) { return /^[A-Za-z0-9_-]+@[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(v); }
     function minLength(v, n = 6) { return v.length >= n; }
     function passwordsMatch(a, b) { return a === b; }
 
@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = emailInput.value.trim();
             const password = passwordInput.value;
             const confirm = confirmInput.value;
+
             if (!email || !password || !confirm) return showConsoleAlert("Error", "All fields required");
             if (!isEmail(email)) return showConsoleAlert("Error", "Invalid email");
             if (!minLength(password, 8)) return showConsoleAlert("Error", "Password must be at least 8 characters");

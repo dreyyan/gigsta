@@ -1,7 +1,42 @@
 <?php
-// [IMPORT] PHP Components
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
+
+
+try { // Connect to the database
+    $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
+} catch (Exception $e) {
+    die("Unable to connect to database: " . $e->getMessage());
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { //checks if form is submitted
+    $loginUser = $_POST['loginUser'] ?? '';
+    $loginPassword = $_POST['loginPassword'] ?? '';
+
+    //fetch user from database
+    $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
+    $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
+    $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
+
+    if ($user) { //verify password
+        if (password_verify($loginPassword, $user['password'])) {
+            session_start(); //log the user in
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+
+            echo "Login successful! Welcome, " . $user['username'];
+            header("Location: ../index.php"); //redirect to dashboard or homepage
+            exit;
+        } else {
+            $error = "Incorrect password!";
+        }
+    } else {
+        $error = "User not found!";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +45,10 @@ require_once __DIR__ . '/../components/SocialButton.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS -->
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/authentication.css">
+    <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/social-button.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts -->
@@ -35,6 +73,10 @@ require_once __DIR__ . '/../components/SocialButton.php';
                 <h1 class="auth-title">Log In</h1>
                 <p class="auth-subtitle">Great to see you again, Gigsta!</p>
 
+                <!-- Form Validation -->
+                <?php if (!empty($error)) : ?>
+                    <div class="error-message"><?= htmlspecialchars($error) ?></div>
+                <?php endif; ?>
                 <!-- [SECTION] Authentication Form -->
                 <form class="auth-form" action="#" method="post" id="loginForm">
                     <!-- Step 1: Email / Username -->
@@ -81,20 +123,23 @@ require_once __DIR__ . '/../components/SocialButton.php';
                     <!-- [SECTION] Social Buttons -->
                     <?php renderSocialButton([
                         'label' => 'Continue with Google',
-                        'icon'  => '../images/google-icon 1.png',
+                        'icon'  => '../images/google-icon.png',
                         'class' => 'google',
                         'onClick' => "window.location.href='/auth/google'"
                     ]); ?>
 
                     <?php renderSocialButton([
                         'label' => 'Continue with Facebook',
-                        'icon'  => '../images/fb-icon 1.png',
+                        'icon'  => '../images/fb-icon.png',
                         'class' => 'facebook',
                         'onClick' => "window.location.href='/auth/facebook'"
                     ]); ?>
 
-                    <!-- Sign Up Link -->
-                    <p class="signup-link">Don't have an account?<a href="signUp.php">Sign Up</a></p>
+                    <!-- Redirect Link -->
+                    <p class="redirect-link">
+                        Don't have an account?
+                        <a href="signUp.php">Sign Up</a>
+                    </p>
                 </form>
             </div>
         </section>

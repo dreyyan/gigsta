@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    function showConsoleAlert(title, message, type = 'error') {
+    async function showConsoleAlert(title, message, type = 'error') {
         const existing = document.getElementById('console-alert-modal');
         if (existing) existing.remove();
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!loginBtn) return console.error("Login button not found");
 
-    loginBtn.addEventListener('click', e => {
+    loginBtn.addEventListener('click', async e => {
         e.preventDefault();
 
         const userVal = loginUser.value.trim();
@@ -69,22 +69,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userVal || !passVal)
             return showConsoleAlert("Error", "All fields are required");
 
-        // Match either email or username
-        const foundUser = users.find(u =>
-            (u.email === userVal || u.username === userVal)
-        );
+        let response;
+        try {
+            response = await fetch("http://localhost:8000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ identifier: userVal, password: passVal })
+            });
+        } catch (error) {
+            return showConsoleAlert("Error", "Cannot connect to server.");
+        }
 
-        if (!foundUser)
-            return showConsoleAlert("Error", "Account not found");
+        const result = await response.json();
 
-        if (foundUser.password !== passVal)
-            return showConsoleAlert("Error", "Incorrect password");
+        if (result.status !== "success") {
+            return showConsoleAlert("Error", result.message || "Login failed.");
+        }
 
-        // SUCCESS
         showConsoleAlert("Success", "Login successful!", "success");
 
-        // Optional: save session
-        localStorage.setItem("currentUser", JSON.stringify(foundUser));
+        localStorage.setItem("currentUser", JSON.stringify({
+            identifier: userVal
+        }));
 
         setTimeout(() => {
             window.location.replace("FindFreelancers.php"); // redirect after login

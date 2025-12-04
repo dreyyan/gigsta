@@ -1,14 +1,16 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = ""; 
-$port = 3307;
-$dbname = "gigstadb";
-
-$conn = mysqli_connect($host, $user, $pass, $dbname, $port);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+ 
+try {
+    $db = new SQLite3(__DIR__ . '/gigsta.db');
+} catch (Exception $e) {
+    die("Unable to connect to database: " . $e->getMessage());
 }
-echo "Connected successfully!";
+
+ 
+$db->exec("CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+)");
 ?>

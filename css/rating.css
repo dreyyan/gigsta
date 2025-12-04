@@ -20,26 +20,6 @@
     color: #999;
 }
 
-/* [SECTION] Ratings */
-#trust-content-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-family: var(--header);
-    font-weight: 600;
-    font-size: 22px;
-    text-align: center;
-    line-height: 32px;
-    letter-spacing: 1%;
-
-    margin: 40px 0 64px 0;
-
-    #star-icon {
-    color: var(--secondary);
-    }
-}
-
 .profile-placeholder-icon {
     width: 40px;
 }

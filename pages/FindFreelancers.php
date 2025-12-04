@@ -45,7 +45,15 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/privacyandsupport.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/header-navigation-link.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/search-bar.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/hero-section.css">
+    <link rel="stylesheet" href="../css/feature-card.css">
+    <link rel="stylesheet" href="../css/quick-tags.css">
+    <link rel="stylesheet" href="../css/primary-button.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
@@ -55,28 +63,26 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
     <title>Gigsta • Find Freelancers</title>
 </head>
 <body>
-
-    <!-- Header -->
+    <!-- [COMPONENT] Header -->
     <?php include '../components/Header.php'; ?>
 
     <main class="search-results-container">
-
         <!-- FILTERS -->
         <div class="filters-section">
             <div class="filter-buttons">
                 <?php
-$label = "Budget";
-$q = isset($_GET['query']) ? urlencode($_GET['query']) : '';
-$items = [];
-foreach ($budgetOptions as $index => $b) {
-    $items[] = [
-        'text' => $b,
-        'href' => "/pages/FindFreelancers.php?budget=" . urlencode($b) . "&query=$q"
-    ];
-}
-$boldFirst = true;
-$selectedIndex = $selectedBudgetIndex; // ✅ highlight current selection
-include __DIR__ . '/../components/Dropdown.php';
+                $label = "Budget";
+                $q = isset($_GET['query']) ? urlencode($_GET['query']) : '';
+                $items = [];
+                foreach ($budgetOptions as $index => $b) {
+                    $items[] = [
+                        'text' => $b,
+                        'href' => "/pages/FindFreelancers.php?budget=" . urlencode($b) . "&query=$q"
+                    ];
+                }
+                $boldFirst = true;
+                $selectedIndex = $selectedBudgetIndex;
+                include __DIR__ . '/../components/Dropdown.php';
 
                 // Delivery Time (currently placeholder)
                 $label = "Delivery Time";
