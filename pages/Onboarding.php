@@ -1,83 +1,186 @@
+<?php
+session_start();
+require_once __DIR__ . '/../database/connection.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../Login.php");
+    exit;
+}
+
+$userId = $_SESSION['user_id'];
+$stmt = $db->prepare("SELECT role, age, location, experience_years FROM users WHERE id = :id");
+$stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
+$result = $stmt->execute();
+$user = $result->fetchArray(SQLITE3_ASSOC);
+
+$hasRole = !empty($user['role']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/onboarding.css">
-    <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
-    <!-- [IMPORT] Fonts: Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Text&display=swap" rel="stylesheet">
-    <title>Onboarding • GIGsta ⚡</title>
+    <title>Complete Your Profile • GIGsta</title>
 </head>
 <body>
-    <!-- [SECTION] Onboarding -->
-    <main class="onboarding-container">
-        <form action="process-onboarding.php" method="POST" enctype="multipart/form-data">
-            <img id="logo-icon" src="../images/gigsta-logo-minimal.svg" alt="Gigsta Logo">
-            <!-- Step 1: Choose Your Role -->
-            <div class="onboarding-step" id="step-role">
-                <div class="onboarding-header">
-                    <div style="display: flex; justify-content: center; gap: 16px;">
-                        <h1>Welcome to</h1>
-                        <img id="logo-icon" src="../images/gigsta-logo.svg" alt="Gigsta Logo">
-                    </div>
-                    <h3>Let’s get you set up in under a minute.</h3>
-                </div>
 
+<main class="onboarding-container">
+    <?php if ($hasRole): ?>
+        <!-- Already onboarded -->
+        <div class="onboarding-header">
+            <h1>Welcome back!</h1>
+            <h3>Your profile is all set</h3>
+            <a href="../pages/BrowseGigs.php" class="btn-primary">Browse Gigs →</a>
+        </div>
+    <?php else: ?>
+        <!-- ONBOARDING FLOW -->
+        <form action="../database/process_onboarding.php" method="POST" enctype="multipart/form-data">
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-step active">1</div>
+                <div class="progress-line"></div>
+                <div class="progress-step">2</div>
+                <div class="progress-line"></div>
+                <div class="progress-step">3</div>
+                <div class="progress-line"></div>
+                <div class="progress-step">4</div>
+                <div class="progress-line"></div>
+                <div class="progress-step">5</div>
+            </div>
+
+            <div class="onboarding-header">
+                <h1>Let’s get you set up</h1>
+                <h3>Takes less than a minute</h3>
+            </div>
+
+            <!-- STEP 1: Role -->
+            <div class="onboarding-step active" data-step="1">
                 <div class="role-selection">
-
-                    <!-- CLIENT OPTION -->
                     <label class="role-card">
                         <input type="radio" name="role" value="client" required>
                         <div class="role-inner client">
-                            <img src="../images/briefcase-icon.svg" alt="Gigsta logo" id="gigsta-logo">
+                            <img src="../images/briefcase-icon.svg" alt="Client">
                             <h2>I’m a <strong>Client</strong></h2>
                             <p class="serif">I want to hire talent and get work done fast</p>
                         </div>
                     </label>
 
-                    <!-- GIGSTER OPTION -->
                     <label class="role-card">
                         <input type="radio" name="role" value="gigster" required>
                         <div class="role-inner gigster">
-                            <img src="../images/rocket-icon.svg" alt="Gigster Icon" id="gigsta-logo">
+                            <img src="../images/rocket-icon.svg" alt="Gigster">
                             <h2>I’m a <strong>Gigster</strong></h2>
                             <p class="serif">I want to offer services and earn money</p>
                         </div>
                     </label>
-
                 </div>
-
-                <button type="submit" class="btn-primary">Continue →</button>
+                <button type="button" class="btn-next">Next →</button>
             </div>
 
+            <!-- STEP 2: Age -->
+            <div class="onboarding-step" data-step="2">
+                <h2>How old are you?</h2>
+                <input type="number" name="age" min="13" max="100" placeholder="e.g. 25" required class="input-field">
+                <div class="nav-buttons">
+                    <button type="button" class="btn-back">← Back</button>
+                    <button type="button" class="btn-next">Next →</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Location -->
+            <div class="onboarding-step" data-step="3">
+                <h2>Where are you based?</h2>
+                <input type="text" name="location" placeholder="e.g. Iloilo City, Philippines" required class="input-field">
+                <div class="nav-buttons">
+                    <button type="button" class="btn-back">← Back</button>
+                    <button type="button" class="btn-next">Next →</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Experience -->
+            <div class="onboarding-step" data-step="4">
+                <h2>How many years of experience do you have?</h2>
+                <input type="number" name="experience_years" min="0" max="50" placeholder="e.g. 5" required class="input-field">
+                <div class="nav-buttons">
+                    <button type="button" class="btn-back">← Back</button>
+                    <button type="button" class="btn-next">Next →</button>
+                </div>
+            </div>
+
+            <!-- STEP 5: Talent Tags (Gigster only) -->
+            <div class="onboarding-step" data-step="5">
+                <h2>What are your skills?</h2>
+                <p>Select all that apply (you can change later)</p>
+                <div class="tags-container">
+                    <?php
+                    $tags = ['Producer', 'Rapper', 'Developer', 'Designer', 'Video Editor', 'Writer', 'Marketer', 'Photographer', 'Voice Actor', 'Animator'];
+                    foreach ($tags as $tag):
+                    ?>
+                        <label class="tag-label">
+                            <input type="checkbox" name="tags[]" value="<?= $tag ?>">
+                            <span class="tag-chip"><?= $tag ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <div class="nav-buttons">
+                    <button type="button" class="btn-back">← Back</button>
+                    <button type="submit" class="btn-primary">Complete Setup →</button>
+                </div>
+            </div>
         </form>
+    <?php endif; ?>
 
-        <!-- Trust line (same as landing) -->
-        <div id="trust-content-container" style="margin-top: 60px; opacity: 0.8;">
-            <span>Fixed-price • Lightning-fast • </span>
-            <span>Proudly localized in Iloilo, Philippines</span>
-        </div>
+    <div id="trust-content-container">
+        <span>Fixed-price • Lightning-fast • </span>
+        <span>Proudly localized in Iloilo, Philippines</span>
+    </div>
+</main>
 
-    </main>
+<script>
+    const steps = document.querySelectorAll('.onboarding-step');
+    const nextBtns = document.querySelectorAll('.btn-next');
+    const backBtns = document.querySelectorAll('.btn-back');
+    let currentStep = 1;
 
-    <script>
-        // Optional: Add visual feedback when selecting role
-        document.querySelectorAll('input[name="role"]').forEach(input => {
-            input.addEventListener('change', function() {
-                document.querySelectorAll('.role-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
-                this.closest('.role-card').classList.add('selected');
+    function showStep(n) {
+        steps.forEach((step, i) => {
+            step.classList.toggle('active', i + 1 === n);
+            document.querySelectorAll('.progress-step')[i].classList.toggle('active', i < n);
+        });
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep < 5) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    backBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    // Role selection visual feedback
+    document.querySelectorAll('input[name="role"]').forEach(input => {
+        input.addEventListener('change', () => {
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.toggle('selected', card.querySelector('input').checked);
             });
         });
-    </script>
-
+    });
+</script>
 </body>
 </html>

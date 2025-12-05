@@ -1,3 +1,5 @@
+@import url('styles.css');
+
 /* [SECTION] Header */
 #header {
     display: flex;
@@ -5,13 +7,26 @@
     align-items: center;
     height: 88px;
     padding: 24px 56px;
-    border-bottom: 2px solid #d5d5d5;
+    /* border-bottom: 2px solid #d5d5d5;
+    background-color: var(--primary); */
+
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .logo-banner-div {
     display: flex;
     height: 100%;
     padding: 0;
+
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.logo-banner-div:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
 }
 
 #logo-banner {
@@ -465,75 +480,6 @@
 
 .header-profile-container.active .dropdown-content {
     display: block;
-}
-
-/* [COMPONENT] Buttons */
-.primary-btn {
-    font-family: var(--header);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1;
-    letter-spacing: 1%;
-
-    width: 100%;
-    height: 44px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: var(--background);
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    background-color: var(--primary);
-
-    cursor: pointer;
-    
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.primary-btn:hover {
-    transform: scale(1.02);
-    background-color: var(--secondary);
-}
-
-.primary-btn .btn-icon {
-    width: 20px;
-    height: 20px;
-    margin-left: 8px;
-    vertical-align: middle;
-}
-
-/* [COMPONENT] Buttons */
-.primary-btn {
-    font-family: var(--header);
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 1;
-    letter-spacing: 1%;
-
-    width: 100%;
-    height: 44px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: var(--background);
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    background-color: var(--primary);
-
-    cursor: pointer;
-    
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.primary-btn:hover {
-    transform: scale(1.02);
-    background-color: var(--secondary);
 }
 
 .header-navigation-link {

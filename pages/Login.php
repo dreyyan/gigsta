@@ -3,48 +3,72 @@ session_start();
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
-// Try connecting to the SQLite database
+// Connect to database
 try {
     $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
-    header('Content-Type: application/json');
-    echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
-    exit;
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
+        exit;
+    }
+    die("Database error");
 }
 
-// Detect if request is AJAX
-$isAjax = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
+// Detect AJAX request
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
+// Only process login on POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $loginUser = $_POST['loginUser'] ?? '';
+    $loginUser = trim($_POST['loginUser'] ?? '');
     $loginPassword = $_POST['loginPassword'] ?? '';
 
-    header('Content-Type: application/json'); // Ensure JSON output for POST
+    header('Content-Type: application/json');
 
-    // Validate input
-    if (!$loginUser || !$loginPassword) {
+    if (empty($loginUser) || empty($loginPassword)) {
         echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
         exit;
     }
 
-    // Prepare and execute query
-    $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
-    $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
-    $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
+    $stmt = $db->prepare("SELECT * FROM users WHERE email = :login OR username = :login LIMIT 1");
+    $stmt->bindValue(':login', $loginUser, SQLITE3_TEXT);
     $result = $stmt->execute();
     $user = $result->fetchArray(SQLITE3_ASSOC);
 
-    // Check password
     if ($user && password_verify($loginPassword, $user['password'])) {
+        // Login successful
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
+        $_SESSION['role'] = $user['role'] ?? null;
+
+        // === REMEMBER ME ===
+        if (!empty($_POST['remember_me'])) {
+            $selector = bin2hex(random_bytes(12));
+            $token = random_bytes(32);
+            $expires = time() + 86400 * 30; // 30 days
+
+            // Remove old tokens
+            $db->exec("DELETE FROM auth_tokens WHERE user_id = " . (int)$user['id']);
+
+            // Save new token
+            $hashedToken = password_hash($token, PASSWORD_DEFAULT);
+            $stmt = $db->prepare("INSERT INTO auth_tokens (user_id, selector, token, expires) VALUES (?, ?, ?, ?)");
+            $stmt->bindValue(1, $user['id'], SQLITE3_INTEGER);
+            $stmt->bindValue(2, $selector, SQLITE3_TEXT);
+            $stmt->bindValue(3, $hashedToken, SQLITE3_TEXT);
+            $stmt->bindValue(4, $expires, SQLITE3_INTEGER);
+            $stmt->execute();
+
+            // Set secure cookies
+            setcookie('remember_selector', $selector, $expires, '/', '', true, true);
+            setcookie('remember_token', bin2hex($token), $expires, '/', '', true, true);
+        }
 
         echo json_encode([
             'status' => 'success',
             'message' => 'Login successful',
-            'role' => $user['role']
+            'role' => $user['role'] ?? null
         ]);
         exit;
     } else {
@@ -52,9 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-
-// If GET request, render HTML login page
-$error = "";
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +84,9 @@ $error = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/authentication.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts -->
@@ -112,14 +135,22 @@ $error = "";
                         'required' => true
                     ]); ?>
 
+                    <div class="remember-me-container">
+                        <label class="remember-me-label">
+                            <input type="checkbox" name="remember_me" id="remember_me" value="1">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                    </div>
+
                     <!-- [SECTION] Options -->
-                    <div class="options-container">
+                    <!-- <div class="options-container">
                         <label class="checkbox-container">
                             <input type="checkbox" name="remember">
                             Remember Me
                         </label>
                         <a class="forgot-link" href="ForgotPassword.php">Forgot Password?</a>
-                    </div>
+                    </div> -->
 
                     <!-- Login Button -->
                     <?php

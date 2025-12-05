@@ -1,3 +1,4 @@
+@import url('styles.css');
 /* [SECTION] Left: Authentication */
 .auth-container {
     display: grid;
@@ -135,10 +136,6 @@
     height: 10px;
 }
 
-#social-buttons-container {
-
-}
-
 /* [SECTION] Right: Hero Section */
 .auth-hero {
     max-width: 560px;
@@ -250,7 +247,13 @@
 
     background: var(--background);
 
-    cursor:pointer;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.social-btn:hover {
+    background-color: var(--primary);
+    color: var(--background);
 }
 
 .clear-search {
@@ -316,7 +319,7 @@
     line-height: 32px;
     letter-spacing: 1%;
 
-    text-decoration: none;
+    text-decoration: underline;
     position: relative;
 }
 
@@ -336,4 +339,19 @@
 
 .forgot-link:focus {
     color: var(--neutral);
+}
+
+.remember-me-container input[type="checkbox"] {
+    accent-color: var(--primary);
+    cursor: pointer;
+    margin-right: 4px;
+}
+
+.remember-me-container {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 32px;
+    letter-spacing: 1.5%;
+    margin-bottom: 16px;
 }

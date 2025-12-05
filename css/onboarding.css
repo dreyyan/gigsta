@@ -1,10 +1,12 @@
+@import url('styles.css');
 .onboarding-container {
     max-width: 1000px;
-    margin: 160px auto;
+    margin: 120px auto 80px;
     padding: 0 20px;
     text-align: center;
 }
 
+/* Progress Bar */
 .progress-container {
     display: flex;
     align-items: center;
@@ -24,27 +26,45 @@
     justify-content: center;
     font-weight: 700;
     font-size: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .progress-step.active {
     background: #FF4D61;
     color: white;
+    transform: scale(1.1);
 }
 
 .progress-line {
     width: 120px;
-    height: 3px;
+    height: 4px;
     background: #E2E8F0;
+    transition: background 0.4s ease;
 }
 
+/* Make line red when previous step is active */
+.progress-container .progress-line:nth-of-type(2) { order: 2; }
+.progress-container .progress-line:nth-of-type(4) { order: 4; }
+.progress-container .progress-line:nth-of-type(6) { order: 6; }
+.progress-container .progress-line:nth-of-type(8) { order: 8; }
+
+.progress-container .progress-step:nth-child(1).active ~ .progress-line:nth-of-type(2),
+.progress-container .progress-step:nth-child(3).active ~ .progress-line:nth-of-type(4),
+.progress-container .progress-step:nth-child(5).active ~ .progress-line:nth-of-type(6),
+.progress-container .progress-step:nth-child(7).active ~ .progress-line:nth-of-type(8) {
+    background: #FF4D61;
+}
+
+/* Header */
 .onboarding-header h1 {
     font-family: 'DM Sans', sans-serif;
     font-size: 56px;
     font-weight: 700;
     margin-bottom: 16px;
+    color: #1a1a1a;
 }
-
-.highlight { color: #FFD300; }
 
 .onboarding-header h3 {
     font-family: 'DM Serif Text', serif;
@@ -53,6 +73,7 @@
     margin-bottom: 48px;
 }
 
+/* Role Selection */
 .role-selection {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -63,65 +84,193 @@
 
 .role-card {
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
 }
 
-.role-card:hover { transform: translateY(-4px); }
+.role-card:hover {
+    transform: translateY(-6px);
+}
 
-.role-box {
-    border: 2px solid #E2E8F0;
+.role-inner {
+    border: 3px solid transparent;
     border-radius: 28px;
     padding: 48px 32px;
-    transition: all 0.3s ease;
     background: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 
-.role-box.client:hover,
-.role-card.selected .role-box.client {
+.role-inner.client {
+    border-color: #ffe0e0;
+}
+
+.role-inner.gigster {
+    border-color: #fff4d1;
+}
+
+.role-card input:checked + .role-inner.client {
     border-color: #FF4D61;
-    background: #FFFBFC;
-    box-shadow: 0 0 0 6px rgba(255, 77, 97, 0.08);
+    background: #fff5f7;
+    box-shadow: 0 0 0 8px rgba(255, 77, 97, 0.12);
 }
 
-.role-box.gigster:hover,
-.role-card.selected .role-box.gigster {
+.role-card input:checked + .role-inner.gigster {
     border-color: #FFD300;
-    background: #FFFBEB;
-    box-shadow: 0 0 0 6px rgba(255, 211, 0, 0.12);
+    background: #fffdf0;
+    box-shadow: 0 0 0 8px rgba(255, 211, 0, 0.15);
 }
 
-.role-icon {
-    font-size: 72px;
+.role-inner img {
+    width: 80px;
+    height: 80px;
     margin-bottom: 24px;
 }
 
-.role-box h2 {
-    font-family: 'DM Sans', sans-serif;
+.role-inner h2 {
     font-size: 28px;
     font-weight: 600;
     margin-bottom: 12px;
 }
 
-.role-box p {
-    font-size: 18px;
-    color: #64748B;
+.role-inner p.serif {
+    font-family: 'DM Serif Text', serif;
+    font-size: 19px;
+    color: #555;
     line-height: 1.6;
 }
 
+/* Steps */
+.onboarding-step {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.onboarding-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.input-field {
+    width: 100%;
+    max-width: 420px;
+    margin: 32px auto;
+    padding: 18px 24px;
+    font-size: 18px;
+    border: 2px solid #E2E8F0;
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #FF4D61;
+    box-shadow: 0 0 0 8px rgba(255, 77, 97, 0.12);
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 500px;
+    margin: 60px auto 0;
+    gap: 20px;
+}
+
+.btn-back {
+    background: transparent;
+    color: #64748B;
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 32px;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.btn-back:hover {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.btn-next,
 .btn-primary {
     background: #FF4D61;
     color: white;
-    font-family: 'DM Sans', sans-serif;
     font-weight: 600;
     font-size: 18px;
-    padding: 16px 56px;
+    padding: 16px 48px;
     border: none;
     border-radius: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
+.btn-next:hover,
 .btn-primary:hover {
     background: #e03e50;
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 77, 97, 0.3);
+}
+
+/* Tags */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin: 40px auto;
+    max-width: 720px;
+}
+
+.tag-label {
+    cursor: pointer;
+}
+
+.tag-chip {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #f8f8f8;
+    border: 2px solid #e0e0e0;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+.tag-label input:checked + .tag-chip {
+    background: #FF4D61;
+    color: white;
+    border-color: #FF4D61;
+    transform: scale(1.05);
+}
+
+.tag-chip:hover {
+    background: #ffe0e0;
+    border-color: #FF4D61;
+}
+
+/* Trust line */
+#trust-content-container {
+    margin-top: 100px;
+    font-size: 16px;
+    color: #888;
+    font-style: italic;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .onboarding-container { margin: 80px auto; }
+    .onboarding-header h1 { font-size: 42px; }
+    .role-selection { grid-template-columns: 1fr; gap: 30px; }
+    .progress-container { gap: 10px; }
+    .progress-line { width: 60px; }
+    .nav-buttons { flex-direction: column; gap: 16px; }
+    .btn-back, .btn-next, .btn-primary { width: 100%; }
 }

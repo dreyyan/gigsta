@@ -1,4 +1,4 @@
-/* gig-details.css */
+@import url('styles.css');
 .gig-details-page {
     max-width: 1400px;
     margin: 0 auto;

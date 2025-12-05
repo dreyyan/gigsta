@@ -90,9 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/primary-button.css">
     <link rel="stylesheet" href="../css/authentication.css">
-    <link rel="stylesheet" href="../css/social-button.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
@@ -146,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'type' => 'password',
                             'name' => 'signUpPassword',
                             'id' => 'signUpPassword',
-                            'placeholder' => '******',
+                            'placeholder' => 'Password',
                             'icon' => '../images/password-icon.svg',
                             'required' => true
                         ]); ?>
@@ -155,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'type' => 'password',
                             'name' => 'signUpConfirm',
                             'id' => 'signUpConfirm',
-                            'placeholder' => '******',
+                            'placeholder' => 'Confirm password',
                             'icon' => '../images/password-icon.svg',
                             'required' => true
                         ]); ?>

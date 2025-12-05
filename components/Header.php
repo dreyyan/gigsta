@@ -6,7 +6,6 @@ $userRole   = $_SESSION['role'] ?? '';
 ?>
 
 <header id="header">
-
     <!-- LEFT: Logo + optional Search -->
     <div id="header-left-container">
         <a href="../index.php">
@@ -46,7 +45,7 @@ $userRole   = $_SESSION['role'] ?? '';
             <div class="header-profile-container" id="profileDropdown">
                 <img src="../images/profile-placeholder-icon.svg" class="profile-placeholder-icon" alt="Profile">
                 <div class="dropdown-content">
-                    <a href="../pages/GigsterProfile.php">Profile</a>
+                    <a href="../pages/Profile.php">Profile</a>
                     <a href="../pages/Chats.php">Messages</a>
                     <a href="../pages/PrivacyAndSupport.php">Privacy & Support</a>
                     <a href="../database/logout.php">Log Out</a>

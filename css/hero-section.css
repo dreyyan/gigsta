@@ -1,11 +1,21 @@
+@import url('styles.css');
 .hero-section-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    flex-direction: column;
-    margin-bottom: 64px;
+    /* margin-bottom: 64px; */
     padding: 80px 80px 0 80px;
+
+    height: 100vh;
+
+    background-image: url('../images/hero-section-background.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* Prevent white gaps around the image by centering it */
+    background-color: var(--background, #000); /* or set a color under it */
 }
 
 .hero-section-header {
@@ -71,5 +81,94 @@
 
     #star-icon {
     color: var(--secondary);
+    }
+}
+
+/* [COMPONENT] Quick Tags */
+/* [COMPONENT] Quick Tags */
+.quick-tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    max-width: 660px;
+    margin-top: 17px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.quick-tags span {
+    font-family: var(--body);
+    font-size: 14px;
+    text-align: center;
+    line-height: 24px;
+    letter-spacing: 1.5%;
+    margin-right: 8px;
+}
+
+.tag-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 4px 17px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tag-container img {
+    margin-top: 2px;
+    transition: all 0.3s ease;
+}
+
+.tag-container:hover {
+    color: var(--background);
+    background-color: var(--primary);
+        transform: translateX(4px);
+    transition: transform 0.3s ease;
+}
+
+.tag-container:hover img {
+    content: url('../images/tag-arrow-hover-icon.svg');
+}
+
+/* [COMPONENT] Feature Card */
+.info-card {
+    display: flex;
+    flex-direction: row;
+
+    flex: 1;
+    max-width: 423px;
+    min-width: 361px;
+    height: 158px;
+
+    padding: 24px;
+
+    border-radius: 17px;
+    background: var(--background);
+    box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4);
+
+    #info-card-title {
+        font-family: var(--header);
+        font-weight: 600;
+        font-size: 20px;
+        letter-spacing: 1.5%;
+
+        margin-bottom: 8px;
+    }
+
+    #info-card-description {
+        font-family: var(--body);
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 24px;
+        letter-spacing: 1.5%;
+    }
+
+    img {
+        width: 32px;
+        margin-right: 16px;
     }
 }
