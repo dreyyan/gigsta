@@ -174,7 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 showConsoleAlert("Success", data.message, "success");
                 signUpForm.reset();
-                window.location.replace("Login.php");
+
+                setTimeout(() => {
+                    window.location.replace("Login.php");
+                }, 1000);
             } catch (err) {
                 showConsoleAlert("Error", "Registration failed");
                 console.error(err);

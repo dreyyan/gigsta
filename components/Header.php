@@ -1,31 +1,61 @@
 <?php
 session_start();
-$isLoggedIn = $_SESSION['logged_in'] ?? false; // true if logged in
-$userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
+
+$isLoggedIn = $_SESSION['logged_in'] ?? false;
+$userRole   = $_SESSION['role'] ?? '';
 ?>
 
 <header id="header">
+
+    <!-- LEFT: Logo + optional Search -->
     <div id="header-left-container">
-        <!-- Logo Banner -->
         <a href="../index.php">
             <div class="logo-banner-div">
                 <img id="logo-banner" src="../images/gigsta-logo.svg" alt="Gigsta Logo">
             </div>
         </a>
 
-        <!-- [COMPONENT] Search Bar -->
+        <!-- Search Bar only if logged in -->
         <?php if ($isLoggedIn): ?>
             <?php
                 $width = "460px";
                 include __DIR__ . '/SearchBar.php';
             ?>
         <?php endif; ?>
+    </div>
 
-        <!-- Header Links -->
-        <div class="header-links">
-            <?php if (!$isLoggedIn): ?>
+    <!-- RIGHT: Navigation / Auth / Profile -->
+    <div id="auth-buttons">
+        <?php if ($isLoggedIn): ?>
+            <!-- Logged-in navigation links -->
+            <div class="header-links">
                 <?php
-                // Not logged in: use dynamic dropdown component
+                $links = [
+                    ['text' => 'Browse Gigs', 'href' => '../pages/FindFreelancers.php'],
+                    ['text' => 'My Orders', 'href' => '../pages/MyOrders.php'],
+                    ['text' => 'Messages', 'href' => '../pages/Chats.php'],
+                ];
+                foreach ($links as $link) {
+                    echo '<a class="header-navigation-link" href="' . htmlspecialchars($link['href']) . '">' 
+                        . htmlspecialchars($link['text']) . '</a>';
+                }
+                ?>
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="header-profile-container" id="profileDropdown">
+                <img src="../images/profile-placeholder-icon.svg" class="profile-placeholder-icon" alt="Profile">
+                <div class="dropdown-content">
+                    <a href="../pages/GigsterProfile.php">Profile</a>
+                    <a href="../pages/Chats.php">Messages</a>
+                    <a href="../pages/PrivacyAndSupport.php">Privacy & Support</a>
+                    <a href="../logout.php">Log Out</a>
+                </div>
+            </div>
+        <?php else: ?>
+            <!-- Logged-out navigation -->
+            <div id="navigation-link">
+                <?php
                 $label = "Explore";
                 $items = [
                     ['text' => 'All Gigs', 'href' => 'pages/FindFreelancers.php?query=All'],
@@ -37,64 +67,22 @@ $userRole   = $_SESSION['role'] ?? '';         // 'client', 'freelancer', etc.
                     ['text' => 'Programming & Tech', 'href' => 'pages/FindFreelancers.php?query=Programming+%26+Tech']
                 ];
                 $boldFirst = true;
+                $width = "40px";
                 include __DIR__ . '/NavigationLinkDropdown.php';
                 ?>
-            <?php else: ?>
-                <?php
-                // Logged-in client links as single-line <a> elements
-                $links = [
-                    ['text' => 'Browse Gigs', 'href' => '../pages/FindFreelancers.php'],
-                    ['text' => 'My Orders', 'href' => 'pages/MyOrders.php'],
-                    ['text' => 'Messages', 'href' => '../pages/Chats.php'],
-                ];
-                foreach ($links as $link) {
-                    echo '<a class="header-navigation-link" href="' . htmlspecialchars($link['href']) . '">' 
-                        . htmlspecialchars($link['text']) . '</a>';
-                }
-                ?>
-            <?php endif; ?>
-        </div>
-    </div>
 
-    <!-- Auth Buttons / Profile -->
-    <div id="auth-buttons">
-        <?php if (!$isLoggedIn): ?>
+                <a class="header-navigation-link" href="../pages/SignUp.php">Become a Freelancer</a>
+            </div>
+
+            <!-- Auth buttons -->
             <a class="header-navigation-link" href="../pages/Login.php">Log In</a>
+
             <?php
                 $label = "Join";
                 $href = "../pages/SignUp.php";
                 $navMode = true;
                 include __DIR__ . '/PrimaryButton.php';
             ?>
-        <?php else: ?>
-            <!-- Logged-in client profile dropdown -->
-            <div class="header-profile-container" id="profileDropdown">
-                <img src="../images/profile-placeholder-icon.svg" alt="Profile Placeholder" class="profile-placeholder-icon">
-                <div class="dropdown-content">
-                    <a href="../pages/GigsterProfile.php">Profile</a>
-                    <a href="../pages/Chats.php">Messages</a>
-                    <a href="../pages/PrivacyAndSupport.php">Privacy & Support</a>
-                    <a href="../pages/Login.php">Log Out</a>
-                </div>
-            </div>
         <?php endif; ?>
     </div>
 </header>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const profileContainer = document.getElementById('profileDropdown');
-
-    if (profileContainer) {
-        profileContainer.addEventListener('click', function(e) {
-            e.stopPropagation(); // prevent click from bubbling
-            profileContainer.classList.toggle('active');
-        });
-
-        // Close dropdown if clicked outside
-        document.addEventListener('click', function() {
-            profileContainer.classList.remove('active');
-        });
-    }
-});
-</script>

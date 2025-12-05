@@ -20,3 +20,23 @@ $rightAlign = $rightAlign ?? false;
         <?php endforeach; ?>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const label = dropdown.querySelector('.dropdown-label');
+
+        if (label) {
+            label.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+            });
+        }
+    });
+
+    document.addEventListener('click', function() {
+        dropdowns.forEach(d => d.classList.remove('active'));
+    });
+});
+</script>

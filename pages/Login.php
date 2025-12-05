@@ -1,51 +1,61 @@
 <?php
 session_start();
-$error = ""; // FIX #1 added
-
 require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
+// Try connecting to the SQLite database
 try {
     $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
-    http_response_code(500);
+    header('Content-Type: application/json');
     echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
     exit;
 }
+
+// Detect if request is AJAX
+$isAjax = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $loginUser = $_POST['loginUser'] ?? '';
     $loginPassword = $_POST['loginPassword'] ?? '';
 
+    header('Content-Type: application/json'); // Ensure JSON output for POST
+
+    // Validate input
     if (!$loginUser || !$loginPassword) {
-        $error = "All fields are required.";
+        echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
+        exit;
+    }
+
+    // Prepare and execute query
+    $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
+    $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
+    $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
+
+    // Check password
+    if ($user && password_verify($loginPassword, $user['password'])) {
+        $_SESSION['logged_in'] = true;
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'] ?? 'client';
+
+        echo json_encode([
+            'status' => 'success',
+            'message' => 'Login successful',
+            'role' => $_SESSION['role']
+        ]);
+        exit;
     } else {
-        $stmt = $db->prepare("SELECT * FROM users WHERE email = :email OR username = :username");
-        $stmt->bindValue(':email', $loginUser, SQLITE3_TEXT);
-        $stmt->bindValue(':username', $loginUser, SQLITE3_TEXT);
-        $result = $stmt->execute();
-        $user = $result->fetchArray(SQLITE3_ASSOC);
-
-        if ($user && password_verify($loginPassword, $user['password'])) {
-
-            // Store login session data
-            $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-
-            // Safe role handling
-            $_SESSION['role'] = isset($user['role']) ? $user['role'] : 'client';
-
-            header("Location: ../index.php");
-            exit;
-        } 
-        else {
-            $error = "Invalid email/username or password.";
-        }
+        echo json_encode(['status' => 'error', 'message' => 'Invalid email/username or password']);
+        exit;
     }
 }
-?>
 
+// If GET request, render HTML login page
+$error = "";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="error-message"><?= htmlspecialchars($error) ?></div>
                 <?php endif; ?>
                 <!-- [SECTION] Authentication Form -->
-                <form class="auth-form" action="#" method="post" id="loginForm">
+                <form class="auth-form" action="Login.php" method="post" id="loginForm">
                     <!-- Step 1: Email / Username -->
                     <?php renderInputGroup([
                         'name' => 'loginUser',

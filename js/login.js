@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('loginPassword', passVal);
 
         try {
-            const response = await fetch('../pages/LogIn.php', {
+            const response = await fetch('../pages/Login.php', {
                 method: 'POST',
                 body: formData
             });

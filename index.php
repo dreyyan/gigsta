@@ -16,7 +16,6 @@
     <title>Gigsta • Get Gigs Done at Lightning Speed</title>
 </head>
 <body>
-    <!-- <img src="images/vector-art.png" id="vector-art"/> -->
     <!-- [COMPONENT] Header -->
     <?php include 'components/Header.php'; ?>
     <!-- [SECTION] Hero Section -->
@@ -35,8 +34,9 @@
             <!-- [COMPONENT] Search Bar -->
             <?php
                 $placeholder="Search for any service...";
-                $width = "460px";
+                $width = "656px";
                 $rounded = true;
+                $icon = "../images/search-icon.svg";
                 include 'components/SearchBar.php'; 
             ?>
 

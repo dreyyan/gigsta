@@ -6,6 +6,7 @@ try {
     die("Unable to connect to database: " . $e->getMessage());
 }
  
+// Create users table
 $db->exec("CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
@@ -16,17 +17,11 @@ $db->exec("CREATE TABLE IF NOT EXISTS users (
     created_at TEXT DEFAULT (datetime('now'))
 )");
 
-$db->exec("CREATE TABLE IF NOT EXISTS gigsters (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    name TEXT NOT NULL,
-    email TEXT,
-    skills TEXT,
-    hourly_rate REAL,
-    profile_url TEXT,
-    created_at TEXT DEFAULT (datetime('now'))
-)");
+// If you want to delete the gigsters table entirely from the database
+$db->exec("DROP TABLE IF EXISTS gigsters");
 
+// Optional: You can remove the seeding code since the table no longer exists
+/*
 $count = (int)$db->querySingle("SELECT COUNT(*) FROM gigsters");
 if ($count === 0) {
     $seed = [
@@ -45,4 +40,5 @@ if ($count === 0) {
         $stmt->execute();
     }
 }
+*/
 ?>
