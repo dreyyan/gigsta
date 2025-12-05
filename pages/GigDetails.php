@@ -63,7 +63,10 @@ $reviewCount  = $ratingData['review_count'];
                     <div class="seller-name">
                         <?= htmlspecialchars($gig['username']) ?>
                         <?php if ($gig['is_pro']): ?>
-                            <span class="pro-badge">GigstaPro</span>
+                    <span class="pro-badge">
+                        <img src="../images/thunder-badge-icon.svg" alt="pro" class="badge-icon">
+                        Gigsta Pro
+                    </span>
                         <?php endif; ?>
                     </div>
 
@@ -91,31 +94,23 @@ $reviewCount  = $ratingData['review_count'];
             <div class="reviews-grid">
                 <p>No reviews yet. Be the first!</p>
             </div>
-
-            <h2 class="section-title">Similar Gigs</h2>
-            <div class="similar-gigs-grid">
-                <!-- Add your GigCard.php later -->
-            </div>
         </div>
 
         <!-- SIDEBAR -->
         <div class="sidebar">
-            <div class="price-section">
-                <div class="gig-price-sidebar">From $<?= number_format($gig['price'], 2) ?></div>
-                <button class="contact-btn">Contact</button>
-            </div>
-
             <div class="seller-card">
-                <img src="../images/profile-placeholder-icon.svg" alt="Seller">
-                <h3><?= htmlspecialchars($gig['username']) ?></h3>
+                <h4>Gigster's Profile</h4>
+                <img src="../images/gig-details-sidebar-profile.svg" alt="Seller">
+                <h5><?= htmlspecialchars($gig['username']) ?></h5>
                 <div class="seller-rating">
-                    ★ <?= $avgRating ?> (<?= $reviewCount ?>)
+                    ★ <?= $avgRating ?>
+                    <p id="review-count">(<?= $reviewCount ?>)</p>
                 </div>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing...</p>
                 <div class="seller-meta">
-                    <div>40 years old</div>
-                    <div>Berlin, Germany</div>
-                    <div>5 Years on Gigsta</div>
+                    <div>👤 40 years old</div>
+                    <div>📍 Berlin, Germany</div>
+                    <div>💼 5 Years on Gigsta</div>
                 </div>
                 <div class="seller-tags">
                     <span class="tag producer">Producer</span>
@@ -123,6 +118,14 @@ $reviewCount  = $ratingData['review_count'];
                     <span class="tag other">Programmer</span>
                     <span class="tag other">Videographer</span>
                 </div>
+
+                <?php 
+                    $label = "Contact"; 
+                    $id = "contact-btn";
+                    $icon = "../images/contact-icon.svg";
+                    $href  = "Chats.php?with=" . $gig['user_id'];
+                    include '../components/PrimaryButton.php'; 
+                ?>
             </div>
         </div>
     </div>

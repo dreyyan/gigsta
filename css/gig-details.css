@@ -28,7 +28,7 @@
     display: grid;
     grid-template-columns: 1fr 100px;
     gap: 20px;
-    margin-bottom: 32px;
+    /* margin-bottom: 32px; */
 }
 
 .main-image img {
@@ -62,12 +62,12 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    margin: 32px 0;
+    margin: 0 0 32px 0;
 }
 
 .seller-avatar {
-    width: 64px;
-    height: 64px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
 }
 
@@ -88,7 +88,7 @@
     background: #000;
     color: white;
     padding: 4px 12px;
-    border-radius: 20px;
+    border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -98,9 +98,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 12px;
     flex-wrap: wrap;
     gap: 16px;
+    padding-right: 8px;
 }
 
 .rating {
@@ -138,7 +138,7 @@
 .gig-price {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #00cc88;
+    color: var(--success);
     margin: 0;
 }
 
@@ -190,22 +190,26 @@
 .seller-card {
     background: #f9f9f9;
     border-radius: 12px;
-    padding: 24px;
-    text-align: center;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+
+    h4 {
+        margin-bottom: 8px;
+    }
 }
 
 .seller-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 16px;
+    width: 100%;
 }
 
 .seller-rating {
+    display: flex;
+    gap: 8px;
+
     color: #ffb400;
-    font-size: 1.3rem;
+    font-size: 17px;
     font-weight: 600;
-    margin: 12px 0;
+    margin-bottom: 16px;
 }
 
 .seller-meta {
@@ -219,8 +223,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    justify-content: center;
-    margin-top: 16px;
+    margin: 16px 0 32px 0;
+}
+
+#review-count {
+    color: oklch(34.4% 3.2% 303);
 }
 
 .tag {
@@ -232,7 +239,7 @@
 
 .tag.producer { background: #ff4d4d; color: white; }
 .tag.rapper   { background: #ffbf00; color: black; }
-.tag.other    { background: #e0e0e0; color: #333; }
+.tag.other    { background: oklch(98.51% 0.000 89.88); color: #333; }
 
 .reviews-grid,
 .similar-gigs-grid {

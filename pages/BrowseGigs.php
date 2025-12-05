@@ -91,7 +91,7 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
                 foreach ($budgetOptions as $index => $b) {
                     $items[] = [
                         'text' => $b,
-                        'href' => "/pages/FindFreelancers.php?budget=" . urlencode($b) . "&query=$q"
+                        'href' => "/pages/BrowseGigs.php?budget=" . urlencode($b) . "&query=$q"
                     ];
                 }
                 $boldFirst     = true;
@@ -135,7 +135,7 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
             <div class="results-count">
                 <p><?= count($filtered) ?> results</p>
             </div>
-            <a class="clear-search" href="/pages/FindFreelancers.php">Clear search</a>
+            <a class="clear-search" href="/pages/BrowseGigs.php">Clear search</a>
         <?php endif; ?>
 
         <!-- GIGS GRID -->

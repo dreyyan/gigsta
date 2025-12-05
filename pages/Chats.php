@@ -1,17 +1,34 @@
+<?php
+session_start();
+require_once __DIR__ . '/../database/connection.php';
+
+// Get the gigster we're chatting with
+$chatWithId = isset($_GET['with']) ? (int)$_GET['with'] : null;
+$chatPartnerName = "Select a chat";
+$chatPartnerAvatar = "../images/profile-placeholder-icon.svg";
+
+if ($chatWithId) {
+    $stmt = $db->prepare("SELECT username FROM users WHERE id = :id");
+    $stmt->bindValue(':id', $chatWithId, SQLITE3_INTEGER);
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
+    
+    if ($user) {
+        $chatPartnerName = $user['username'];
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/privacyandsupport.css">
-    <!-- [IMPORT] Website Icon -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/chats.css">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
-    <!-- [IMPORT] Fonts: Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>Gigsta • My Chats</title>
+    <title>Gigsta • Chat with <?= htmlspecialchars($chatPartnerName) ?></title>
 </head>
 <body>
     <?php include '../components/Header.php'; ?>
@@ -29,90 +46,86 @@
 
             <div class="chats-list-items">
                 <?php
+                // Replace this later with real DB chats
                 $chatUsers = [
-                    ['id' => 1, 'name' => 'Jane Doe',        'message' => 'Thanks! I love the final mix 🔥', 'lastTimeSeen' => '2m ago', 'unreadCount' => 3],
-                    ['id' => 2, 'name' => 'John Smith',      'message' => 'Can you send the stems?',       'lastTimeSeen' => '15m ago', 'unreadCount' => 0],
-                    ['id' => 3, 'name' => 'Alice Brown',     'message' => 'Payment sent!',                 'lastTimeSeen' => '1h ago', 'unreadCount' => 1],
-                    ['id' => 4, 'name' => 'Mike Johnson',    'message' => 'When can you start?',           'lastTimeSeen' => '3h ago', 'unreadCount' => 0],
-                    ['id' => 5, 'name' => 'Sarah Williams',  'message' => 'Here’s the reference track',    'lastTimeSeen' => 'Yesterday', 'unreadCount' => 0],
+                    ['id' => 1, 'name' => 'Jane Doe',       'message' => 'Thanks! I love the final mix', 'time' => '2m ago', 'unread' => 3],
+                    ['id' => 2, 'name' => 'John Smith',     'message' => 'Can you send the stems?',      'time' => '15m ago', 'unread' => 0],
+                    ['id' => 3, 'name' => 'Alice Brown',    'message' => 'Payment sent!',                'time' => '1h ago', 'unread' => 1],
+                    ['id' => 4, 'name' => 'Mike Johnson',   'message' => 'When can you start?',          'time' => '3h ago', 'unread' => 0],
                 ];
 
-                foreach ($chatUsers as $user) {
-                    $name = $user['name'];
-                    $id = $user['id'];
-                    $message = $user['message'];
-                    $lastTimeSeen = $user['lastTimeSeen'];
-                    $unreadCount = $user['unreadCount'];
-                    include '../components/ChatCard.php';
-                }
+                foreach ($chatUsers as $user):
+                    $active = ($chatWithId && $user['id'] == $chatWithId) ? 'active' : '';
                 ?>
+                    <div class="chat-card <?= $active ?>" onclick="location.href='Chats.php?with=<?= $user['id'] ?>'">
+                        <div class="chat-card-avatar">
+                            <img src="../images/profile-placeholder-icon.svg" alt="<?= $user['name'] ?>">
+                            <?php if ($user['unread'] > 0): ?>
+                                <span class="chat-card-unread"><?= $user['unread'] ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="chat-card-content">
+                            <div class="chat-card-header">
+                                <span class="chat-card-name"><?= htmlspecialchars($user['name']) ?></span>
+                                <span class="chat-card-time"><?= $user['time'] ?></span>
+                            </div>
+                            <div class="chat-card-message"><?= htmlspecialchars($user['message']) ?></div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <!-- RIGHT: Conversation View -->
-        <div class="conversation-container">
-            <div class="conversation-header-container">
-                <img src="../images/chat-profile-placeholder.svg" alt="John Doe">
-                <div>
-                    <h4>John Doe</h4>
-                    <small style="color: rgba(255,255,255,0.8);">Online</small>
+        <!-- RIGHT: Active Conversation -->
+        <div class="chat-area">
+            <?php if (!$chatWithId): ?>
+                <div class="empty-chat">
+                    <p>Select a chat to start messaging</p>
                 </div>
-            </div>
+            <?php else: ?>
+                <div class="chat-header">
+                    <img src="<?= $chatPartnerAvatar ?>" alt="<?= htmlspecialchars($chatPartnerName) ?>">
+                    <div><?= htmlspecialchars($chatPartnerName) ?></div>
+                </div>
 
-            <div class="messages-area">
-                <!-- Sample conversation (you’ll replace this with real data later) -->
-                <div class="message received">
-                    Hey! I just checked the beat you sent. It’s fire! Can you add a little more 808 slide?
-                    <div class="message-time">10:32 AM</div>
+                <div class="messages-area" id="messages-area">
+                    <div class="message received">
+                        Hey! I saw your gig and I'm interested!
+                        <div class="message-time"><?= date('g:i A') ?></div>
+                    </div>
                 </div>
-                <div class="message sent">
-                    For sure! I’ll get that done in the next hour and send you the updated version.
-                    <div class="message-time">10:34 AM</div>
-                </div>
-                <div class="message received">
-                    Perfect, thank you! 🔥
-                    <div class="message-time">10:35 AM</div>
-                </div>
-                <div class="message sent">
-                    Updated file sent! Check your email/Dropbox.
-                    <div class="message-time">11:02 AM</div>
-                </div>
-            </div>
 
-            <div class="message-input-container">
-                <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
-                <button id="send-button" title="Send">➤</button>
-            </div>
+                <div class="message-input-container">
+                    <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
+                    <button id="send-button">
+                        <img src="../images/send-icon.svg">
+                    </button>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
     <script>
-        // Simple interactivity (optional)
-        document.getElementById('send-button').addEventListener('click', function() {
+        const messagesArea = document.getElementById('messages-area');
+        if (messagesArea) messagesArea.scrollTop = messagesArea.scrollHeight;
+
+        document.getElementById('send-button')?.addEventListener('click', sendMessage);
+        document.getElementById('message-input')?.addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
             const input = document.getElementById('message-input');
-            if (input.value.trim()) {
-                const messagesArea = document.querySelector('.messages-area');
-                const newMsg = document.createElement('div');
-                newMsg.className = 'message sent';
-                newMsg.innerHTML = `${input.value}<div class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`;
-                messagesArea.appendChild(newMsg);
-                messagesArea.scrollTop = messagesArea.scrollHeight;
-                input.value = '';
-            }
-        });
+            const text = input.value.trim();
+            if (!text) return;
 
-        document.getElementById('message-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') document.getElementById('send-button').click();
-        });
-
-        // Highlight selected chat card
-        document.querySelectorAll('.chat-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelectorAll('.chat-card').forEach(c => c.style.backgroundColor = '');
-                this.style.backgroundColor = 'var(--primary)';
-                this.style.color = 'white';
-            });
-        });
+            const msg = document.createElement('div');
+            msg.className = 'message sent';
+            msg.innerHTML = `${text}<div class="message-time">${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>`;
+            messagesArea.appendChild(msg);
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+            input.value = '';
+        }
     </script>
 </body>
 </html>

@@ -13,7 +13,7 @@ $icon        = $icon ?? '../images/search-icon.svg';
     class="<?= $rounded ? 'rounded' : '' ?>"
     style="<?= $width ? 'width:' . htmlspecialchars($width) . ';' : '' ?>"
     method="GET"
-    action="../pages/FindFreelancers.php"
+    action="../pages/BrowseGigs.php"
 >
     <input 
         id="<?= htmlspecialchars($id) ?>" 

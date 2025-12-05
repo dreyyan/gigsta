@@ -16,7 +16,7 @@ function searchTag(tag) {
     // Encode tag for URL
     const query = encodeURIComponent(tag);
 
-    // Navigate to FindFreelancers.php with query param
-    window.location.href = "/pages/FindFreelancers.php?query=" + query;
+    // Navigate to BrowseGigs.php with query param
+    window.location.href = "/pages/BrowseGigs.php?query=" + query;
 }
 </script>

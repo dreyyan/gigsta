@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['role'])) {
         if ($role === 'gigster') {
             header('Location: onboarding-step2-gigster.php');
         } else {
-            header('Location: FindFreelancers.php');
+            header('Location: BrowseGigs.php');
         }
         exit;
     } else {

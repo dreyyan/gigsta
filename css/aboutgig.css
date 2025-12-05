@@ -58,11 +58,10 @@ h3 {
 }
 
 .main-image {
-    width: 100%;
+    /* width: 100%; */
     height: 400px;
     object-fit: cover;
     border-radius: 16px;
-    background: #ddd;
 }
 
 .thumbs {

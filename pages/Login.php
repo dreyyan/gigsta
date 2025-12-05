@@ -39,12 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['logged_in'] = true;
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'] ?? 'client';
+        $_SESSION['role'] = $user['role'];
 
         echo json_encode([
             'status' => 'success',
             'message' => 'Login successful',
-            'role' => $_SESSION['role']
+            'role' => $user['role']
         ]);
         exit;
     } else {
@@ -63,11 +63,7 @@ $error = "";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/authentication.css">
-    <link rel="stylesheet" href="../css/primary-button.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/social-button.css">
+    <link rel="stylesheet" href="../css/main.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts -->
