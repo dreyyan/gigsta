@@ -31,7 +31,7 @@ $userRole   = $_SESSION['role'] ?? '';
             <div class="header-links">
                 <?php
                 $links = [
-                    ['text' => 'Browse Gigs', 'href' => '../pages/FindFreelancers.php'],
+                    ['text' => 'Browse Gigs', 'href' => '../pages/BrowseGigs.php'],
                     ['text' => 'My Orders', 'href' => '../pages/MyOrders.php'],
                     ['text' => 'Messages', 'href' => '../pages/Chats.php'],
                 ];

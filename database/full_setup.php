@@ -22,19 +22,23 @@ $db->exec("PRAGMA foreign_keys = ON;");
 
 // Step 2: Create tables (idempotent with upgrades)
 
-// Users table - with role and onboarded fields
-$db->exec("CREATE TABLE IF NOT EXISTS users (
+// Users table - with role, onboarded fields, and is_pro flag
+$db->exec("
+CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     role TEXT CHECK(role IN ('gigster', 'client', NULL)),
     onboarded INTEGER DEFAULT 0,
+    is_pro INTEGER DEFAULT 0,
     created_at TEXT DEFAULT (datetime('now'))
-)");
+)
+");
 
 // Gigs table
-$db->exec("CREATE TABLE IF NOT EXISTS gigs (
+$db->exec("
+CREATE TABLE IF NOT EXISTS gigs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     title TEXT NOT NULL,
@@ -44,10 +48,12 @@ $db->exec("CREATE TABLE IF NOT EXISTS gigs (
     status TEXT DEFAULT 'active',
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE
-)");
+)
+");
 
 // Gig Reviews table
-$db->exec("CREATE TABLE IF NOT EXISTS gig_reviews (
+$db->exec("
+CREATE TABLE IF NOT EXISTS gig_reviews (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     gig_id INTEGER NOT NULL,
     client_id INTEGER NOT NULL,
@@ -56,7 +62,8 @@ $db->exec("CREATE TABLE IF NOT EXISTS gig_reviews (
     created_at TEXT DEFAULT (datetime('now')),
     FOREIGN KEY(gig_id) REFERENCES gigs(id) ON DELETE CASCADE,
     FOREIGN KEY(client_id) REFERENCES users(id) ON DELETE CASCADE
-)");
+)
+");
 
 echo "All tables created/updated successfully!\n\n";
 
@@ -106,14 +113,18 @@ for ($i = 1; $i <= 20; $i++) {
     $email = randomEmail($username);
     $password = password_hash('password123', PASSWORD_DEFAULT);
     $role = 'gigster';
+    $isPro = random_int(0,1); // randomly assign Gigsta Pro subscription
 
     // Insert gigster
-    $stmt = $db->prepare("INSERT OR IGNORE INTO users (username, email, password, role, onboarded) 
-                          VALUES (:username, :email, :password, :role, 1)");
+    $stmt = $db->prepare("
+        INSERT OR IGNORE INTO users (username, email, password, role, onboarded, is_pro) 
+        VALUES (:username, :email, :password, :role, 1, :is_pro)
+    ");
     $stmt->bindValue(':username', $username, SQLITE3_TEXT);
     $stmt->bindValue(':email', $email, SQLITE3_TEXT);
     $stmt->bindValue(':password', $password, SQLITE3_TEXT);
     $stmt->bindValue(':role', $role, SQLITE3_TEXT);
+    $stmt->bindValue(':is_pro', $isPro, SQLITE3_INTEGER);
     $stmt->execute();
 
     $userId = $db->lastInsertRowID();
@@ -134,8 +145,10 @@ for ($i = 1; $i <= 20; $i++) {
         $description = "I will $title for you quickly and professionally. High quality guaranteed!";
         $price = random_int(15, 250) + (random_int(0, 99) / 100);
 
-        $stmt = $db->prepare("INSERT INTO gigs (user_id, title, description, category, price) 
-                              VALUES (:user_id, :title, :description, :category, :price)");
+        $stmt = $db->prepare("
+            INSERT INTO gigs (user_id, title, description, category, price) 
+            VALUES (:user_id, :title, :description, :category, :price)
+        ");
         $stmt->bindValue(':user_id', $userId, SQLITE3_INTEGER);
         $stmt->bindValue(':title', $title, SQLITE3_TEXT);
         $stmt->bindValue(':description', $description, SQLITE3_TEXT);
@@ -155,8 +168,10 @@ for ($i = 1; $i <= 20; $i++) {
                 $clientUsername = 'Client' . random_int(100,999);
                 $clientEmail = randomEmail($clientUsername);
                 $clientPassword = password_hash('password123', PASSWORD_DEFAULT);
-                $db->exec("INSERT INTO users (username,email,password,role,onboarded) 
-                           VALUES ('$clientUsername','$clientEmail','$clientPassword','client',1)");
+                $db->exec("
+                    INSERT INTO users (username,email,password,role,onboarded) 
+                    VALUES ('$clientUsername','$clientEmail','$clientPassword','client',1)
+                ");
                 $clientId = $db->lastInsertRowID();
             } else {
                 $clientId = $clientRow['id'];
@@ -165,8 +180,10 @@ for ($i = 1; $i <= 20; $i++) {
             $rating = round(random_int(10,50)/10,1); // 1.0–5.0
             $review = $reviewTexts[array_rand($reviewTexts)];
 
-            $stmt = $db->prepare("INSERT INTO gig_reviews (gig_id, client_id, rating, review) 
-                                  VALUES (:gig_id, :client_id, :rating, :review)");
+            $stmt = $db->prepare("
+                INSERT INTO gig_reviews (gig_id, client_id, rating, review) 
+                VALUES (:gig_id, :client_id, :rating, :review)
+            ");
             $stmt->bindValue(':gig_id', $gigId, SQLITE3_INTEGER);
             $stmt->bindValue(':client_id', $clientId, SQLITE3_INTEGER);
             $stmt->bindValue(':rating', $rating, SQLITE3_FLOAT);
@@ -175,7 +192,7 @@ for ($i = 1; $i <= 20; $i++) {
         }
     }
 
-    echo "   ✓ Created gigster: $username ($email) with $numGigs gig(s) and reviews\n";
+    echo "   ✓ Created gigster: $username ($email) with $numGigs gig(s) and reviews. Pro: " . ($isPro ? 'Yes' : 'No') . "\n";
 }
 
 echo "\nSetup complete!\n";

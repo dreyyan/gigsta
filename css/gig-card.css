@@ -14,7 +14,7 @@
     cursor: pointer;
 
     width: 302px;
-    height: 310px;
+    height: 306px;
 }
 
 .gig-card:hover {
@@ -336,16 +336,20 @@
     display: block;
 }
 
+.badge-icon {
+    height: 14px;
+}
+
 .pro-badge {
     background: var(--primary);
     color: var(--background);
-    padding: 2px 12px 2px 8px;
+    padding: 2px 8px;
     border-radius: 4px;
     font-size: 13px;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
 .gig-description {
@@ -370,14 +374,35 @@
     align-items: center;
 }
 
-.gig-price {
-    margin: 0;
-    font-size: 17px;
-    color: var(--primary);
-    font-weight: 600;
+#price-container {
+    display: flex;
+    align-items: baseline;  /* Align "From" and price nicely */
+    gap: 4px;               /* Slight gap between text and price */
 }
 
-.badge-icon {
-    width: 16px;
-    height: 16px;
+#from-text {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;            /* Optional: make "From" slightly muted */
+}
+
+.gig-price {
+    font-family: var(--body);
+    font-weight: 700;        /* Slightly bolder for emphasis */
+    font-size: 17px;
+    color: #000;            /* Main price in bold/black */
+}
+
+/* This tiny CSS makes the entire card clickable without breaking your design */
+.gig-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+.gig-card-link:hover .gig-card {
+    opacity: 0.95;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
 }

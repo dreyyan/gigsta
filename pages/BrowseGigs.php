@@ -1,14 +1,14 @@
 <?php
 require_once __DIR__ . '/../database/connection.php';
-require_once __DIR__ . '/../database/gig_reviews.php';  // This gives us getGigRating()
+require_once __DIR__ . '/../database/gig_reviews.php';  // Provides getGigRating()
 
 $query  = trim($_GET['query'] ?? '');
 $budget = $_GET['budget'] ?? 'Any';
 
-// Base query
-$sql = "SELECT gigs.*, users.username, users.role 
-        FROM gigs 
-        INNER JOIN users ON gigs.user_id = users.id 
+// Base query: include `is_pro` field from users
+$sql = "SELECT gigs.*, users.username, users.role, users.is_pro
+        FROM gigs
+        INNER JOIN users ON gigs.user_id = users.id
         WHERE users.role = 'gigster'";
 
 $params = [];
@@ -19,7 +19,7 @@ if ($query !== '') {
     $params[':q'] = '%' . $query . '%';
 }
 
-// Budget filter (exactly as you had it)
+// Budget filter
 if ($budget !== 'Any') {
     switch ($budget) {
         case 'Under $50':
@@ -40,6 +40,7 @@ if ($budget !== 'Any') {
 
 $sql .= " ORDER BY gigs.created_at DESC";
 
+// Prepare statement
 $stmt = $db->prepare($sql);
 foreach ($params as $k => $v) {
     $type = is_int($v) || is_float($v) ? SQLITE3_FLOAT : SQLITE3_TEXT;
@@ -49,8 +50,8 @@ foreach ($params as $k => $v) {
 $result = $stmt->execute();
 $filtered = [];
 
+// Fetch results + append rating info
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    // Add real rating + review count using your existing function
     $ratingData = getGigRating($row['id'], $db);
 
     $row['avg_rating']   = $ratingData['avg_rating'];
@@ -59,7 +60,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $filtered[] = $row;
 }
 
-// For your original dropdowns (unchanged)
+// Dropdown options
 $budgetOptions       = ['Any', 'Under $50', '$50 - $100', '$100+'];
 $selectedBudgetIndex = array_search($budget, $budgetOptions);
 ?>
@@ -79,11 +80,11 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
 
     <main class="search-results-container">
 
-        <!-- FILTERS - EXACTLY AS YOU HAD THEM -->
+        <!-- FILTERS -->
         <div class="filters-section">
             <div class="filter-buttons">
                 <?php
-                // Budget dropdown - unchanged
+                // Budget dropdown
                 $label = "Budget";
                 $q = isset($_GET['query']) ? urlencode($_GET['query']) : '';
                 $items = [];
@@ -93,17 +94,17 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
                         'href' => "/pages/FindFreelancers.php?budget=" . urlencode($b) . "&query=$q"
                     ];
                 }
-                $boldFirst       = true;
-                $selectedIndex   = $selectedBudgetIndex !== false ? $selectedBudgetIndex : 0;
+                $boldFirst     = true;
+                $selectedIndex = $selectedBudgetIndex !== false ? $selectedBudgetIndex : 0;
                 include __DIR__ . '/../components/Dropdown.php';
 
-                // Delivery Time dropdown - unchanged
+                // Delivery Time dropdown
                 $label = "Delivery Time";
                 $items = [
-                    ['text' => 'Any',         'href' => '#'],
-                    ['text' => '24 hours',    'href' => '#'],
-                    ['text' => '3 days',      'href' => '#'],
-                    ['text' => '7 days',      'href' => '#'],
+                    ['text' => 'Any',      'href' => '#'],
+                    ['text' => '24 hours', 'href' => '#'],
+                    ['text' => '3 days',   'href' => '#'],
+                    ['text' => '7 days',   'href' => '#'],
                 ];
                 $boldFirst = true;
                 include __DIR__ . '/../components/Dropdown.php';
@@ -112,7 +113,6 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
 
             <div class="sort-section">
                 <?php
-                // Sort by dropdown - unchanged
                 $label = "Sort by";
                 $items = [
                     ['text'=>'Best selling',       'href'=>'#'],
@@ -120,8 +120,8 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
                     ['text'=>'Price: Low to High', 'href'=>'#'],
                     ['text'=>'Price: High to Low', 'href'=>'#'],
                 ];
-                $rightAlign    = true;
-                $activeIndex   = 0;
+                $rightAlign  = true;
+                $activeIndex = 0;
                 include __DIR__ . '/../components/Dropdown.php';
                 ?>
             </div>
@@ -143,19 +143,16 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
             <?php foreach ($filtered as $gig): ?>
                 <?php
                 $seller       = $gig['username'];
-                $isPro        = false; // Change later if you add pro system
+                $isPro        = $gig['is_pro'] == 1;
                 $description  = $gig['description'] ?? 'No description provided.';
                 $ratingValue  = $gig['avg_rating'] > 0 ? number_format($gig['avg_rating'], 1) : '0.0';
                 $ratingCount  = $gig['review_count'];
                 $price        = number_format($gig['price'], 2);
-                $image        = '../images/gig-image-placeholder.jpg'; // Replace later
+                $image        = '../images/gig-image-placeholder.jpg';
+                $gigId        = $gig['id'];  // ← THIS IS KEY
                 ?>
                 <?php include __DIR__ . '/../components/GigCard.php'; ?>
             <?php endforeach; ?>
-
-            <?php if (empty($filtered)): ?>
-                <p>No gigs found<?= $query ? ' for "' . htmlspecialchars($query) . '"' : '' ?></p>
-            <?php endif; ?>
         </div>
     </main>
 

@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.location.replace("Onboarding.php");
                     } else if (result.role === 'gigster') {
                         // role exists -> normal dashboard
-                        window.location.replace("FindFreelancers.php");
+                        window.location.replace("BrowseGigs.php");
                     } else if (result.role === 'client') {
                         // role exists -> normal dashboard
-                        window.location.replace("FindFreelancers.php");
+                        window.location.replace("BrowseGigs.php");
                     }
                 }, 1000);
             } else {
