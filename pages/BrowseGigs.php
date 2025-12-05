@@ -70,7 +70,12 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
+        <!-- [IMPORT] CSS: Stylesheet -->
+    <link rel="stylesheet" href="../css/browse-gigs.css">
+    <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/gig-card.css">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Gigsta • Find Freelancers</title>

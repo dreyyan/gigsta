@@ -11,8 +11,76 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/aboutgig.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/rating.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
+
+<style>
+/* Fullscreen viewer */
+.img-viewer {
+  position: fixed;
+  inset: 0; /* top:0; left:0; right:0; bottom:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+}
+.img-viewer.hidden { display: none; }
+
+/* content wrapper */
+.viewer-content {
+  position: relative;
+  max-width: 96vw;
+  max-height: 96vh;
+  overflow: hidden;
+  touch-action: none; 
+}
+
+/* the image */
+#viewerImg {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  transform-origin: center center;
+  transition: transform 160ms ease;
+  cursor: grab;
+}
+
+/* close button */
+.close-viewer {
+  position: absolute;
+  top: -12px;
+  right: -8px;
+  font-size: 36px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* zoom controls */
+.zoom-controls {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+.zoom-controls button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+</style>
+
 <body>
 <!-- [COMPONENT] Header -->
     <?php include '../components/Header.php'; ?>
@@ -117,8 +185,61 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<div id="imgViewer" class="img-viewer hidden" aria-hidden="true">
+  <div class="viewer-content" role="dialog" aria-modal="true">
+    <button id="closeViewer" class="close-viewer" aria-label="Close viewer">&times;</button>
+    <img id="viewerImg" src="" alt="Enlarged image">
+    <div class="zoom-controls" aria-hidden="false">
+      <button id="zoomIn" title="Zoom in">+</button>
+      <button id="zoomOut" title="Zoom out">−</button>
+      <button id="resetZoom" title="Reset">⤾</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const viewer = document.getElementById("imgViewer");
+    const viewerImg = document.getElementById("viewerImg");
+    const closeViewer = document.getElementById("closeViewer");
+
+    const zoomIn = document.getElementById("zoomIn");
+    const zoomOut = document.getElementById("zoomOut");
+
+    let scale = 1;
+
+    // OPEN VIEWER WHEN IMAGE CLICKED
+    document.querySelectorAll(".main-image, .thumb").forEach(img => {
+        img.addEventListener("click", () => {
+            viewerImg.src = img.src;
+            viewer.classList.remove("hidden");
+            scale = 1;
+            viewerImg.style.transform = "scale(1)";
+        });
+    });
+
+    // CLOSE VIEWER
+    closeViewer.onclick = () => viewer.classList.add("hidden");
+    viewer.onclick = (e) => {
+        if (e.target === viewer) viewer.classList.add("hidden");
+    };
+
+    // ZOOM IN
+    zoomIn.onclick = () => {
+        scale += 0.2;
+        viewerImg.style.transform = `scale(${scale})`;
+    };
+
+    // ZOOM OUT
+    zoomOut.onclick = () => {
+        if (scale > 0.4) scale -= 0.2;
+        viewerImg.style.transform = `scale(${scale})`;
+    };
+});
+</script>
+
 
 </body>
 </html>

@@ -72,5 +72,6 @@
             include 'components/FeatureCard.php'; ?>
         </div>
     </main>
+    <script src="../js/dropdown.js"></script>
 </body>
 </html>

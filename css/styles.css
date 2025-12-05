@@ -93,3 +93,16 @@ body {
 input, textarea, select, button {
     outline: none;
 }
+
+/*? Remove Default Arrow Buttons for Number Input Fields */
+/* For Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

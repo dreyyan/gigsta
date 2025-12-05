@@ -14,14 +14,13 @@
     transition: all 0.3s ease;
     cursor: pointer;
 
-    width: 302px;
-    height: 306px;
+    width: 300px;
+    height: 370px;
 }
 
 .gig-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    border-color: var(--accent); /* optional, if you want a border highlight */
 }
 
 .gig-info {
@@ -263,10 +262,6 @@
     overflow: hidden;
 }
 
-.gig-footer {
-    display: flex;
-}
-
 .gig-amount {
     color: var(--primary);
     font-size: 17px;
@@ -292,9 +287,10 @@
 .gig-image {
     position: relative;
     width: 100%;
-    height: 140px; /* final height from overrides */
     overflow: hidden;
-    background: oklch(85% 0.035 265.07); /* last specified background */
+    background: oklch(85% 0.035 265.07); /* last specified 
+    background */
+    aspect-ratio: 16 / 9; /* maintains 16:9 ratio */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,7 +340,7 @@
 .pro-badge {
     background: var(--primary);
     color: var(--background);
-    padding: 2px 8px;
+    padding: 0 8px;
     border-radius: 4px;
     font-size: 13px;
     font-weight: 600;
@@ -384,12 +380,21 @@
     overflow: hidden;
 
     min-height: 58.5px;
+
+    margin: 16px 0 8px 0;
+
+    display: -webkit-box;        /* Required for line-clamp */
+    -webkit-line-clamp: 2;       /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;            /* Hide overflow text */
+    text-overflow: ellipsis;     /* Add "..." at the end */
 }
 
 .gig-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    /* justify-content: space-between;
+    align-items: center; */
 }
 
 #price-container {
@@ -408,8 +413,8 @@
 .gig-price {
     font-family: var(--body);
     font-weight: 700;        /* Slightly bolder for emphasis */
-    font-size: 17px;
-    color: #000;            /* Main price in bold/black */
+    font-size: 19px;
+    color: var(--success);            /* Main price in bold/black */
 }
 
 /* This tiny CSS makes the entire card clickable without breaking your design */

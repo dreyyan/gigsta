@@ -64,19 +64,58 @@ $reviewCount = (int)$gigster['review_count'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/gig-details.css">
+    <link rel="stylesheet" href="../css/rating.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/rating.css">
+
+
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title><?= htmlspecialchars($gigster['username']) ?> • Gigsta Profile</title>
 </head>
+
+<style>
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+</style>
+
 <body>
     <?php include '../components/Header.php'; ?>
 
     <div class="gigster-profile-container">
         <!-- Profile Header -->
         <div class="profile-header">
-            <img src="../images/profile-picture.jfif" alt="<?= htmlspecialchars($gigster['username']) ?>" class="profile-picture">
+            <img src="../images/profile-picture.jfif" alt="<?= htmlspecialchars($gigster['username']) ?>" class="profile-picture" id="profilePicture">
 
             <div class="profile-info">
                 <h1>
@@ -143,11 +182,43 @@ $reviewCount = (int)$gigster['review_count'];
         <?php endif; ?>
     </div>
 
+    <!-- Profile Picture Modal -->
+    <div id="profileModal" class="modal" style="display:none;">
+       <span class="close">&times;</span>
+       <img class="modal-content" id="modalImage">
+    </div>
+
+
+    <script src="../js/header.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+    // ---- Theme logic ----
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // ---- Profile picture modal logic ----
+        const profilePic = document.getElementById('profilePicture');
+        const modal = document.getElementById('profileModal');
+        const modalImg = document.getElementById('modalImage');
+        const span = document.querySelector('.close');
+
+        if (profilePic && modal && modalImg && span) {
+            profilePic.onclick = function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+
+            span.onclick = function() { 
+                modal.style.display = "none";
+            }
+
+            modal.onclick = function(e) {
+               if (e.target === modal) modal.style.display = "none";
+            }
+        }
+    });
     </script>
+
 </body>
 </html>

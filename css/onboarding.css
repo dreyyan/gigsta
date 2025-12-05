@@ -24,11 +24,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
-    font-size: 20px;
+
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
+
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 32px;
+    letter-spacing: 1%;
 }
 
 .progress-step.active {
@@ -59,7 +64,7 @@
 
 /* Header */
 .onboarding-header h1 {
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--header);
     font-size: 56px;
     font-weight: 700;
     margin-bottom: 16px;
@@ -67,7 +72,7 @@
 }
 
 .onboarding-header h3 {
-    font-family: 'DM Serif Text', serif;
+    font-family: var(--header);
     font-size: 24px;
     color: #64748B;
     margin-bottom: 48px;
@@ -85,6 +90,10 @@
 .role-card {
     cursor: pointer;
     transition: transform 0.2s ease;
+
+    input {
+        display: none;
+    }
 }
 
 .role-card:hover {
@@ -132,11 +141,12 @@
     margin-bottom: 12px;
 }
 
-.role-inner p.serif {
-    font-family: 'DM Serif Text', serif;
-    font-size: 19px;
-    color: #555;
-    line-height: 1.6;
+.role-inner p {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 28px;
+    letter-spacing: 1.5%;
 }
 
 /* Steps */
@@ -201,10 +211,15 @@
 
 .btn-next,
 .btn-primary {
-    background: #FF4D61;
-    color: white;
+    background: oklch(20.70% 0.038 265.07);
+    color: oklch(98.51% 0.000 89.88);
+
+    font-family: var(--header);
     font-weight: 600;
-    font-size: 18px;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 1%;
+    
     padding: 16px 48px;
     border: none;
     border-radius: 16px;
@@ -214,7 +229,7 @@
 
 .btn-next:hover,
 .btn-primary:hover {
-    background: #e03e50;
+    background: oklch(67.62% 0.213 18.84);
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(255, 77, 97, 0.3);
 }
@@ -231,6 +246,10 @@
 
 .tag-label {
     cursor: pointer;
+
+    input {
+        display: none;
+    }
 }
 
 .tag-chip {
