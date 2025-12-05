@@ -38,7 +38,6 @@
     display: flex;
     align-items: center;
     gap: 32px;
-    margin-right: 32px;
 }
 
 /* Auth Buttons */
@@ -131,7 +130,7 @@
     display: flex;
     align-items: center;           /* vertically center input */
     width: 640px;
-    height: 48px;
+    height: 40px;
 
     border: 2px solid var(--primary);
     border-radius: 4px;
@@ -226,7 +225,7 @@
     right: 0;
     left: auto;
     background-color: #fff;
-    width: 200px;
+    width: 210px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     z-index: 1000;
     border-radius: 6px;

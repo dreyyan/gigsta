@@ -1,54 +1,67 @@
 <?php
-require_once __DIR__ . '/../database/db.php'; 
+require_once __DIR__ . '/../database/connection.php';
+require_once __DIR__ . '/../database/gig_reviews.php';  // This gives us getGigRating()
 
-$query = trim($_GET['query'] ?? '');
+$query  = trim($_GET['query'] ?? '');
 $budget = $_GET['budget'] ?? 'Any';
 
-// query merged users table (gigsters only)
-$sql = "SELECT * FROM users WHERE role = 'gigster'";
+// Base query
+$sql = "SELECT gigs.*, users.username, users.role 
+        FROM gigs 
+        INNER JOIN users ON gigs.user_id = users.id 
+        WHERE users.role = 'gigster'";
+
 $params = [];
 
+// Search filter
 if ($query !== '') {
-    $sql .= " AND (full_name LIKE :q OR skills LIKE :q OR bio LIKE :q)";
+    $sql .= " AND (gigs.title LIKE :q OR gigs.description LIKE :q OR users.username LIKE :q)";
     $params[':q'] = '%' . $query . '%';
 }
 
-// add budget filter
+// Budget filter (exactly as you had it)
 if ($budget !== 'Any') {
     switch ($budget) {
         case 'Under $50':
-            $sql .= " AND hourly_rate < :budget";
+            $sql .= " AND gigs.price < :budget";
             $params[':budget'] = 50;
             break;
         case '$50 - $100':
-            $sql .= " AND hourly_rate BETWEEN :min AND :max";
+            $sql .= " AND gigs.price BETWEEN :min AND :max";
             $params[':min'] = 50;
             $params[':max'] = 100;
             break;
         case '$100+':
-            $sql .= " AND hourly_rate > :budget";
+            $sql .= " AND gigs.price > :budget";
             $params[':budget'] = 100;
             break;
     }
 }
 
-$sql .= " ORDER BY created_at DESC";
+$sql .= " ORDER BY gigs.created_at DESC";
+
 $stmt = $db->prepare($sql);
 foreach ($params as $k => $v) {
-    $type = is_int($v) ? SQLITE3_INTEGER : SQLITE3_FLOAT;
+    $type = is_int($v) || is_float($v) ? SQLITE3_FLOAT : SQLITE3_TEXT;
     $stmt->bindValue($k, $v, $type);
 }
 
 $result = $stmt->execute();
 $filtered = [];
+
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+    // Add real rating + review count using your existing function
+    $ratingData = getGigRating($row['id'], $db);
+
+    $row['avg_rating']   = $ratingData['avg_rating'];
+    $row['review_count'] = $ratingData['review_count'];
+
     $filtered[] = $row;
 }
 
-// Budget options for dropdown
-$budgetOptions = ["Any","Under $50","$50 - $100","$100+"];
+// For your original dropdowns (unchanged)
+$budgetOptions       = ['Any', 'Under $50', '$50 - $100', '$100+'];
 $selectedBudgetIndex = array_search($budget, $budgetOptions);
-if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
 ?>
 
 <!DOCTYPE html>
@@ -56,25 +69,21 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
-    <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
-    <!-- [IMPORT] Fonts: Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Gigsta • Find Freelancers</title>
 </head>
 <body>
-    <!-- [COMPONENT] Header -->
     <?php include '../components/Header.php'; ?>
 
     <main class="search-results-container">
-        <!-- FILTERS -->
+
+        <!-- FILTERS - EXACTLY AS YOU HAD THEM -->
         <div class="filters-section">
             <div class="filter-buttons">
                 <?php
+                // Budget dropdown - unchanged
                 $label = "Budget";
                 $q = isset($_GET['query']) ? urlencode($_GET['query']) : '';
                 $items = [];
@@ -84,17 +93,17 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
                         'href' => "/pages/FindFreelancers.php?budget=" . urlencode($b) . "&query=$q"
                     ];
                 }
-                $boldFirst = true;
-                $selectedIndex = $selectedBudgetIndex;
+                $boldFirst       = true;
+                $selectedIndex   = $selectedBudgetIndex !== false ? $selectedBudgetIndex : 0;
                 include __DIR__ . '/../components/Dropdown.php';
 
-                // Delivery Time (currently placeholder)
+                // Delivery Time dropdown - unchanged
                 $label = "Delivery Time";
                 $items = [
-                    ['text' => 'Any', 'href' => '#'],
-                    ['text' => '24 hours', 'href' => '#'],
-                    ['text' => '3 days', 'href' => '#'],
-                    ['text' => '7 days', 'href' => '#'],
+                    ['text' => 'Any',         'href' => '#'],
+                    ['text' => '24 hours',    'href' => '#'],
+                    ['text' => '3 days',      'href' => '#'],
+                    ['text' => '7 days',      'href' => '#'],
                 ];
                 $boldFirst = true;
                 include __DIR__ . '/../components/Dropdown.php';
@@ -103,21 +112,22 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
 
             <div class="sort-section">
                 <?php
+                // Sort by dropdown - unchanged
                 $label = "Sort by";
                 $items = [
-                    ['text'=>'Best selling','href'=>'#'],
-                    ['text'=>'Newest','href'=>'#'],
-                    ['text'=>'Price: Low to High','href'=>'#'],
-                    ['text'=>'Price: High to Low','href'=>'#'],
+                    ['text'=>'Best selling',       'href'=>'#'],
+                    ['text'=>'Newest',             'href'=>'#'],
+                    ['text'=>'Price: Low to High', 'href'=>'#'],
+                    ['text'=>'Price: High to Low', 'href'=>'#'],
                 ];
-                $rightAlign = true;
-                $activeIndex = 0;
+                $rightAlign    = true;
+                $activeIndex   = 0;
                 include __DIR__ . '/../components/Dropdown.php';
                 ?>
             </div>
         </div>
 
-        <!-- RESULTS COUNT -->
+        <!-- RESULTS HEADER -->
         <?php if ($query !== ''): ?>
             <div class="results-title">
                 <p>Results for: <strong><?= htmlspecialchars($query) ?></strong></p>
@@ -125,15 +135,21 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
             <div class="results-count">
                 <p><?= count($filtered) ?> results</p>
             </div>
-            <a class="clear-search" href="/pages/FindFreelancers.php">
-                Clear search
-            </a>
+            <a class="clear-search" href="/pages/FindFreelancers.php">Clear search</a>
         <?php endif; ?>
 
-        <!-- GRID -->
+        <!-- GIGS GRID -->
         <div class="gigs-grid">
             <?php foreach ($filtered as $gig): ?>
-                <?php extract($gig); ?>
+                <?php
+                $seller       = $gig['username'];
+                $isPro        = false; // Change later if you add pro system
+                $description  = $gig['description'] ?? 'No description provided.';
+                $ratingValue  = $gig['avg_rating'] > 0 ? number_format($gig['avg_rating'], 1) : '0.0';
+                $ratingCount  = $gig['review_count'];
+                $price        = number_format($gig['price'], 2);
+                $image        = '../images/gig-image-placeholder.jpg'; // Replace later
+                ?>
                 <?php include __DIR__ . '/../components/GigCard.php'; ?>
             <?php endforeach; ?>
 
@@ -141,9 +157,8 @@ if ($selectedBudgetIndex === false) $selectedBudgetIndex = 0;
                 <p>No gigs found<?= $query ? ' for "' . htmlspecialchars($query) . '"' : '' ?></p>
             <?php endif; ?>
         </div>
-
     </main>
 
-<script src="../js/dropdown.js"></script>
+    <script src="../js/dropdown.js"></script>
 </body>
 </html>

@@ -49,7 +49,7 @@ $userRole   = $_SESSION['role'] ?? '';
                     <a href="../pages/GigsterProfile.php">Profile</a>
                     <a href="../pages/Chats.php">Messages</a>
                     <a href="../pages/PrivacyAndSupport.php">Privacy & Support</a>
-                    <a href="../logout.php">Log Out</a>
+                    <a href="../database/logout.php">Log Out</a>
                 </div>
             </div>
         <?php else: ?>

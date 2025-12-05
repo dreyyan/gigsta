@@ -7,32 +7,50 @@
 }
 
 .gig-card {
+    background: var(--background);
     border-radius: 12px;
     overflow: hidden;
     transition: all 0.3s ease;
     cursor: pointer;
+
+    width: 302px;
+    height: 310px;
 }
 
 .gig-card:hover {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent); /* optional, if you want a border highlight */
 }
 
 .gig-info {
-    padding: 17px;
+    padding: 16px;
 }
 
 .gig-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+}
+
+#gig-header-profile-icon {
+    width: 20px;
+}
+
+#gig-header-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 8px;
 }
 
 .gig-seller {
+    font-family: var(--body);
+    font-weight: 600;
     font-size: 17px;
-    font-weight: 500;
-    color: var(--primary);
+    line-height: 24px;
+    letter-spacing: 1.5%;
 }
 
 .client-profile-container {
@@ -209,19 +227,6 @@
     font-family: var(--header);
 }
 
-.gig-card {
-    background: var(--background);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.gig-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
-}
-
 .gig-content {
     padding: 20px;
 }
@@ -344,18 +349,22 @@
 }
 
 .gig-description {
-    margin: 8px 0;
-    font-size: 17px;
-    color: #666;
-    line-height: 1.4;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 13px;
+
+    letter-spacing: 1.5%;
+    color: var(--text);
+
     display: -webkit-box;
    
     -webkit-box-orient: vertical;
     overflow: hidden;
+
+    min-height: 58.5px;
 }
 
 .gig-footer {
-    margin-top: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;

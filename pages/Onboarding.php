@@ -18,7 +18,7 @@
 <body>
     <!-- [SECTION] Onboarding -->
     <main class="onboarding-container">
-        <form action="ProcessOnboarding.php" method="POST" enctype="multipart/form-data">
+        <form action="process-onboarding.php" method="POST" enctype="multipart/form-data">
             <img id="logo-icon" src="../images/gigsta-logo-minimal.svg" alt="Gigsta Logo">
             <!-- Step 1: Choose Your Role -->
             <div class="onboarding-step" id="step-role">
