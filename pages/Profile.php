@@ -70,7 +70,6 @@ $reviewCount = (int)$gigster['review_count'];
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/rating.css">
 
-
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title><?= htmlspecialchars($gigster['username']) ?> • Gigsta Profile</title>
@@ -115,7 +114,7 @@ $reviewCount = (int)$gigster['review_count'];
     <div class="gigster-profile-container">
         <!-- Profile Header -->
         <div class="profile-header">
-            <img src="../images/profile-picture.jfif" alt="<?= htmlspecialchars($gigster['username']) ?>" class="profile-picture" id="profilePicture">
+            <img src="../images/kirk.jpeg" alt="<?= htmlspecialchars($gigster['username']) ?>" class="profile-picture" id="profilePicture">
 
             <div class="profile-info">
                 <h1>

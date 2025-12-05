@@ -23,7 +23,6 @@ $hasRole = !empty($user['role']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/primary-button.css">
     <link rel="stylesheet" href="../css/onboarding.css">
     <!-- [IMPORT] Website Icon -->

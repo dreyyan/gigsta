@@ -81,13 +81,13 @@
     margin: 0;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
 }
 
 .pro-badge {
     background: #000;
     color: white;
-    padding: 4px 12px;
+    padding: 0 12px;
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 600;
@@ -122,11 +122,16 @@
     font-size: 0.95rem;
 }
 
-#price-container {
+#details-container {
     display: flex;
-    justify-content: end;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
     gap: 6px;
     padding-right: 4px;
+}
+
+#price-container {
 }
 
 .gig-price {
@@ -188,7 +193,7 @@
 }
 
 .seller-card {
-    background: #f9f9f9;
+    background: var(--background);
     border-radius: 12px;
     padding: 40px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.08);

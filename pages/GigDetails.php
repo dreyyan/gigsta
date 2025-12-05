@@ -38,6 +38,43 @@ $reviewCount  = $ratingData['review_count'];
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title><?= htmlspecialchars($gig['title']) ?> • Gigsta</title>
+
+    <style>
+        .modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.seller-avatar {
+    cursor: pointer; /* make it clear it's clickable */
+}
+</style>
 </head>
 <body>
     <?php include '../components/Header.php'; ?>
@@ -49,7 +86,7 @@ $reviewCount  = $ratingData['review_count'];
             <!-- IMAGE + THUMBNAILS (SIDE BY SIDE) -->
             <div class="image-gallery">
                 <div class="main-image">
-                    <img src="../images/gig-image-placeholder.jpg" alt="<?= htmlspecialchars($gig['title']) ?>">
+                    <img src="../images/gig-image-placeholder.jpg" alt="<?= htmlspecialchars($gig['title']) ?>" id="mainGigImage">
                 </div>
                 <div class="thumbnails">
                     <img src="../images/gig-image-placeholder.jpg" alt="thumb">
@@ -79,15 +116,17 @@ $reviewCount  = $ratingData['review_count'];
                             <span class="rating-value"><?= $avgRating ?></span>
                             <span class="rating-count">(<?= $reviewCount ?> <?= $reviewCount == 1 ? 'review' : 'reviews' ?>)</span>
                         </div>
-                        <div id="price-container">
-                            <p id="from-text">From </p>
-                            <p class="gig-price">$<?= number_format($gig['price'], 2) ?></p>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <h1 class="gig-title"><?= htmlspecialchars($gig['title']) ?></h1>
+            <div id="details-container">
+                <h1 class="gig-title"><?= htmlspecialchars($gig['title']) ?></h1>
+                <div id="priccontainer">
+                    <p id="from-text">From </p>
+                    <p class="gig-price">$<?= number_format($gig['price'], 2) ?></p>
+                </div>
+            </div>
 
             <div class="description">
                 <p><?= nl2br(htmlspecialchars($gig['description'] ?? 'No description provided.')) ?></p>
@@ -176,6 +215,36 @@ $reviewCount  = $ratingData['review_count'];
             </div>
         </div>
     </div>
+
+    <!-- Profile Picture Modal -->
+    <div id="profileModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const gigImg= document.querySelector('gigMainImage'); // select the seller avatar
+        const modal = document.getElementById('profileModal');
+        const modalImg = document.getElementById('modalImage');
+        const span = document.querySelector('.close');
+
+        if (gigImg && modal && modalImg && span) {
+            gigImg.onclick = function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            modal.onclick = function(e) {
+                if (e.target === modal) modal.style.display = "none";
+            }
+        }
+    });
+    </script>
 
     <script src="../js/dropdown.js"></script>
 </body>
