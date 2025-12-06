@@ -53,22 +53,6 @@ $userRole   = $_SESSION['role'] ?? '';
         <?php else: ?>
             <!-- Logged-out navigation -->
             <div id="navigation-link">
-                <?php
-                $label = "Explore";
-                $items = [
-                    ['text' => 'All Gigs', 'href' => 'pages/BrowseGigs.php?query=All'],
-                    ['text' => 'Graphics & Design', 'href' => 'pages/BrowseGigs.php?query=Graphics+%26+Design'],
-                    ['text' => 'Digital Marketing', 'href' => 'pages/BrowseGigs.php?query=Digital+Marketing'],
-                    ['text' => 'Writing & Translation', 'href' => 'pages/BrowseGigs.php?query=Writing+%26+Translation'],
-                    ['text' => 'Video & Animation', 'href' => 'pages/BrowseGigs.php?query=Video+%26+Animation'],
-                    ['text' => 'Music & Audio', 'href' => 'pages/BrowseGigs.php?query=Music+%26+Audio'],
-                    ['text' => 'Programming & Tech', 'href' => 'pages/BrowseGigs.php?query=Programming+%26+Tech']
-                ];
-                $boldFirst = true;
-                $width = "40px";
-                include __DIR__ . '/NavigationLinkDropdown.php';
-                ?>
-
                 <a class="header-navigation-link" href="../pages/SignUp.php">Become a Freelancer</a>
             </div>
 

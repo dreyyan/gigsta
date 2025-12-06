@@ -231,7 +231,161 @@ $currentSortText = $sortTexts[$sort] ?? 'Newest';
             <?php endforeach; ?>
         </div>
     </main>
+<script>
+// Check login + show perfectly centered modal
+document.querySelectorAll('.gig-card a, .gig-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        const link = this.closest('a') || this.querySelector('a');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (!href || href === '#') return;
 
+        <?php if (!isset($_SESSION['user_id'])): ?>
+            e.preventDefault();
+            showLoginModal(href);
+        <?php endif; ?>
+    });
+});
+
+function showLoginModal(gigUrl) {
+    // Remove existing modal
+    document.querySelector('#loginRequiredModal')?.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'loginRequiredModal';
+    modal.innerHTML = `
+        <div class="login-modal-overlay">
+            <div class="login-modal">
+                <h2>Sign in required</h2>
+                <p>You need to be logged in to view this gig.</p>
+                <div class="login-modal-buttons">
+                    <a href="../pages/Login.php" class="btn-primary">Log In</a>
+                    <a href="../pages/SignUp.php" class="btn-secondary">Create Account</a>
+                    <button type="button" class="btn-cancel" onclick="document.getElementById('loginRequiredModal')?.remove()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Perfect centering + beautiful styles
+    const style = document.createElement('style');
+    style.textContent = `
+        #loginRequiredModal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .login-modal-overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(10px);
+        }
+        .login-modal {
+            background: white;
+            padding: 44px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 440px;
+            width: 90%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+            animation: modalPop 0.4s ease;
+            position: relative;
+        }
+        .login-modal h2 {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #222;
+        }
+        .login-modal p {
+            color: #555;
+            font-size: 17px;
+            margin-bottom: 36px;
+            line-height: 1.5;
+        }
+        .login-modal-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary, .btn-secondary, .btn-cancel {
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: oklch(20.70% 0.038 265.07);
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            background: oklch(88.28% 0.181 94.46);
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: oklch(88.28% 0.181 94.46);
+            border: 2.5px solid oklch(88.28% 0.181 94.46);
+        }
+        .btn-secondary:hover {
+            background: oklch(88.28% 0.181 94.46);
+            color: white;
+        }
+        .btn-cancel {
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+        }
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.7) translateY(-40px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        @media (max-width: 480px) {
+            .login-modal {
+                padding: 36px 24px;
+                width: 95%;
+            }
+            .login-modal-buttons {
+                flex-direction: column;
+            }
+            .btn-primary, .btn-secondary, .btn-cancel {
+                width: 100%;
+            }
+        }
+    `;
+
+    document.head.appendChild(style);
+    document.body.appendChild(modal);
+
+    // Close on overlay click
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal || e.target.classList.contains('login-modal-overlay')) {
+            modal.remove();
+        }
+    });
+}
+</script>
     <script src="../js/dropdown.js"></script>
 </body>
 </html>

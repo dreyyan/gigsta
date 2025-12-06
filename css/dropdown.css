@@ -50,8 +50,8 @@
 .dropdown-content a:hover { background: #f8f9fa; }
 .dropdown-content a.selected { 
     font-weight: 700; 
-    background: #f0f7ff; 
-    color: #0066ff; 
+    background: rgba(255, 213, 0, 0.2);
+    color: oklch(88.28% 0.181 94.46); 
 }
 
 .dropdown-label .dropdown-icon {
