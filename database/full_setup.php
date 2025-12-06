@@ -1,6 +1,6 @@
 <?php
 // GIGSTA - FULL SETUP 2025 (FINAL - WITH REALISTIC USERNAMES, TITLES & DESCRIPTIONS)
-$dbPath = __DIR__ . '/gigsta.db';
+$dbPath = __DIR__ . '/../database/gigsta.db';
 
 echo "<pre style='font-family: monospace; background:#000; color:#0f0; padding:30px; font-size:16px;'>";
 echo "GIGSTA FULL SETUP + REALISTIC DATA (2025)\n\n";

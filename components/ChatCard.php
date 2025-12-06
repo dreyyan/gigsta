@@ -8,7 +8,7 @@ $unreadCount = $unreadCount ?? 0;
 
 <div class="chat-card" data-user-id="<?= htmlspecialchars($id) ?>">
     <div class="chat-card-avatar">
-        <img src="/images/chat-profile-placeholder.svg" alt="<?= htmlspecialchars($name) ?>'s avatar">
+        <img src="/gigsta/images/chat-profile-placeholder.svg" alt="<?= htmlspecialchars($name) ?>'s avatar">
         <?php if($unreadCount > 0): ?>
             <span class="chat-card-unread"><?= $unreadCount ?></span>
         <?php endif; ?>

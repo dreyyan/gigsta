@@ -1,6 +1,6 @@
 <?php
 // database/gig_reviews.php
-require_once __DIR__ . '/connection.php';
+require_once __DIR__ . '/../database/connection.php';
 
 // Create gig_reviews table
 $db->exec("

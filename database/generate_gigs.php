@@ -1,6 +1,6 @@
 <?php
 // GIGSTA - FULL SETUP 2025 (WITH DELIVERY TIME) - FINAL WORKING
-$dbPath = __DIR__ . '/gigsta.db';
+$dbPath = __DIR__ . '/../database/gigsta.db';
 
 echo "<pre style='font-family: monospace; background:#000; color:#0f0; padding:20px;'>";
 echo "GIGSTA FULL SETUP + DELIVERY TIME (FINAL)\n\n";

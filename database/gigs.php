@@ -1,6 +1,6 @@
 <?php
 // database/gigs.php
-require_once __DIR__ . '/connection.php';
+require_once __DIR__ . '/../database/connection.php';
 
 // Create gigs table
 $db->exec("

@@ -17,7 +17,7 @@
 </head>
 <body>
     <!-- [COMPONENT] Header -->
-    <?php include 'components/Header.php'; ?>
+    <?php include '../components/Header.php'; ?>
     <!-- [SECTION] Hero Section -->
     <main class="hero-section-container">
 

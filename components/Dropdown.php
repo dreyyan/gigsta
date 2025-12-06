@@ -13,7 +13,7 @@ $isFilter = $isFilter ?? false; // ← NEW
     <span class="dropdown-selected-value">
         <?= htmlspecialchars($items[$selectedIndex]['text'] ?? 'Select') ?>
     </span>
-    <img src="../images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon" style="margin-left: 4px; width: 12px; transition: transform 0.2s;">
+    <img src="/gigsta/images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon" style="margin-left: 4px; width: 12px; transition: transform 0.2s;">
 </div>
     <div class="dropdown-content">
         <?php foreach ($items as $index => $item): ?>

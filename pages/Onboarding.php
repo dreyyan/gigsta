@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../database/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../Login.php");
+    header("Location: /../pages/Login.php");
     exit;
 }
 
@@ -18,7 +18,7 @@ $userRow = $result->fetchArray(SQLITE3_ASSOC);
 // If user doesn't exist or query fails → redirect to login
 if (!$userRow) {
     session_destroy();
-    header("Location: ../Login.php");
+    header("Location: /gigsta/pages/Login.php");
     exit;
 }
 
@@ -32,9 +32,9 @@ $hasRole = !empty($userRow['role']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/primary-button.css">
-    <link rel="stylesheet" href="../css/onboarding.css">
+    <link rel="stylesheet" href="/gigsta/css/styles.css">
+    <link rel="stylesheet" href="/gigsta/css/primary-button.css">
+    <link rel="stylesheet" href="/gigsta/css/onboarding.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
@@ -51,11 +51,11 @@ $hasRole = !empty($userRow['role']);
         <div class="onboarding-header">
             <h1>Welcome back!</h1>
             <h3>Your profile is all set</h3>
-            <a href="../pages/BrowseGigs.php" class="btn-primary">Browse Gigs →</a>
+            <a href="/gigsta/pages/BrowseGigs.php" class="btn-primary">Browse Gigs →</a>
         </div>
     <?php else: ?>
         <!-- ONBOARDING FLOW -->
-        <form action="../database/process_onboarding.php" method="POST" enctype="multipart/form-data">
+        <form action="/gigsta/database/process_onboarding.php" method="POST" enctype="multipart/form-data">
 
             <!-- Progress Bar -->
             <div class="progress-container">
@@ -81,7 +81,7 @@ $hasRole = !empty($userRow['role']);
                     <label class="role-card">
                         <input type="radio" name="role" value="client" required>
                         <div class="role-inner client">
-                            <img src="../images/briefcase-icon.svg" alt="Client">
+                            <img src="/gigsta/images/briefcase-icon.svg" alt="Client">
                             <h2>I’m a <strong>Client</strong></h2>
                             <p>I want to hire talent and get work done</p>
                         </div>
@@ -90,7 +90,7 @@ $hasRole = !empty($userRow['role']);
                     <label class="role-card">
                         <input type="radio" name="role" value="gigster" required>
                         <div class="role-inner gigster">
-                            <img src="../images/rocket-icon.svg" alt="Gigster">
+                            <img src="/gigsta/images/rocket-icon.svg" alt="Gigster">
                             <h2>I’m a <strong>Gigster</strong></h2>
                             <p>I want to offer services and earn money</p>
                         </div>

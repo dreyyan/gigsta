@@ -40,6 +40,12 @@
     transform: translateY(0);
 }
 
+/* Ensure profile dropdown aligns to the RIGHT */
+.header-profile-container .dropdown-content {
+    right: 0 !important;  /* added */
+    left: auto !important; /* added */
+}
+
 .dropdown-content a {
     display: block;
     padding: 12px 16px;

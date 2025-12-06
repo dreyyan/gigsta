@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../database/connection.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ../Login.php");
+    header("Location: /gigsta/pages/Login.php");
     exit;
 }
 
@@ -24,8 +24,8 @@ $tags         = is_array($tags) ? $tags : [];
 
 // Avatar
 $avatar = (!empty($user['profile_pic']) && file_exists("../uploads/profiles/{$user['profile_pic']}"))
-    ? "../uploads/profiles/{$user['profile_pic']}"
-    : "./image/temp.jpg";
+    ? "/gigsta/uploads/profiles/{$user['profile_pic']}"
+    : "/gigsta/image/temp.jpg";
 
 // Rating & reviews
 $stats = $db->querySingle("
@@ -51,8 +51,9 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($username) ?> • Gigsta Profile</title>
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="/gigsta/css/profile.css">
+    <link rel="stylesheet" href="/gigsta/css/header.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
 </head>
 <body>
@@ -116,11 +117,11 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
         <div class="gigs-grid">
             <?php if (empty($gigs)): ?>
-                <p>No gigs yet. <a href="../pages/CreateGig.php">Create your first gig!</a></p>
+                <p>No gigs yet. <a href="/gigsta/pages/CreateGig.php">Create your first gig!</a></p>
             <?php else: ?>
                 <?php foreach ($gigs as $gig): ?>
                     <div class="gig-card">
-                        <img class="gig-image" src="./image/temp.jpg" alt="Gig">
+                        <img class="gig-image" src="/gigsta/image/temp.jpg" alt="Gig">
 
                         <div class="gig-info">
                             <div class="gig-user">
@@ -142,6 +143,6 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     </section>
 
 </main>
-<script src="../js/dropdown.js"></script>
+<script src="/gigsta/js/dropdown.js"></script>
 </body>
 </html>

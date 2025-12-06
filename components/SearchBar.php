@@ -5,7 +5,7 @@ $rounded     = $rounded ?? false; // true = rounded
 $width       = $width ?? '';
 $id          = $id ?? 'search-bar';
 $buttonId    = $buttonId ?? 'search-button';
-$icon        = $icon ?? '../images/search-icon.svg';
+$icon        = $icon ?? '/gigsta/images/search-icon.svg';
 ?>
 
 <form 
