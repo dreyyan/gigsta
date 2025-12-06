@@ -1,9 +1,9 @@
 <?php
-// GIGSTA - FULL SETUP 2025 (FINAL - WITH ALL USER FIELDS)
+// GIGSTA - FULL SETUP 2025 (FINAL - WITH REALISTIC USERNAMES, TITLES & DESCRIPTIONS)
 $dbPath = __DIR__ . '/gigsta.db';
 
 echo "<pre style='font-family: monospace; background:#000; color:#0f0; padding:30px; font-size:16px;'>";
-echo "GIGSTA FULL SETUP + USER FIELDS (AGE, LOCATION, EXPERIENCE, SKILLS)\n\n";
+echo "GIGSTA FULL SETUP + REALISTIC DATA (2025)\n\n";
 
 $db = new SQLite3($dbPath);
 $db->exec("PRAGMA foreign_keys = ON;");
@@ -58,33 +58,66 @@ $db->exec("CREATE TABLE IF NOT EXISTS gig_reviews (
     created_at TEXT DEFAULT (datetime('now'))
 )");
 
-// FAKE DATA
-$categories = ['Graphics & Design', 'Digital Marketing', 'Writing & Translation', 'Video & Animation', 'Music & Audio', 'Programming & Tech'];
-$titles = ['Logo Design', 'Website Development', 'SEO', 'Video Editing', 'Voice Over', 'Content Writing', 'App Development'];
-$deliveryTimes = ['24 hours', '3 days', '7 days', '14 days', '30 days'];
-$locations = ['Iloilo City, Philippines', 'Manila, Philippines', 'Cebu, Philippines', 'Davao, Philippines', 'Bacolod, Philippines'];
+// REALISTIC DATA POOL
+$firstNames = ['Mikaela', 'Rafael', 'Camille', 'Jolo', 'Ariana', 'Diego', 'Sofia', 'Lance', 'Isabella', 'Marco', 'Natasha', 'Enzo', 'Leona', 'Gabriel', 'Clarisse', 'Vincent', 'Andrea', 'Paolo', 'Juliana', 'Carlos'];
+$lastNames  = ['Cruz', 'Reyes', 'Santos', 'Lim', 'Garcia', 'Tan', 'Ong', 'Mendoza', 'Villanueva', 'Rivera', 'Torres', 'Castillo', 'De Guzman', 'Aquino', 'Fernandez', 'Ramos', 'Sy', 'Chua', 'Go', 'Yap'];
+
+$locations = ['Iloilo City, Philippines', 'Manila, Philippines', 'Cebu City, Philippines', 'Davao City, Philippines', 'Bacolod City, Philippines', 'Quezon City, Philippines', 'Makati City, Philippines', 'Taguig City, Philippines'];
+
 $skills = [
-    'Photoshop', 'Figma', 'React', 'Node.js', 'Python', 'Video Editing', 
-    'Motion Graphics', 'UI/UX Design', 'Logo Design', 'Illustration', 
-    'Copywriting', 'SEO', 'WordPress', 'Laravel', 'Voice Acting'
+    'Photoshop', 'Figma', 'Adobe Illustrator', 'React', 'Node.js', 'Python', 'Laravel', 
+    'WordPress', 'UI/UX Design', 'Logo Design', 'Brand Identity', 'Video Editing', 
+    'Motion Graphics', 'After Effects', 'Premiere Pro', 'Copywriting', 'SEO', 
+    'Social Media Management', 'Voice Over', 'Illustration', '3D Modeling', 'Blender'
 ];
 
-// Create 20 gigsters with full profile data
-for ($i = 1; $i <= 20; $i++) {
-    $username = "gigster" . $i;
-    $email = "gigster$i@gigsta.com";
+$realisticGigs = [
+    // Graphics & Design
+    ["title" => "I will design a modern minimalist logo for your brand",           "desc" => "Clean, timeless logo with unlimited revisions until you're 100% happy. Perfect for startups and small businesses.", "cat" => "Graphics & Design"],
+    ["title" => "I will create stunning brand identity and style guide",         "desc" => "Full branding package: logo, color palette, typography, business cards, letterhead + brand guidelines.", "cat" => "Graphics & Design"],
+    ["title" => "I will design eye-catching social media posts and stories",     "desc" => "10 custom Instagram/Facebook posts + stories templates tailored to your brand voice.", "cat" => "Graphics & Design"],
+    ["title" => "I will illustrate custom characters or mascots",                 "desc" => "Unique hand-drawn or vector characters for your app, game, or merchandise.", "cat" => "Graphics & Design"],
+
+    // Programming & Tech
+    ["title" => "I will build a custom WordPress website from scratch",           "desc" => "Fast, responsive, SEO-friendly WordPress site with premium theme and plugins.", "cat" => "Programming & Tech"],
+    ["title" => "I will develop a modern React or Next.js web application",      "desc" => "Full-stack React/Next.js app with clean code, responsive design and API integration.", "cat" => "Programming & Tech"],
+    ["title" => "I will create a professional Laravel backend API",               "desc" => "Secure RESTful API with authentication, documentation (Postman/Swagger), and database design.", "cat" => "Programming & Tech"],
+
+    // Digital маркетинге
+    ["title" => "I will setup and manage your Facebook & Instagram ads campaign", "desc" => "Complete ad account setup, audience research, creative copy + images, and daily optimization for 30 days.", "cat" => "Digital Marketing"],
+    ["title" => "I will do complete SEO audit and on-page optimization",         "desc" => "Technical SEO audit, keyword research, meta tags, speed optimization + detailed report.", "cat" => "Digital Marketing"],
+
+    // Video & Animation
+    ["title" => "I will edit a professional YouTube video with effects",          "desc" => "Cinematic editing, color grading, sound design, transitions, and subtitles.", "cat" => "Video & Animation"],
+    ["title" => "I will create an animated explainer video for your product",     "desc" => "2D animated explainer (up to 60 sec) with script, storyboard, voiceover, and music.", "cat" => "Video & Animation"],
+
+    // Writing & Translation
+    ["title" => "I will write engaging blog posts or articles (1000 words)",     "desc" => "Well-researched, SEO-optimized articles that drive traffic and engagement.", "cat" => "Writing & Translation"],
+    ["title" => "I will be your professional English-Filipino translator",        "desc" => "Accurate translation of documents, websites, apps, or marketing materials.", "cat" => "Writing & Translation"],
+
+    // Music & Audio
+    ["title" => "I will record a warm professional Filipino/English voice over", "desc" => "Studio-quality voice over for commercials, e-learning, IVR, or YouTube intros.", "cat" => "Music & Audio"],
+    ["title" => "I will produce a catchy jingle or background music for your brand", "desc" => "Original royalty-free music tailored to your brand personality.", "cat" => "Music & Audio"],
+];
+
+$deliveryTimes = ['24 hours', '3 days', '5 days', '7 days', '10 days', '14 days'];
+
+// Create 20 realistic gigsters
+for ($i = 0; $i < 20; $i++) {
+    $first = $firstNames[array_rand($firstNames)];
+    $last  = $lastNames[array_rand($lastNames)];
+    $username = strtolower($first . '_' . $last);
+    $email = strtolower($first . '.' . $last . "@gmail.com");
     $password = password_hash("password123", PASSWORD_DEFAULT);
-    $age = random_int(18, 45);
+    $age = random_int(20, 42);
     $location = $locations[array_rand($locations)];
-    $experience = random_int(1, 15);
-    $isPro = $i <= 6 ? 1 : 0;
-    
-    // Random 3–6 skills
-    $userSkills = [];
-    for ($s = 0; $s < random_int(3,6); $s++) {
-        $userSkills[] = $skills[array_rand($skills)];
-    }
-    $userSkills = array_unique($userSkills);
+    $experience = random_int(2, 14);
+    $isPro = $i < 6 ? 1 : 0;
+
+    // Random 3–6 unique skills
+    $shuffled = $skills;
+    shuffle($shuffled);
+    $userSkills = array_slice($shuffled, 0, random_int(3,6));
     $tagsJson = json_encode($userSkills);
 
     $db->exec("INSERT OR IGNORE INTO users 
@@ -99,42 +132,49 @@ while ($row = $result->fetchArray()) {
     $gigsterIds[] = $row['id'];
 }
 
-// Generate gigs
+// Generate realistic gigs
 foreach ($gigsterIds as $userId) {
     $numGigs = random_int(2, 5);
-    for ($g = 0; $g < $numGigs; $g++) {
-        $title = $titles[array_rand($titles)];
-        $price = round(random_int(10, 300) + random_int(0,99)/100, 2);
+    for ($g = 0; $g < $numGigs; $g--) {
+        $gig = $realisticGigs[array_rand($realisticGigs)];
+        $price = random_int(15, 280);
         $delivery = $deliveryTimes[array_rand($deliveryTimes)];
 
         $stmt = $db->prepare("INSERT INTO gigs 
             (user_id, title, description, category, price, delivery_time) 
             VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bindValue(1, $userId, SQLITE3_INTEGER);
-        $stmt->bindValue(2, "I will $title", SQLITE3_TEXT);
-        $stmt->bindValue(3, "Professional and fast delivery from experienced freelancer.", SQLITE3_TEXT);
-        $stmt->bindValue(4, $categories[array_rand($categories)], SQLITE3_TEXT);
-        $stmt->bindValue(5, $price, SQLITE3_FLOAT);
+        $stmt->bindValue(2, $gig['title'], SQLITE3_TEXT);
+        $stmt->bindValue(3, $gig['desc'], SQLITE3_TEXT);
+        $stmt->bindValue(4, $gig['cat'], SQLITE3_TEXT);
+        $stmt->bindValue(5, $price . '.00', SQLITE3_FLOAT);
         $stmt->bindValue(6, $delivery, SQLITE3_TEXT);
         $stmt->execute();
 
         $gigId = $db->lastInsertRowID();
 
-        // Add reviews
-        for ($r = 0; $r < random_int(1,8); $r++) {
-            $rating = random_int(40,50)/10;
+        // Add random reviews
+        for ($r = 0; $r < random_int(1, 9); $r++) {
+            $rating = random_int(42,50)/10;
+            $reviews = [
+                'Amazing work! Delivered ahead of time and exceeded expectations.',
+                'Super professional and easy to communicate with. Will hire again!',
+                'High quality delivery, exactly what I needed. Thank you!',
+                'Fast turnaround and great attention to detail.',
+                'Best freelancer I\'ve worked with on this platform!'
+            ];
+            $review = $reviews[array_rand($reviews)];
             $db->exec("INSERT INTO gig_reviews (gig_id, client_id, rating, review) 
-                       VALUES ($gigId, 1, $rating, 'Great work! Fast delivery!')");
+                       VALUES ($gigId, 1, $rating, '$review')");
         }
     }
 }
 
 echo "SUCCESS!\n";
-echo "20 gigsters created with:\n";
-echo "   Age, Location, Experience Years, Skills (tags as JSON)\n";
-echo "   100+ gigs with delivery time\n";
-echo "   Reviews included\n\n";
-echo "Your onboarding system now works perfectly!\n";
+echo "20 gigsters with REALISTIC usernames and full profiles created\n";
+echo "Realistic gig titles & descriptions\n";
+echo "Natural-looking reviews\n";
+echo "Database ready for 2025 launch!\n\n";
 echo "Delete this file when done.\n";
 echo "</pre>";
 ?>
