@@ -250,7 +250,7 @@ $reviewCount  = $ratingData['review_count'];
     <script src="/gigsta/js/dropdown.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const gigImg= document.querySelector('gigMainImage'); // select the seller avatar
+        const gigImg= document.querySelector('#mainGigImage'); // select the seller avatar
         const modal = document.getElementById('profileModal');
         const modalImg = document.getElementById('modalImage');
         const span = document.querySelector('.close');

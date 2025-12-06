@@ -42,8 +42,9 @@
 
 /* Ensure profile dropdown aligns to the RIGHT */
 .header-profile-container .dropdown-content {
-    right: 0 !important;  /* added */
-    left: auto !important; /* added */
+    left: 0 !important;  /* added */
+    right: auto !important; /* added */
+    transform: translateX(-100%) !important;  /* shift left of the icon */
 }
 
 .dropdown-content a {

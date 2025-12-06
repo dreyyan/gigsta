@@ -53,6 +53,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     <title><?= htmlspecialchars($username) ?> • Gigsta Profile</title>
     <link rel="stylesheet" href="/gigsta/css/profile.css">
     <link rel="stylesheet" href="/gigsta/css/header.css">
+    <link rel="stylesheet" href="/gigsta/css/dropdown.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
 </head>
