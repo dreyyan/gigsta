@@ -6,6 +6,7 @@
     <!-- [IMPORT] CSS: Stylesheet -->
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/privacy-and-support.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
