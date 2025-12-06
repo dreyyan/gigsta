@@ -1,134 +1,239 @@
-@import url('styles.css');
-.gigster-profile-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 24px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'DM Sans', Arial, sans-serif;
 }
+
+.main-profile {
+    padding: 40px 20px;
+    max-width: 1350px;
+    margin: 0 auto;
+    background: #f8f9fa;
+}
+
+/* ============================================================
+   PROFILE CARD
+   ============================================================ */
+
+.profile-card {
+    background: white;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 28px;
+    display: flex;
+    gap: 26px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    margin-bottom: 50px;
+}
+
+.profile-avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.profile-info {
+    flex: 1;
+}
+
+/* -------- Header -------- */
 .profile-header {
     display: flex;
-    gap: 32px;
-    margin-bottom: 48px;
+    justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
-.profile-picture {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 6px solid #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-.profile-info h1 {
-    font-size: 2.8rem;
-    margin: 0 0 8px;
+
+.profile-name {
+    font-size: 28px;
     font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
 }
-.pro-badge {
-    background: #000;
-    color: #fff;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-left: 12px;
-}
-.rating-large {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1.4rem;
-    margin: 12px 0;
-    color: #ffb400;
+
+.profile-rating {
+    font-size: 18px;
+    color: #222;
     font-weight: 600;
 }
-.meta-info {
+
+.profile-rating span {
+    color: #666;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+/* Pro Button */
+.pro-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: default;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Bio */
+.profile-bio {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Details */
+.profile-details {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    color: #555;
-    font-size: 1.1rem;
-    margin: 16px 0;
+    margin-bottom: 20px;
+    font-size: 14px;
 }
-.tags-display {
+
+.profile-details div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-details span {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Skills */
+.profile-skills {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 20px 0;
+    margin-top: 10px;
 }
-.tag {
-    padding: 8px 16px;
-    border-radius: 30px;
+
+.skill-tag {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
     font-weight: 600;
-    font-size: 0.9rem;
 }
-.tag.producer { background: #ff4d4d; color: white; }
-.tag.rapper { background: #ffbf00; color: black; }
-.tag.other { background: #e0e0e0; color: #333; }
+
+/* ============================================================
+   GIGS SECTION
+   ============================================================ */
+
+.gigs-section {
+    margin-top: 50px;
+}
 
 .section-title {
-    font-size: 2rem;
+    font-size: 24px;
     font-weight: 700;
-    margin: 48px 0 24px;
+    margin-bottom: 30px;
     color: #222;
 }
+
 .gigs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
 }
-.gig-card-profile {
+
+.gig-card {
     background: white;
-    border-radius: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-.gig-card-profile:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+
+.gig-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
 }
+
 .gig-image {
-    height: 200px;
-    overflow: hidden;
-}
-.gig-image img {
     width: 100%;
-    height: 100%;
+    height: 160px;
     object-fit: cover;
 }
-.gig-content {
-    padding: 20px;
+
+.gig-info {
+    padding: 16px;
 }
-.gig-title-profile {
-    font-size: 1.3rem;
+
+.gig-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
     font-weight: 600;
-    margin: 0 0 12px;
-    color: #222;
+    color: #333;
 }
-.gig-desc {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 16px;
+
+.gig-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.gig-info p {
+    color: #444;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 12px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-.gig-footer-profile {
+
+.gig-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 14px;
 }
-.gig-rating-profile {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #ffb400;
-    font-weight: 600;
+
+.gig-meta span {
+    color: #555;
+    font-weight: 500;
 }
-.gig-price-profile {
-    font-size: 1.4rem;
+
+.gig-meta strong {
+    font-size: 18px;
     font-weight: 700;
-    color: #00cc88;
+    color: #222;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-avatar {
+        margin: 0 auto;
+    }
+    
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .gigs-grid {
+        grid-template-columns: 1fr;
+    }
 }
