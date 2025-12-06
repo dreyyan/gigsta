@@ -5,6 +5,10 @@ $class   = $class ?? '';
 $href    = $href ?? '';
 $onClick = $onClick ?? '';
 
+// Detect if icon was passed
+$hasIcon = isset($icon);
+$icon    = $hasIcon ? $icon : null;
+
 // Only use $icon if it was explicitly provided
 $icon    = array_key_exists('icon', get_defined_vars()) ? $icon : '';
 ?>
@@ -19,7 +23,7 @@ $icon    = array_key_exists('icon', get_defined_vars()) ? $icon : '';
     <?php endif; ?>
 >
     <?= htmlspecialchars($label) ?>
-    <?php if (!empty($icon)): ?>
+    <?php if ($hasIcon && !empty($icon)): ?>
         <img src="<?= htmlspecialchars($icon) ?>" alt="Icon" class="btn-icon"/>
     <?php endif; ?>
 </button>

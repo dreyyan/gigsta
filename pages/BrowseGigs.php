@@ -84,24 +84,12 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
     <?php include '../components/Header.php'; ?>
 
     <main class="search-results-container">
-
+        <h2>Browse Gigs</h2>
         <!-- FILTERS -->
         <div class="filters-section">
             <div class="filter-buttons">
                 <?php
                 // Budget dropdown
-                $label = "Budget";
-                $q = isset($_GET['query']) ? urlencode($_GET['query']) : '';
-                $items = [];
-                foreach ($budgetOptions as $index => $b) {
-                    $items[] = [
-                        'text' => $b,
-                        'href' => "/pages/BrowseGigs.php?budget=" . urlencode($b) . "&query=$q"
-                    ];
-                }
-                $boldFirst     = true;
-                $selectedIndex = $selectedBudgetIndex !== false ? $selectedBudgetIndex : 0;
-                include __DIR__ . '/../components/Dropdown.php';
 
                 // Delivery Time dropdown
                 $label = "Delivery Time";

@@ -265,6 +265,35 @@
     }
 }
 
+#order-btn {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: 1%;
+
+    width: 100%;
+    height: 44px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--background);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary);
+
+    cursor: pointer;
+    
+    transition: background-color 0.2s ease;
+}
+
+#order-btn:hover {
+    background-color: var(--secondary);
+}
+
 /* Mobile */
 @media (max-width: 1024px) {
     .gig-details-page {

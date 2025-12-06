@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     height: 88px;
-    padding: 24px 56px;
+    padding: 24px 40px;
     background-color: var(--background);
 
     position: sticky;
@@ -15,11 +15,21 @@
 
 .logo-banner-div {
     display: flex;
-    height: 100%;
+    align-items: center;
+    /* height: auto; */
     padding: 0;
-
-    transition: transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    /* max-width: 100%; */
+    /* min-width: 90%; */
+    /* min-height: 35px; */
+}
+
+#logo-banner {
+    /* min-width: 20px; */
+    max-width: 100%;
+    height: 20px;
+    display: block;
 }
 
 .logo-banner-div:hover {
@@ -27,9 +37,7 @@
     opacity: 0.8;
 }
 
-#logo-banner {
-    width: 100%;
-}
+
 
 #logo-icon {
     height: 64px;
@@ -64,7 +72,7 @@
 
 #navigation-link {
     display: flex;
-    gap: 0 32px;
+    gap: 16px;
     margin-right: 64px;
 }
 
@@ -90,6 +98,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 32px;
     margin-bottom: 64px;
     padding-bottom: 15px;
     border-bottom: 1px solid #eee;
@@ -206,16 +215,6 @@
     cursor: pointer;
 }
 
-.header-navigation-link.dropdown {
-    position: relative;
-    cursor: pointer;
-}
-
-.header-navigation-link.dropdown.dropdown-right .dropdown-content {
-    right: 0;
-    left: auto;
-}
-
 /* [COMPONENT] Dropdown */
 .dropdown.dropdown-right .dropdown-content {
     right: 0;
@@ -268,72 +267,6 @@
     font-weight: bold;
 }
 
-.filters-section .filter-buttons .header-navigation-link::after {
-    content: none;
-}
-
-/* ============================
-   RESET / BASE BEHAVIOR
-============================ */
-.header-navigation-link.dropdown,
-.header-navigation-link.dropdown::after {
-    content: none;
-}
-
-.header-navigation-link.dropdown:hover::after {
-    width: 0;
-}
-
-/* ============================
-   HEADER NAVIGATION DROPDOWN
-============================ */
-.header-navigation-link.dropdown {
-    position: relative;
-    cursor: pointer;
-}
-
-.header-navigation-link.dropdown .dropdown-icon {
-    width: 12px;
-    height: 12px;
-}
-
-/* Default state */
-.header-navigation-link.dropdown .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 160px;
-    background-color: #fff;
-    border-radius: 8px;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-/* Open state */
-.header-navigation-link.dropdown.active .dropdown-content {
-    display: flex;
-}
-
-/* Items */
-.header-navigation-link.dropdown .dropdown-content a {
-    padding: 10px 16px;
-    text-decoration: none;
-    color: var(--primary);
-    white-space: nowrap;
-}
-
-.header-navigation-link.dropdown .dropdown-content a.selected {
-    font-weight: 700;
-}
-
-/* Right alignment */
-.header-navigation-link.dropdown.dropdown-right .dropdown-content {
-    right: 0;
-    left: auto;
-}
-
 /* ============================
    GENERIC DROPDOWN COMPONENT
 ============================ */
@@ -342,6 +275,7 @@
     align-items: center;
     gap: 4px;
     cursor: pointer;
+    min-width: 190px;
 }
 
 .dropdown-static-label {
@@ -354,24 +288,6 @@
     width: 12px;
     height: 12px;
     object-fit: contain;
-}
-
-
-.filters-section .filter-buttons .header-navigation-link::after {
-    content: none;
-}
-
-.header-navigation-link.dropdown,
-.header-navigation-link.dropdown::after {
-    content: none;
-}
-
-.header-navigation-link.dropdown:hover::after {
-    width: 0;
-}
-
-.header-navigation-link.dropdown[data-nav-mode="1"]:hover .dropdown-content {
-    display: block;
 }
 
 .header-profile-container {
@@ -483,13 +399,12 @@
 .header-navigation-link {
     font-family: var(--header);
     font-weight: 400;
-    font-size: 18px;
+    font-size: 1.125rem;
     letter-spacing: 1%;
     text-decoration: none;
-
     color: var(--primary);
-    
     border-radius: 8px;
+    
     margin-right: 0;
     position: relative;
     white-space: nowrap;
@@ -512,6 +427,251 @@
     left: 0;
 }
 
-.header-navigation-link.no-underline::after {
+.header-navigation-link.no-underline::after,
+.header-navigation-link.dropdown::after,
+.filters-section .filter-buttons .header-navigation-link::after {
     content: none;
+}
+
+.header-navigation-link.dropdown.active .dropdown-content {
+    display: flex;
+}
+
+.header-navigation-link.dropdown .dropdown-content a {
+    padding: 10px 16px;
+    text-decoration: none;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.header-navigation-link.dropdown .dropdown-content a.selected {
+    font-weight: 700;
+}
+
+.header-navigation-link.dropdown.dropdown-right .dropdown-content {
+    right: 0;
+    left: auto;
+}
+
+.header-navigation-link.dropdown:hover::after {
+    width: 0;
+}
+
+.header-navigation-link.dropdown[data-nav-mode="1"]:hover .dropdown-content {
+    display: block;
+}
+
+/* ====================== HEADER - FULLY FIXED RESPONSIVE ====================== */
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 88px;
+    padding: 24px 40px;
+    background-color: var(--background);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    flex-wrap: nowrap;
+}
+
+/* Logo - NEVER shrink prematurely */
+.logo-banner-div {
+    flex: 0 0 auto;                    /* Don't grow, don't shrink */
+    min-width: 140px;                  /* Minimum reasonable size */
+    max-width: 220px;                  /* Max size on large screens */
+    /* width: 180px; */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#logo-banner {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo-banner-div:hover {
+    transform: scale(1.05);
+}
+
+/* Left container - logo + search */
+#header-left-container {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    flex-shrink: 0;                    /* Prevent shrinking */
+}
+
+/* Right side */
+#auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-shrink: 0;
+}
+
+/* Hide overflowing items gracefully */
+.header-links,
+#navigation-link,
+.header-navigation-link:not(.always-show) {  /* you'll add .always-show to critical links if needed */
+    white-space: nowrap;
+}
+
+/* ====================== RESPONSIVE BREAKPOINTS ====================== */
+
+/* Tablet Large - 1024px */
+@media (max-width: 1024px) {
+    #header {
+        padding: 20px 32px;
+        gap: 32px;
+    }
+
+    #header-left-container {
+        gap: 32px;
+    }
+
+    .logo-banner-div {
+        width: 160px;
+    }
+
+    #search-bar-container,
+    #search-bar-container.rounded {
+        width: 460px;
+    }
+
+    #auth-buttons {
+        gap: 24px;
+    }
+
+    .header-navigation-link {
+        font-size: 1rem;
+    }
+}
+
+/* Tablet - 840px: Start reducing gaps, keep logo stable */
+@media (max-width: 840px) {
+    #header {
+        padding: 16px 24px;
+        height: 80px;
+    }
+
+    .logo-banner-div {
+        width: 150px;
+        min-width: 130px;
+    }
+
+    #header-left-container {
+        gap: 24px;
+    }
+
+    #search-bar-container,
+    #search-bar-container.rounded {
+        width: 380px;
+    }
+
+    .header-links {
+        gap: 20px;
+    }
+
+    #auth-buttons {
+        gap: 20px;
+    }
+}
+
+/* Critical Zone: 650px → Hide search bar, keep logo full */
+@media (max-width: 650px) {
+    #header-left-container {
+        gap: 16px;
+    }
+
+    /* Hide search completely - it's useless when too small */
+    #search-bar-container,
+    #search-bar-container.rounded {
+        display: none;
+    }
+
+    .logo-banner-div {
+        width: 140px;
+        min-width: 120px;
+    }
+
+    /* Hide non-essential links */
+    .header-links {
+        display: none;
+    }
+
+    #navigation-link {
+        margin-right: 20px;
+    }
+
+    #auth-buttons {
+        gap: 16px;
+    }
+}
+
+/* Mobile - 550px and below: Final clean mobile header */
+@media (max-width: 550px) {
+    #header {
+        padding: 12px 16px;
+        height: 70px;
+        justify-content: space-between;
+    }
+
+    .logo-banner-div {
+        width: 130px;
+        min-width: 110px;
+    }
+
+    #logo-banner {
+        max-height: 40px;
+    }
+
+    /* Show only most important actions */
+    #navigation-link {
+        display: none; /* Or replace with hamburger later */
+    }
+
+    .header-navigation-link {
+        font-size: 0.9375rem;
+    }
+
+    /* Keep only Login / Join visible if logged out */
+    #auth-buttons > a,
+    #auth-buttons > div:not(.header-profile-container) {
+        display: none;
+    }
+
+    /* Always show profile if logged in, and Join/Login if not */
+    .header-profile-container,
+    #auth-buttons a[href*="Login"],
+    #auth-buttons a[href*="SignUp"],
+    #auth-buttons .primary-button {
+        display: block !important;
+    }
+
+    /* Optional: Make Join button smaller */
+    .primary-button {
+        padding: 8px 16px !important;
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 380px) {
+    .logo-banner-div {
+        width: 110px;
+    }
+
+    #header {
+        padding: 10px 12px;
+    }
+
+    .header-profile-container .profile-placeholder-icon {
+        width: 32px;
+        height: 32px;
+    }
 }

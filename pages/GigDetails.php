@@ -132,6 +132,32 @@ $reviewCount  = $ratingData['review_count'];
                 <p><?= nl2br(htmlspecialchars($gig['description'] ?? 'No description provided.')) ?></p>
             </div>
 
+            <?php 
+                // Only show Order button if user is logged in and NOT the gig owner
+                $showOrderButton = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] 
+                    && (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != $gig['user_id']);
+            ?>
+
+            <?php if ($showOrderButton): ?>
+                <button 
+                    id="order-btn" 
+                    class="primary-button" 
+                    onclick="startOrder(<?= $gig['id'] ?>, <?= $gig['user_id'] ?>)">
+                    <span>Order Now – $<?= number_format($gig['price'], 2) ?></span>
+                </button>
+            <?php else: ?>
+                <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
+                    <p style="margin:32px 0; text-align:center; color:#666;">
+                        <a href="../pages/Login.php" style="color:var(--primary); text-decoration:underline;">Log in</a> 
+                        to order this gig
+                    </p>
+                <?php else: ?>
+                    <p style="margin:32px 0; text-align:center; color:#666;">
+                        This is your own gig!
+                    </p>
+                <?php endif; ?>
+            <?php endif; ?>
+
             <div class="gig-rating-large">
                 <h2 class="section-title">Reviews</h2>
                 <div id="section-reviews-container">
@@ -221,7 +247,7 @@ $reviewCount  = $ratingData['review_count'];
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
-
+    <script src="../js/dropdown.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const gigImg= document.querySelector('gigMainImage'); // select the seller avatar
@@ -244,8 +270,33 @@ $reviewCount  = $ratingData['review_count'];
             }
         }
     });
-    </script>
 
-    <script src="../js/dropdown.js"></script>
+    function startOrder(gigId, sellerId) {
+        // Simple confirmation
+        if (!confirm(`Order this gig for $${<?= $gig['price'] ?>}? You will be taken to chat with the seller.`)) {
+            return;
+        }
+
+        // Create order via AJAX (you can expand this later)
+        fetch('../database/create_order.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'gig_id=' + gigId + '&seller_id=' + sellerId
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Redirect to chat with the seller
+                window.location.href = `../pages/Chats.php?with=${sellerId}&gig=${gigId}`;
+            } else {
+                alert('Error creating order: ' + (data.message || 'Please try again.'));
+            }
+        })
+        .catch(() => {
+            // Fallback: just go to chat anyway (still useful)
+            window.location.href = `../pages/Chats.php?with=${sellerId}&gig=${gigId}`;
+        });
+    }
+    </script>
 </body>
 </html>

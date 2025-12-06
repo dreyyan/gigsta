@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/hero-section.css">
     <link rel="stylesheet" href="../css/primary-button.css">
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/dropdown.css">
 
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">

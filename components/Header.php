@@ -1,12 +1,11 @@
 <?php
 session_start();
-
 $isLoggedIn = $_SESSION['logged_in'] ?? false;
 $userRole   = $_SESSION['role'] ?? '';
 ?>
 
 <header id="header">
-    <!-- LEFT: Logo + optional Search -->
+    <!-- [LEFT] Logo + Optional Search -->
     <div id="header-left-container">
         <a href="../index.php">
             <div class="logo-banner-div">
@@ -14,7 +13,7 @@ $userRole   = $_SESSION['role'] ?? '';
             </div>
         </a>
 
-        <!-- Search Bar only if logged in -->
+        <!-- [LOGGED IN] Search Bar -->
         <?php if ($isLoggedIn): ?>
             <?php
                 $width = "460px";
@@ -23,7 +22,7 @@ $userRole   = $_SESSION['role'] ?? '';
         <?php endif; ?>
     </div>
 
-    <!-- RIGHT: Navigation / Auth / Profile -->
+    <!-- [RIGHT] Navigation / Auth / Profile -->
     <div id="auth-buttons">
         <?php if ($isLoggedIn): ?>
             <!-- Logged-in navigation links -->

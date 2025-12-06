@@ -137,12 +137,15 @@
 /* [COMPONENT] Feature Card */
 .info-card {
     display: flex;
-    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px;
 
     flex: 1;
     max-width: 423px;
     min-width: 361px;
     height: 158px;
+    min-height: 160px;
 
     padding: 24px;
 
@@ -150,7 +153,10 @@
     background: var(--background);
     box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4);
 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
     #info-card-title {
+        text-align: left;
         font-family: var(--header);
         font-weight: 600;
         font-size: 20px;
@@ -160,6 +166,7 @@
     }
 
     #info-card-description {
+        text-align: left;
         font-family: var(--body);
         font-weight: 400;
         font-size: 15px;
@@ -168,7 +175,250 @@
     }
 
     img {
-        width: 32px;
-        margin-right: 16px;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        margin-top: 4px;
+    }
+}
+
+.info-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+@import url('styles.css');
+
+/* ====================== HERO SECTION - FULLY RESPONSIVE ====================== */
+.hero-section-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 140px 40px 80px; /* More top space to avoid header overlap */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    /* Background image - now responsive */
+    background-image: url('../images/hero-section-background.png') center/cover no-repeat;
+    
+    /* Fallback color in case image fails */
+    background-color: var(--background, #000);
+}
+
+/* Big beautiful heading */
+.hero-section-header {
+    font-family: var(--header-font);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    max-width: 1000px;
+    z-index: 2;
+}
+
+.hero-section-header h1 {
+    font-size: clamp(42px, 8vw, 68px);
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+#hero-section-header-highlighted {
+    color: var(--secondary);
+    display: block;
+}
+
+/* Subheadline */
+.hero-section-container > h3 {
+    font-family: var(--body);
+    font-weight: 500;
+    font-size: clamp(18px, 4vw, 24px);
+    color: var(--text-secondary);
+    margin: 0 0 40px 0;
+    max-width: 700px;
+    opacity: 0.95;
+}
+
+/* Search Container */
+.search-container {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+/* Quick Tags */
+.quick-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.tag-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    font-family: var(--body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.tag-container:hover {
+    background-color: var(--primary);
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.tag-container:hover img {
+    content: url('../images/tag-arrow-hover-icon.svg');
+}
+
+/* Trust Line */
+#trust-content-container {
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: clamp(16px, 3vw, 20px);
+    color: var(--text-secondary);
+    margin: 48px 0 64px;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+#star-icon {
+    color: #FFD700;
+    font-size: 1.4em;
+    vertical-align: middle;
+}
+
+/* Feature Cards */
+.feature-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    z-index: 2;
+}
+
+/* ====================== RESPONSIVE BREAKPOINTS ====================== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .hero-section-container {
+        padding: 120px 32px 80px;
+    }
+
+    .feature-cards-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* grid-template-columns: 1fr; */
+        max-width: 600px;
+    }
+
+    .info-card {
+        padding: 24px;
+    }
+}
+
+/* Mobile Large */
+@media (max-width: 768px) {
+    .hero-section-container {
+        padding: 100px 24px 60px;
+        background-position: center top;
+    }
+
+    .search-container {
+        max-width: 100%;
+    }
+
+    /* Make search bar full width on mobile */
+    #search-bar-container,
+    #search-bar-container.rounded {
+        width: 100% !important;
+        max-width: none;
+    }
+
+    .quick-tags {
+        gap: 10px;
+    }
+
+    .tag-container {
+        padding: 7px 14px;
+        font-size: 13px;
+    }
+
+    #trust-content-container {
+        margin: 40px 0;
+        line-height: 1.5;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Mobile Small */
+@media (max-width: 480px) {
+    .hero-section-container {
+        padding: 90px 16px 50px;
+    }
+
+    .hero-section-header h1 {
+        font-size: 42px;
+        line-height: 1.15;
+    }
+
+    .hero-section-container > h3 {
+        font-size: 18px;
+        padding: 0 10px;
+    }
+
+    .info-card {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .info-card img {
+        width: 40px;
+        height: 40px;
+        align-self: center;
+    }
+
+    .feature-cards-container {
+        padding: 0;
+    }
+
+    .tag-container {
+        font-size: 12.5px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero-section-header h1 {
+        font-size: 36px;
+    }
+
+    .tag-container {
+        font-size: 12px;
+        padding: 5px 10px;
     }
 }
