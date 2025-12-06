@@ -7,13 +7,23 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$userId = $_SESSION['user_id'];
-$stmt = $db->prepare("SELECT role, age, location, experience_years FROM users WHERE id = :id");
+$userId = (int)$_SESSION['user_id'];
+
+// THIS IS THE ONLY FIX YOU NEED
+$stmt = $db->prepare("SELECT role FROM users WHERE id = :id");
 $stmt->bindValue(':id', $userId, SQLITE3_INTEGER);
 $result = $stmt->execute();
-$user = $result->fetchArray(SQLITE3_ASSOC);
+$userRow = $result->fetchArray(SQLITE3_ASSOC);
 
-$hasRole = !empty($user['role']);
+// If user doesn't exist or query fails → redirect to login
+if (!$userRow) {
+    session_destroy();
+    header("Location: ../Login.php");
+    exit;
+}
+
+// This line was crashing because $user was false/null
+$hasRole = !empty($userRow['role']);
 ?>
 
 <!DOCTYPE html>

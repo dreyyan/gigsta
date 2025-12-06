@@ -1,11 +1,16 @@
 <?php
 require_once __DIR__ . '/../database/connection.php';
-require_once __DIR__ . '/../database/gig_reviews.php';  // Provides getGigRating()
+require_once __DIR__ . '/../database/gig_reviews.php';
 
+// GET parameters
 $query  = trim($_GET['query'] ?? '');
 $budget = $_GET['budget'] ?? 'Any';
+$sort   = $_GET['sort'] ?? 'newest';
+$delivery = $_GET['delivery'] ?? 'Any';
 
-// Base query: include `is_pro` field from users
+// ------------------------------------------------------------------
+// Build the query
+// ------------------------------------------------------------------
 $sql = "SELECT gigs.*, users.username, users.role, users.is_pro
         FROM gigs
         INNER JOIN users ON gigs.user_id = users.id
@@ -23,46 +28,87 @@ if ($query !== '') {
 if ($budget !== 'Any') {
     switch ($budget) {
         case 'Under $50':
-            $sql .= " AND gigs.price < :budget";
-            $params[':budget'] = 50;
+            $sql .= " AND gigs.price < 50";
             break;
         case '$50 - $100':
-            $sql .= " AND gigs.price BETWEEN :min AND :max";
-            $params[':min'] = 50;
-            $params[':max'] = 100;
+            $sql .= " AND gigs.price BETWEEN 50 AND 100";
             break;
         case '$100+':
-            $sql .= " AND gigs.price > :budget";
-            $params[':budget'] = 100;
+            $sql .= " AND gigs.price > 100";
             break;
     }
 }
 
-$sql .= " ORDER BY gigs.created_at DESC";
-
-// Prepare statement
-$stmt = $db->prepare($sql);
-foreach ($params as $k => $v) {
-    $type = is_int($v) || is_float($v) ? SQLITE3_FLOAT : SQLITE3_TEXT;
-    $stmt->bindValue($k, $v, $type);
+// Delivery Time filter
+if ($delivery !== 'Any') {
+    switch ($delivery) {
+        case '24 hours':
+            $sql .= " AND delivery_time = '24 hours'";
+            break;
+        case '3 days':
+            $sql .= " AND delivery_time = '3 days'";
+            break;
+        case '7 days':
+            $sql .= " AND delivery_time = '7 days'";
+            break;
+        case '14 days':
+        case '30 days':
+            $sql .= " AND delivery_time = :delivery";
+            $params[':delivery'] = $delivery;
+            break;
+    }
 }
 
-$result = $stmt->execute();
-$filtered = [];
+// Sorting – THIS IS WHAT WAS BROKEN
+switch ($sort) {
+    case 'price_low':
+        $sql .= " ORDER BY gigs.price ASC";
+        break;
+    case 'price_high':
+        $sql .= " ORDER BY gigs.price DESC";
+        break;
+    case 'best_selling':
+        // change this later when you have sales data
+        $sql .= " ORDER BY gigs.created_at DESC";
+        break;
+    case 'newest':
+    default:
+        $sql .= " ORDER BY gigs.created_at DESC";
+        break;
+}
 
-// Fetch results + append rating info
+// ------------------------------------------------------------------
+// Execute query
+// ------------------------------------------------------------------
+$stmt = $db->prepare($sql);
+foreach ($params as $k => $v) {
+    $stmt->bindValue($k, $v, SQLITE3_TEXT);
+}
+$result = $stmt->execute();
+
+$filtered = [];
 while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $ratingData = getGigRating($row['id'], $db);
-
-    $row['avg_rating']   = $ratingData['avg_rating'];
-    $row['review_count'] = $ratingData['review_count'];
-
+    $row['avg_rating']    = $ratingData['avg_rating'];
+    $row['review_count']  = $ratingData['review_count'];
     $filtered[] = $row;
 }
 
-// Dropdown options
-$budgetOptions       = ['Any', 'Under $50', '$50 - $100', '$100+'];
+// ------------------------------------------------------------------
+// Dropdown data
+// ------------------------------------------------------------------
+$budgetOptions = ['Any', 'Under $50', '$50 - $100', '$100+'];
 $selectedBudgetIndex = array_search($budget, $budgetOptions);
+$selectedBudgetIndex = $selectedBudgetIndex !== false ? $selectedBudgetIndex : 0;
+
+// For Sort By – current selected text
+$sortTexts = [
+    'best_selling' => 'Best selling',
+    'newest'       => 'Newest',
+    'price_low'    => 'Price: Low to High',
+    'price_high'   => 'Price: High to Low',
+];
+$currentSortText = $sortTexts[$sort] ?? 'Newest';
 ?>
 
 <!DOCTYPE html>
@@ -70,8 +116,7 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="../css/browse-gigs.css">
+    <!-- <link rel="stylesheet" href="../css/browse-gigs.css"> -->
     <link rel="stylesheet" href="../css/primary-button.css">
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/header.css">
@@ -85,42 +130,82 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
 
     <main class="search-results-container">
         <h2>Browse Gigs</h2>
-        <!-- FILTERS -->
+
         <div class="filters-section">
             <div class="filter-buttons">
-                <?php
-                // Budget dropdown
 
-                // Delivery Time dropdown
-                $label = "Delivery Time";
-                $items = [
-                    ['text' => 'Any',      'href' => '#'],
-                    ['text' => '24 hours', 'href' => '#'],
-                    ['text' => '3 days',   'href' => '#'],
-                    ['text' => '7 days',   'href' => '#'],
-                ];
+                <!-- BUDGET DROPDOWN -->
+                <?php
+                $label = "Budget";
+                $isFilter = true;
+                $q = $query ? urlencode($query) : '';
+                $items = [];
+                foreach ($budgetOptions as $index => $b) {
+                    $items[] = [
+                        'text' => $b,
+                        'href' => "BrowseGigs.php?budget=" . urlencode($b) . ($q ? "&query=$q" : '')
+                    ];
+                }
+                $selectedIndex = $selectedBudgetIndex;
                 $boldFirst = true;
                 include __DIR__ . '/../components/Dropdown.php';
                 ?>
+
+                <!-- DELIVERY TIME DROPDOWN -->
+                <?php
+                $label = "Delivery Time";
+                $isFilter = true;
+
+                $base = "BrowseGigs.php";
+                $q = $query ? '&query=' . urlencode($query) : '';
+                $b = $budget !== 'Any' ? '&budget=' . urlencode($budget) : '';
+                $s = $sort !== 'newest' ? '&sort=' . $sort : '';
+
+                $items = [
+                    ['text' => 'Any',        'href' => $base . '?delivery=Any' . $q . $b . $s],
+                    ['text' => '24 hours',   'href' => $base . '?delivery=24+hours' . $q . $b . $s],
+                    ['text' => '3 days',     'href' => $base . '?delivery=3+days' . $q . $b . $s],
+                    ['text' => '7 days',     'href' => $base . '?delivery=7+days' . $q . $b . $s],
+                    ['text' => '14 days',    'href' => $base . '?delivery=14+days' . $q . $b . $s],
+                    ['text' => '30 days',    'href' => $base . '?delivery=30+days' . $q . $b . $s],
+                ];
+
+                $deliveryTexts = ['Any' => 'Any', '24 hours' => '24 hours', '3 days' => '3 days', '7 days' => '7 days', '14 days' => '14 days', '30 days' => '30 days'];
+                $currentDeliveryText = $deliveryTexts[$delivery] ?? 'Any';
+
+                $selectedIndex = array_search($currentDeliveryText, array_column($items, 'text'));
+                $selectedIndex = $selectedIndex !== false ? $selectedIndex : 0;
+
+                include __DIR__ . '/../components/Dropdown.php';
+                ?>
+
             </div>
 
             <div class="sort-section">
                 <?php
                 $label = "Sort by";
+                $isFilter = true;
+                $rightAlign = true;
+
+                $q = $query ? "&query=" . urlencode($query) : '';
+                $b = $budget !== 'Any' ? "&budget=" . urlencode($budget) : '';
+
                 $items = [
-                    ['text'=>'Best selling',       'href'=>'#'],
-                    ['text'=>'Newest',             'href'=>'#'],
-                    ['text'=>'Price: Low to High', 'href'=>'#'],
-                    ['text'=>'Price: High to Low', 'href'=>'#'],
+                    ['text' => 'Best selling',       'href' => "?sort=best_selling$q$b"],
+                    ['text' => 'Newest',             'href' => "?sort=newest$q$b"],
+                    ['text' => 'Price: Low to High', 'href' => "?sort=price_low$q$b"],
+                    ['text' => 'Price: High to Low', 'href' => "?sort=price_high$q$b"],
                 ];
-                $rightAlign  = true;
-                $activeIndex = 0;
+
+                // Find correct selected item
+                $selectedIndex = array_search($currentSortText, array_column($items, 'text'));
+                $selectedIndex = $selectedIndex !== false ? $selectedIndex : 1; // default "Newest"
+
                 include __DIR__ . '/../components/Dropdown.php';
                 ?>
             </div>
         </div>
 
-        <!-- RESULTS HEADER -->
         <?php if ($query !== ''): ?>
             <div class="results-title">
                 <p>Results for: <strong><?= htmlspecialchars($query) ?></strong></p>
@@ -131,7 +216,6 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
             <a class="clear-search" href="/pages/BrowseGigs.php">Clear search</a>
         <?php endif; ?>
 
-        <!-- GIGS GRID -->
         <div class="gigs-grid">
             <?php foreach ($filtered as $gig): ?>
                 <?php
@@ -142,7 +226,7 @@ $selectedBudgetIndex = array_search($budget, $budgetOptions);
                 $ratingCount  = $gig['review_count'];
                 $price        = number_format($gig['price'], 2);
                 $image        = '../images/gig-image-placeholder.jpg';
-                $gigId        = $gig['id'];  // ← THIS IS KEY
+                $gigId        = $gig['id'];
                 ?>
                 <?php include __DIR__ . '/../components/GigCard.php'; ?>
             <?php endforeach; ?>
