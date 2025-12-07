@@ -13,7 +13,7 @@ $icon        = $icon ?? '/gigsta/images/search-icon.svg';
     class="<?= $rounded ? 'rounded' : '' ?>"
     style="<?= $width ? 'width:' . htmlspecialchars($width) . ';' : '' ?>"
     method="GET"
-    action="../pages/BrowseGigs.php"
+    action="/gigsta/pages/BrowseGigs.php"
 >
     <input 
         id="<?= htmlspecialchars($id) ?>" 

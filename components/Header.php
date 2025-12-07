@@ -41,9 +41,9 @@ $userRole   = $_SESSION['role'] ?? '';
             </div>
 
             <!-- Profile Dropdown -->
-            <div class="header-profile-container dropdown" id="profileDropdown">
+            <div class="header-profile-container" id="profileDropdown">
                 <img src="/gigsta/images/profile-placeholder-icon.svg" class="profile-placeholder-icon" alt="Profile">
-                <div class="dropdown-content dropdown-right">
+                <div class="dropdown-content">
                     <a href="/gigsta/pages/Profile.php">Profile</a>
                     <a href="/gigsta/pages/Chats.php">Messages</a>
                     <a href="/gigsta/pages/PrivacyAndSupport.php">Privacy & Support</a>

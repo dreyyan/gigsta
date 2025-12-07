@@ -6,7 +6,7 @@ $tags = $tags ?? ['website development', 'architecture & interior design', 'vide
     <?php foreach ($tags as $tag): ?>
         <div class="tag-container" onclick="searchTag('<?= htmlspecialchars($tag, ENT_QUOTES) ?>')">
             <span><?= htmlspecialchars($tag) ?></span>
-            <img class="tag-arrow" src="../images/tag-arrow-icon.svg" alt="Arrow"/>
+            <img class="tag-arrow" src="/gigsta/images/tag-arrow-icon.svg" alt="Arrow"/>
         </div>
     <?php endforeach; ?>
 </div>
@@ -17,6 +17,6 @@ function searchTag(tag) {
     const query = encodeURIComponent(tag);
 
     // Navigate to BrowseGigs.php with query param
-    window.location.href = "/pages/BrowseGigs.php?query=" + query;
+    window.location.href = "/gigsta/pages/BrowseGigs.php?query=" + query;
 }
 </script>
