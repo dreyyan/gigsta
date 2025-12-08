@@ -7,7 +7,7 @@ require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
 try {
-    $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
+    $db = new SQLite3(__DIR__ . '/database/gigsta.db');
 } catch (Exception $e) {
     if ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '' === 'XMLHttpRequest') {
         http_response_code(500);
@@ -89,9 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="/gigsta/css/styles.css">
-    <link rel="stylesheet" href="/gigsta/css/primary-button.css">
-    <link rel="stylesheet" href="/gigsta/css/authentication.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/primary-button.css">
+    <link rel="stylesheet" href="/css/authentication.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts: Google -->
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="auth-left-container">
             <!-- [COMPONENT] Minimal Logo -->
             <a href="../index.php">
-                <img src="/gigsta/images/gigsta-logo-minimal.svg" alt="Gigsta logo" id="gigsta-logo">
+                <img src="/images/gigsta-logo-minimal.svg" alt="Gigsta logo" id="gigsta-logo">
             </a>
 
             <!-- [SECTION] Auth Content -->
@@ -160,10 +160,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ]); ?>
                         
                         <ul class="password-requirements">
-                            <li data-rule="length"><img src="/gigsta/images/check-indicator-icon.svg" alt="check"> At least 8 characters</li>
-                            <li data-rule="uppercase"><img src="/gigsta/images/check-indicator-icon.svg" alt="check"> At least 1 uppercase letter</li>
-                            <li data-rule="lowercase"><img src="/gigsta/images/check-indicator-icon.svg" alt="check"> At least 1 lowercase letter</li>
-                            <li data-rule="number"><img src="/gigsta/images/check-indicator-icon.svg" alt="check"> At least 1 number</li>
+                            <li data-rule="length"><img src="/images/check-indicator-icon.svg" alt="check"> At least 8 characters</li>
+                            <li data-rule="uppercase"><img src="/images/check-indicator-icon.svg" alt="check"> At least 1 uppercase letter</li>
+                            <li data-rule="lowercase"><img src="/images/check-indicator-icon.svg" alt="check"> At least 1 lowercase letter</li>
+                            <li data-rule="number"><img src="/images/check-indicator-icon.svg" alt="check"> At least 1 number</li>
                         </ul>
 
                         <!-- [COMPONENT: Primary Button] Sign Up -->
@@ -189,13 +189,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Hero Image -->
                 <div class="hero-image">
-                    <img src="/gigsta/images/odette.jpg" alt="Hero image">
+                    <img src="/images/odette.jpg" alt="Hero image">
                 </div>
             </div>
         </section>
     </main>
 
     <!-- [IMPORT] JavaScript -->
-    <script src="/gigsta/js/signup.js"></script>
+    <script src="/js/signup.js"></script>
 </body>
 </html>

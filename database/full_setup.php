@@ -1,6 +1,15 @@
 <?php
+// FORCE ERROR REPORTING (add this at the very top!)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Also log errors to a file so you can see them even if output is blocked
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/php_error.log');
+
 // GIGSTA - FULL SETUP 2025 (FINAL - WITH REALISTIC USERNAMES, TITLES & DESCRIPTIONS)
-$dbPath = __DIR__ . '/../database/gigsta.db';
+$dbPath = __DIR__ . '/gigsta.db';
 
 echo "<pre style='font-family: monospace; background:#000; color:#0f0; padding:30px; font-size:16px;'>";
 echo "GIGSTA FULL SETUP + REALISTIC DATA (2025)\n\n";

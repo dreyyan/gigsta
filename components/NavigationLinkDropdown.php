@@ -8,7 +8,7 @@ $rightAlign = $rightAlign ?? false;
     <!-- Always show only the static label -->
     <span class="dropdown-label">
         <span class="dropdown-static-label"><?= htmlspecialchars($label) ?></span>
-        <img src="/gigsta/images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon">
+        <img src="/images/dropdown-arrow-icon.svg" alt="Dropdown Arrow" class="dropdown-icon">
     </span>
 
     <div class="dropdown-content">

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS: Stylesheet -->
-    <link rel="stylesheet" href="/gigsta/css/hero-section.css">
-    <link rel="stylesheet" href="/gigsta/css/primary-button.css">
-    <link rel="stylesheet" href="/gigsta/css/dropdown.css">
-    <link rel="stylesheet" href="/gigsta/css/header.css">
+    <link rel="stylesheet" href="/css/hero-section.css">
+    <link rel="stylesheet" href="/css/primary-button.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/header.css">
 
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
@@ -39,7 +39,7 @@
                 $placeholder="Search for any service...";
                 $width = "656px";
                 $rounded = true;
-                $icon = "/gigsta/images/search-icon.svg";
+                $icon = "/images/search-icon.svg";
                 include 'components/SearchBar.php'; 
             ?>
 
@@ -57,22 +57,22 @@
         <!-- [SECTION] Feature Cards -->
         <div class="feature-cards-container">
             <?php
-            $image="/gigsta/images/thunder-icon.svg";
+            $image="/images/thunder-icon.svg";
             $title="Delivered in Hours, Not Weeks";
             $description="Most gigs delivered same day or next day. Perfect for urgent projects and tight deadlines.";
             include 'components/FeatureCard.php'; ?>
             <?php
-            $image="/gigsta/images/globe-icon.svg";
+            $image="/images/globe-icon.svg";
             $title="Local Talent + Global Reach";
             $description="Hire top Ilonggo freelancers or reach skilled talent worldwide—same platform, same speed.";
             include 'components/FeatureCard.php'; ?>
             <?php
-            $image="/gigsta/images/dollar-icon.svg";
+            $image="/images/dollar-icon.svg";
             $title="Fixed Price, Zero Drama";
             $description="No bidding wars or negotiations. See the exact price before you order—every single time.";
             include 'components/FeatureCard.php'; ?>
         </div>
     </main>
-    <script src="/gigsta/js/dropdown.js"></script>
+    <script src="/js/dropdown.js"></script>
 </body>
 </html>

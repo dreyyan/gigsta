@@ -8,5 +8,5 @@ $_SESSION = [];
 session_destroy();
 
 // Redirect back to homepage or login page
-header("Location: /gigsta/pages/Login.php");
+header("Location: /pages/Login.php");
 exit;

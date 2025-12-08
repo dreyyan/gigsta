@@ -14,7 +14,7 @@ $price       = $price       ?? '0';
 $gigId = $gigId ?? 0;
 ?>
 
-<a href="/gigsta/pages/GigDetails.php?id=<?= (int)$gigId ?>" class="gig-card-link">
+<a href="/pages/GigDetails.php?id=<?= (int)$gigId ?>" class="gig-card-link">
     <div class="gig-card">
         <div class="gig-image">
             <img src="<?= htmlspecialchars($image) ?>" alt="Gig Image">
@@ -37,7 +37,7 @@ $gigId = $gigId ?? 0;
 
             <div class="gig-footer">
                 <div class="rating">
-                    <img src="/gigsta/images/star-rating-icon.svg" alt="star" class="rating-star">
+                    <img src="/images/star-rating-icon.svg" alt="star" class="rating-star">
                     <span class="rating-value"><?= htmlspecialchars($ratingValue) ?></span>
                     <span class="rating-count">
                         (<?= htmlspecialchars($ratingCount) ?> <?= $ratingCount == 1 ? 'review' : 'reviews' ?>)

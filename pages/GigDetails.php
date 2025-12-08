@@ -30,11 +30,11 @@ $reviewCount  = $ratingData['review_count'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/gigsta/css/gig-details.css">
-    <link rel="stylesheet" href="/gigsta/css/dropdown.css">
-    <link rel="stylesheet" href="/gigsta/css/header.css">
-    <link rel="stylesheet" href="/gigsta/css/rating.css">
-    <link rel="stylesheet" href="/gigsta/css/primary-button.css">
+    <link rel="stylesheet" href="/css/gig-details.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/rating.css">
+    <link rel="stylesheet" href="/css/primary-button.css">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title><?= htmlspecialchars($gig['title']) ?> • Gigsta</title>
@@ -86,25 +86,25 @@ $reviewCount  = $ratingData['review_count'];
             <!-- IMAGE + THUMBNAILS (SIDE BY SIDE) -->
             <div class="image-gallery">
                 <div class="main-image">
-                    <img src="/gigsta/images/gig-image-placeholder.jpg" alt="<?= htmlspecialchars($gig['title']) ?>" id="mainGigImage">
+                    <img src="/images/gig-image-placeholder.jpg" alt="<?= htmlspecialchars($gig['title']) ?>" id="mainGigImage">
                 </div>
                 <div class="thumbnails">
-                    <img src="/gigsta/images/gig-image-placeholder.jpg" alt="thumb">
-                    <img src="/gigsta/images/gig-image-placeholder.jpg" alt="thumb">
-                    <img src="/gigsta/images/gig-image-placeholder.jpg" alt="thumb">
-                    <img src="/gigsta/images/gig-image-placeholder.jpg" alt="thumb">
+                    <img src="/images/gig-image-placeholder.jpg" alt="thumb">
+                    <img src="/images/gig-image-placeholder.jpg" alt="thumb">
+                    <img src="/images/gig-image-placeholder.jpg" alt="thumb">
+                    <img src="/images/gig-image-placeholder.jpg" alt="thumb">
                 </div>
             </div>
 
             <!-- SELLER INFO + RATING + PRICE (under name) -->
             <div class="seller-header">
-                <img src="/gigsta/images/profile-placeholder-icon.svg" alt="Seller" class="seller-avatar">
+                <img src="/images/profile-placeholder-icon.svg" alt="Seller" class="seller-avatar">
                 <div class="seller-info">
                     <div class="seller-name">
                         <?= htmlspecialchars($gig['username']) ?>
                         <?php if ($gig['is_pro']): ?>
                     <span class="pro-badge">
-                        <img src="/gigsta/images/thunder-badge-icon.svg" alt="pro" class="badge-icon">
+                        <img src="/images/thunder-badge-icon.svg" alt="pro" class="badge-icon">
                         Gigsta Pro
                     </span>
                         <?php endif; ?>
@@ -112,7 +112,7 @@ $reviewCount  = $ratingData['review_count'];
 
                     <div class="gig-footer">
                         <div class="rating">
-                            <img src="/gigsta/images/star-rating-icon.svg" alt="star" class="rating-star">
+                            <img src="/images/star-rating-icon.svg" alt="star" class="rating-star">
                             <span class="rating-value"><?= $avgRating ?></span>
                             <span class="rating-count">(<?= $reviewCount ?> <?= $reviewCount == 1 ? 'review' : 'reviews' ?>)</span>
                         </div>
@@ -142,13 +142,13 @@ $reviewCount  = $ratingData['review_count'];
                 <button 
                     id="order-btn" 
                     class="primary-button" 
-                    onclick="startOrder(<?= $gig['id'] ?>, <?= $gig['user_id'] ?>)">
+                    onclick="startOrder(<?= $gigId ?>, <?= $gig['user_id'] ?>)">
                     <span>Order Now – $<?= number_format($gig['price'], 2) ?></span>
                 </button>
             <?php else: ?>
                 <?php if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']): ?>
                     <p style="margin:32px 0; text-align:center; color:#666;">
-                        <a href="/gigsta/pages/Login.php" style="color:var(--primary); text-decoration:underline;">Log in</a> 
+                        <a href="/pages/Login.php" style="color:var(--primary); text-decoration:underline;">Log in</a> 
                         to order this gig
                     </p>
                 <?php else: ?>
@@ -161,7 +161,7 @@ $reviewCount  = $ratingData['review_count'];
             <div class="gig-rating-large">
                 <h2 class="section-title">Reviews</h2>
                 <div id="section-reviews-container">
-                    <img src="/gigsta/images/star-rating-icon.svg" alt="star" width="28">
+                    <img src="/images/star-rating-icon.svg" alt="star" width="28">
                     <span class="rating-value"><?= $avgRating ?></span>
                     <span class="review-count">(<?= $reviewCount ?> <?= $reviewCount == 1 ? 'review' : 'reviews' ?>)</span>
                 </div>
@@ -184,7 +184,7 @@ $reviewCount  = $ratingData['review_count'];
                     <?php while ($review = $reviewResult->fetchArray(SQLITE3_ASSOC)): ?>
                         <div style="background:#f9f9f9; padding:20px; border-radius:12px; margin-bottom:16px;">
                             <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
-                                <img src="/gigsta/images/profile-placeholder-icon.svg" width="40" style="border-radius:50%;">
+                                <img src="/images/profile-placeholder-icon.svg" width="40" style="border-radius:50%;">
                                 <div>
                                     <strong><?= htmlspecialchars($review['username']) ?></strong>
                                     <div style="margin-top:4px;">
@@ -213,7 +213,7 @@ $reviewCount  = $ratingData['review_count'];
         <div class="sidebar">
             <div class="seller-card">
                 <h4>Gigster's Profile</h4>
-                <img src="/gigsta/images/gig-details-sidebar-profile.svg" alt="Seller">
+                <img src="/images/gig-details-sidebar-profile.svg" alt="Seller">
                 <h5><?= htmlspecialchars($gig['username']) ?></h5>
                 <div class="seller-rating">
                     ★ <?= $avgRating ?> <span style="color:#888; font-size:0.9em;">(<?= $reviewCount ?>)</span>
@@ -234,7 +234,7 @@ $reviewCount  = $ratingData['review_count'];
                 <?php 
                     $label = "Contact"; 
                     $id = "contact-btn";
-                    $icon = "/gigsta/images/contact-icon.svg";
+                    $icon = "/images/contact-icon.svg";
                     $href  = "Chats.php?with=" . $gig['user_id'];
                     include '../components/PrimaryButton.php'; 
                 ?>
@@ -247,56 +247,41 @@ $reviewCount  = $ratingData['review_count'];
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
     </div>
-    <script src="/gigsta/js/dropdown.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const gigImg= document.querySelector('#mainGigImage'); // select the seller avatar
-        const modal = document.getElementById('profileModal');
-        const modalImg = document.getElementById('modalImage');
-        const span = document.querySelector('.close');
+    <script src="/js/dropdown.js"></script>
+<script>
+function startOrder(gigId, sellerId) {
+    // Check login
+    <?php if (!isset($_SESSION['user_id'])): ?>
+        alert('Please log in to place an order');
+        window.location.href = 'Login.php';
+        return;
+    <?php endif; ?>
 
-        if (gigImg && modal && modalImg && span) {
-            gigImg.onclick = function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-            }
-
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-
-            modal.onclick = function(e) {
-                if (e.target === modal) modal.style.display = "none";
-            }
-        }
-    });
-
-    function startOrder(gigId, sellerId) {
-        // Simple confirmation
-        if (!confirm(`Order this gig for $${<?= $gig['price'] ?>}? You will be taken to chat with the seller.`)) {
-            return;
-        }
-
-        // Create order via AJAX (you can expand this later)
-        fetch('../database/create_order.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'gig_id=' + gigId + '&seller_id=' + sellerId
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Redirect to chat with the seller
-                window.location.href = `../pages/Chats.php?with=${sellerId}&gig=${gigId}`;
-            } else {
-                alert('Error creating order: ' + (data.message || 'Please try again.'));
-            }
-        })
-        .catch(() => {
-            // Fallback: just go to chat anyway (still useful)
-            window.location.href = `../pages/Chats.php?with=${sellerId}&gig=${gigId}`;
-        });
+    if (!confirm(`Order this gig for $<?= number_format($gig['price'], 2) ?>?\nYou will be taken to chat with the seller.`)) {
+        return;
     }
-    </script>
+
+    const formData = new FormData();
+    formData.append('gig_id', gigId);
+    formData.append('seller_id', sellerId);
+
+    fetch('../database/create_order.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `Chats.php?with=${sellerId}&gig=${gigId}`;
+        } else {
+            alert('Error: ' + (data.message || 'Could not create order'));
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Network error. Please try again.');
+    });
+}
+</script>
 </body>
 </html>

@@ -3,12 +3,12 @@ session_start();
 
 // Make sure user is logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /gigsta/pages/Login.php');
+    header('Location: /pages/Login.php');
     exit;
 }
 
 try {
-    $db = new SQLite3(__DIR__ . '/gigsta/database/gigsta.db');
+    $db = new SQLite3(__DIR__ . '/database.db');
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['role'])) {
         if ($role === 'gigster') {
             header('Location: onboarding-step2-gigster.php');
         } else {
-            header('Location: /gigsta/pages/BrowseGigs.php');
+            header('Location: /pages/BrowseGigs.php');
         }
         exit;
     } else {
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['role'])) {
     }
 } else {
     // If no POST data, redirect back
-    header('Location: /gigsta/pages/Onboarding.php');
+    header('Location: /pages/Onboarding.php');
     exit;
 }
 ?>

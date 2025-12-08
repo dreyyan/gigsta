@@ -24,9 +24,9 @@ if ($chatWithId) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/gigsta/css/chats.css">
-    <link rel="stylesheet" href="/gigsta/css/header.css">
-    <link rel="stylesheet" href="/gigsta/css/dropdown.css">
+    <link rel="stylesheet" href="/css/chats.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/dropdown.css">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Gigsta • Chat with <?= htmlspecialchars($chatPartnerName) ?></title>
@@ -99,14 +99,14 @@ if ($chatWithId) {
                 <div class="message-input-container">
                     <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
                     <button id="send-button">
-                        <img src="/gigsta/images/send-icon.svg">
+                        <img src="/images/send-icon.svg">
                     </button>
                 </div>
             <?php endif; ?>
         </div>
     </div>
 
-    <script src="/gigsta/js/dropdown.js"></script>
+    <script src="/js/dropdown.js"></script>
     
     <script>
         const messagesArea = document.getElementById('messages-area');

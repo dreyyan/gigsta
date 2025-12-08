@@ -1,5 +1,5 @@
 <?php
-$db = new SQLite3(__DIR__ . '/../database/gigsta.db'); 
+$db = new SQLite3(__DIR__ . '/../database.db'); 
 
 $db->exec("CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

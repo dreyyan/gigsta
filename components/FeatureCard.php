@@ -1,5 +1,5 @@
 <?php
-$image       = $image ?? '/gigsta/images/temp.png';
+$image       = $image ?? '/images/temp.png';
 $title       = $title ?? 'Default Title';
 $description = $description ?? 'Default description text goes here.';
 ?>

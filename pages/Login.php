@@ -5,7 +5,7 @@ require_once __DIR__ . '/../components/SocialButton.php';
 
 // Connect to database
 try {
-    $db = new \SQLite3(__DIR__ . '/../database/gigsta.db');
+    $db = new \SQLite3(__DIR__ . '/database/gigsta.db');
 } catch (Exception $e) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json');
@@ -84,10 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- [IMPORT] CSS -->
-    <link rel="stylesheet" href="/gigsta/css/primary-button.css">
-    <link rel="stylesheet" href="/gigsta/css/authentication.css">
+    <link rel="stylesheet" href="/css/primary-button.css">
+    <link rel="stylesheet" href="/css/authentication.css">
     <!-- [IMPORT] Website Icon -->
-    <link rel="icon" type="image/svg" href="/gigsta/images/gigsta-logo-minimal.svg">
+    <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,8 +101,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- [SECTION] Left Auth Container -->
         <section class="auth-left-container">
             <!-- [COMPONENT] Minimal Logo -->
-            <a href="/gigsta/index.php">
-                <img src="/gigsta/images/gigsta-logo-minimal.svg" alt="Gigsta logo">
+            <a href="/index.php">
+                <img src="/images/gigsta-logo-minimal.svg" alt="Gigsta logo">
             </a>
 
             <!-- [SECTION] Auth Content -->
@@ -121,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'name' => 'loginUser',
                         'id' => 'loginUser',
                         'placeholder' => 'Email or username',
-                        'icon' => '/gigsta/images/email-icon.svg',
+                        'icon' => '/images/email-icon.svg',
                         'required' => true
                     ]); ?>
 
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'name' => 'loginPassword',
                         'id' => 'loginPassword',
                         'placeholder' => 'Password',
-                        'icon' => '/gigsta/images/password-icon.svg',
+                        'icon' => '/images/password-icon.svg',
                         'required' => true
                     ]); ?>
 
@@ -160,22 +160,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <!-- [COMPONENT] Divider -->
                     <div class="divider-container">
-                        <img src="/gigsta/images/or-line-divider.svg" class="line-divider">
+                        <img src="/images/or-line-divider.svg" class="line-divider">
                         <span>or</span>
-                        <img src="/gigsta/images/or-line-divider.svg" class="line-divider">
+                        <img src="/images/or-line-divider.svg" class="line-divider">
                     </div>
 
                     <!-- [SECTION] Social Buttons -->
                     <?php renderSocialButton([
                         'label' => 'Continue with Google',
-                        'icon'  => '/gigsta/images/google-icon.png',
+                        'icon'  => '/images/google-icon.png',
                         'class' => 'google',
                         'onClick' => "window.location.href='/auth/google'"
                     ]); ?>
 
                     <?php renderSocialButton([
                         'label' => 'Continue with Facebook',
-                        'icon'  => '/gigsta/images/fb-icon.png',
+                        'icon'  => '/images/fb-icon.png',
                         'class' => 'facebook',
                         'onClick' => "window.location.href='/auth/facebook'"
                     ]); ?>
@@ -199,13 +199,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Hero Image -->
                 <div class="hero-image">
-                    <img src="/gigsta/images/odette.jpg" alt="Hero image">
+                    <img src="/images/odette.jpg" alt="Hero image">
                 </div>
             </div>
         </section>
     </main>
 
     <!-- [IMPORT] JavaScript -->
-    <script src="/gigsta/js/login.js"></script>
+    <script src="/js/login.js"></script>
 </body>
 </html>

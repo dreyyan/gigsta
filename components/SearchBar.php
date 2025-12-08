@@ -5,7 +5,7 @@ $rounded     = $rounded ?? false; // true = rounded
 $width       = $width ?? '';
 $id          = $id ?? 'search-bar';
 $buttonId    = $buttonId ?? 'search-button';
-$icon        = $icon ?? '/gigsta/images/search-icon.svg';
+$icon        = $icon ?? '/images/search-icon.svg';
 ?>
 
 <form 
@@ -13,7 +13,7 @@ $icon        = $icon ?? '/gigsta/images/search-icon.svg';
     class="<?= $rounded ? 'rounded' : '' ?>"
     style="<?= $width ? 'width:' . htmlspecialchars($width) . ';' : '' ?>"
     method="GET"
-    action="/gigsta/pages/BrowseGigs.php"
+    action="/pages/BrowseGigs.php"
 >
     <input 
         id="<?= htmlspecialchars($id) ?>" 
