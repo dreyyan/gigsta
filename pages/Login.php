@@ -86,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- [IMPORT] CSS -->
     <link rel="stylesheet" href="/css/primary-button.css">
     <link rel="stylesheet" href="/css/authentication.css">
+    <link rel="stylesheet" href="/css/auth-mobile.css">
     <!-- [IMPORT] Website Icon -->
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
     <!-- [IMPORT] Fonts -->

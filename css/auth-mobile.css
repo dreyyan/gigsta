@@ -1,0 +1,161 @@
+@import url('styles.css');
+
+/* =========================================================
+   GLOBAL MOBILE SAFETY FIX (NO HORIZONTAL SCROLL)
+========================================================= */
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   CONTAINER FIXES
+========================================================= */
+@media (max-width: 1024px) {
+
+    .auth-container {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .auth-left-container,
+    .auth-right-container {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 48px 24px;
+    }
+
+    .auth-left-container {
+        padding-top: 64px;
+    }
+
+    .auth-right-container {
+        padding-top: 64px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .auth-content-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* =========================================================
+   HERO SECTION FIXES (NO OVERFLOW)
+========================================================= */
+@media (max-width: 1024px) {
+
+    .auth-hero {
+        max-width: 100%;
+        width: 100%;
+        padding: 0 16px;
+        text-align: center;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 320px;
+        margin: 0;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+}
+
+/* =========================================================
+   FLUID FONT SCALING (AUTO RESPONSIVE)
+========================================================= */
+@media (max-width: 1024px) {
+
+    .auth-title {
+        font-size: clamp(28px, 5vw, 40px);
+        line-height: 1.1;
+    }
+
+    .auth-subtitle {
+        font-size: clamp(16px, 3.5vw, 22px);
+        line-height: 1.2;
+    }
+
+    .hero-title {
+        font-size: clamp(24px, 5.5vw, 36px);
+        line-height: 1.1;
+        margin-bottom: 20px;
+    }
+
+    .hero-description {
+        font-size: clamp(14px, 3.2vw, 20px);
+        line-height: 1.4;
+        margin-bottom: 32px;
+    }
+
+    .auth-form input[type="text"],
+    .auth-form input[type="password"] {
+        font-size: clamp(14px, 3vw, 16px);
+    }
+
+    .primary-action,
+    .social-btn {
+        font-size: clamp(13px, 2.8vw, 16px);
+        height: auto;
+        padding: 14px;
+    }
+
+    .checkbox-container,
+    .remember-me-container,
+    .forgot-link,
+    .redirect-link {
+        font-size: clamp(12px, 2.7vw, 14px);
+    }
+}
+
+/* =========================================================
+   BUTTON & INPUT WIDTH FIXES
+========================================================= */
+@media (max-width: 1024px) {
+
+    .primary-btn,
+    .primary-action,
+    .social-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .auth-form .input-group {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 14px;
+    }
+}
+
+/* =========================================================
+   SMALL PHONE FIX (≤480px)
+========================================================= */
+@media (max-width: 480px) {
+
+    .auth-left-container,
+    .auth-right-container {
+        padding: 32px 16px;
+    }
+
+    .hero-image {
+        height: 260px;
+    }
+
+    .auth-title {
+        font-size: 26px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+    }
+}

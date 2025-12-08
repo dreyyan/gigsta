@@ -3,20 +3,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
-    /* margin-bottom: 64px; */
-    padding: 80px 80px 0 80px;
+    min-height: 100vh;
+    min-height: 100svh;  /* ✅ Mobile fix */
+    min-height: 100dvh;  /* ✅ iOS 16+, Chrome 108+ */
 
-    height: 100vh;
+    width: 100%;
 
-    background-image: url('../images/hero-section-background.png');
-    background-size: contain;
+    padding: clamp(80px, 12vh, 140px) 24px 80px;
+
+    position: relative;
+
+    background-image: url("../images/hero-section-background.png");
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
-    /* Prevent white gaps around the image by centering it */
-    background-color: var(--background, #000); /* or set a color under it */
-}
+    background-color: #000; /* fallback */
+} 
 
 .hero-section-header {
     font-family: var(--header-font);
