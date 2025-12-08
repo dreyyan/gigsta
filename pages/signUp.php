@@ -7,7 +7,7 @@ require_once __DIR__ . '/../components/InputGroup.php';
 require_once __DIR__ . '/../components/SocialButton.php';
 
 try {
-    $db = new SQLite3(__DIR__ . '/database/gigsta.db');
+    $db = new SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
     if ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '' === 'XMLHttpRequest') {
         http_response_code(500);

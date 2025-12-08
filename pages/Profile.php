@@ -54,6 +54,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/dropdown.css">
+    <link rel="stylesheet" href="/css/primary-button.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
 </head>
@@ -65,9 +66,8 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
     <!-- PROFILE CARD -->
     <div class="profile-card">
-
         <!-- Avatar -->
-        <img class="profile-avatar" src="<?= $avatar ?>" alt="<?= htmlspecialchars($username) ?>">
+        <img class="profile-avatar" src="<?= $avatar ?>">
 
         <!-- Profile Content -->
         <div class="profile-info">
@@ -75,7 +75,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             <!-- Header -->
             <div class="profile-header">
                 <div>
-                    <h2 class="profile-name"><?= htmlspecialchars($username) ?></h2>
+                    <h3 class="profile-name"><?= htmlspecialchars($username) ?></h3>
                     <div class="profile-rating">
                         ⭐ <?= $avgRating ?> <span>(<?= $reviewCount ?>)</span>
                     </div>
@@ -95,9 +95,9 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
             <!-- Details -->
             <div class="profile-details">
-                <?php if ($age): ?><div><span>Age</span> <?= $age ?> years old</div><?php endif; ?>
-                <div><span>Location</span> <?= htmlspecialchars($location) ?></div>
-                <div><span>Experience</span> <?= $experience ?> years</div>
+                <?php if ($age): ?><div><span>👤</span> <?= $age ?> years old</div><?php endif; ?>
+                <div><span>📍</span> <?= htmlspecialchars($location) ?></div>
+                <div><span>💼</span> <?= $experience ?> years</div>
             </div>
 
             <!-- Skills -->
@@ -109,6 +109,9 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             </div>
             <?php endif; ?>
 
+            <button id="edit-profile-button" class="primary-btn">
+                Edit Profile
+            </button>
         </div>
     </div>
 
@@ -118,7 +121,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
         <div class="gigs-grid">
             <?php if (empty($gigs)): ?>
-                <p>No gigs yet. <a href="/pages/CreateGig.php">Create your first gig!</a></p>
+                <p>No gigs yet. <a id="create-gig-link" href="/pages/CreateGig.php">Create your first gig!</a></p>
             <?php else: ?>
                 <?php foreach ($gigs as $gig): ?>
                     <div class="gig-card">
@@ -145,5 +148,80 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
 </main>
 <script src="/js/dropdown.js"></script>
+<!-- EDIT PROFILE MODAL (invisible until clicked) -->
+<div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:40px; border-radius:20px; width:90%; max-width:500px; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+            <h3 style="margin:0; font-family:'DM Sans'; font-size:26px;">Edit Profile</h3>
+            <button onclick="document.getElementById('editModal').style.display='none'" style="background:none; border:none; font-size:32px; cursor:pointer; color:#999;">×</button>
+        </div>
+
+        <form id="editProfileForm">
+            <div style="margin-bottom:16px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600;">Username</label>
+                <input type="text" name="username" value="<?= htmlspecialchars($username) ?>" required style="width:100%; padding:12px 16px; border:2px solid #ddd; border-radius:12px; font-size:16px;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600;">Location</label>
+                <input type="text" name="location" value="<?= htmlspecialchars($location) ?>" style="width:100%; padding:12px 16px; border:2px solid #ddd; border-radius:12px; font-size:16px;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600;">Age</label>
+                <input type="number" name="age" value="<?= $age ?: '' ?>" min="13" max="100" style="width:100%; padding:12px 16px; border:2px solid #ddd; border-radius:12px; font-size:16px;">
+            </div>
+            <div style="margin-bottom:16px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600;">Years of Experience</label>
+                <input type="number" name="experience" value="<?= $experience ?>" min="0" style="width:100%; padding:12px 16px; border:2px solid #ddd; border-radius:12px; font-size:16px;">
+            </div>
+            <div style="margin-bottom:24px;">
+                <label style="display:block; margin-bottom:8px; font-weight:600;">Skills (comma separated)</label>
+                <input type="text" name="tags" value="<?= htmlspecialchars(implode(', ', $tags)) ?>" placeholder="e.g. Photoshop, Figma, React" style="width:100%; padding:12px 16px; border:2px solid #ddd; border-radius:12px; font-size:16px;">
+            </div>
+
+            <div style="display:flex; gap:12px;">
+                <button type="submit" style="flex:1; padding:14px; background:#6c5ce7; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:16px;">
+                    Save Changes
+                </button>
+                <button type="button" onclick="document.getElementById('editModal').style.display='none'" style="padding:14px 24px; background:#f0f0f0; border:none; border-radius:12px; cursor:pointer; font-size:16px;">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// Open modal
+document.getElementById('edit-profile-button')?.addEventListener('click', () => {
+    document.getElementById('editModal').style.display = 'flex';
+});
+
+// Close when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('editModal');
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+// Submit form
+document.getElementById('editProfileForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch('../database/update_profile.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            alert('Profile updated!');
+            location.reload();
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(() => alert('Connection failed'));
+});
+</script>
 </body>
 </html>

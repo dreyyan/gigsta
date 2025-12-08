@@ -5,7 +5,7 @@ require_once __DIR__ . '/../components/SocialButton.php';
 
 // Connect to database
 try {
-    $db = new \SQLite3(__DIR__ . '/database/gigsta.db');
+    $db = new \SQLite3(__DIR__ . '/../database/gigsta.db');
 } catch (Exception $e) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header('Content-Type: application/json');
@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <!-- Redirect Link -->
                     <p class="redirect-link">
                         Don't have an account?
-                        <a href="signUp.php">Sign Up</a>
+                        <a href="SignUp.php">Sign Up</a>
                     </p>
                 </form>
             </div>

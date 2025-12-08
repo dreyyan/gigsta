@@ -22,7 +22,7 @@
     background: white;
     border: 1px solid #dcdcdc;
     border-radius: 12px;
-    padding: 28px;
+    padding: 72px 80px;
     display: flex;
     gap: 26px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
@@ -36,6 +36,8 @@
     object-fit: cover;
     border: 4px solid #fff;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    margin-right: 32px;
 }
 
 .profile-info {
@@ -51,8 +53,6 @@
 }
 
 .profile-name {
-    font-size: 28px;
-    font-weight: 700;
     color: #222;
     margin-bottom: 4px;
 }
@@ -84,25 +84,36 @@
 
 /* Bio */
 .profile-bio {
-    font-size: 15px;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 32px;
+    letter-spacing: 1.5%;
+
     color: #444;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
 }
 
 /* Details */
 .profile-details {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    gap: 20px;
     margin-bottom: 20px;
     font-size: 14px;
+    gap: 8px 0;
 }
 
 .profile-details div {
     display: flex;
     align-items: center;
     gap: 8px;
+
+    font-family: var(--header);
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 20px;
+    letter-spacing: 1.5%;
 }
 
 .profile-details span {
@@ -238,4 +249,8 @@
     .gigs-grid {
         grid-template-columns: 1fr;
     }
+}
+
+#create-gig-link {
+    color: oklch(20.70% 0.038 265.07);
 }
