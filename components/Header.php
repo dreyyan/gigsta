@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 $isLoggedIn = $_SESSION['logged_in'] ?? false;
 $userRole   = $_SESSION['role'] ?? '';
 ?>

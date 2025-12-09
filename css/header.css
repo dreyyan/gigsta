@@ -153,26 +153,27 @@
     align-items: center;           /* vertically center input */
     width: 640px;
     height: 40px;
+    background-color: var(--primary);
 
     border: 2px solid var(--primary);
     border-radius: 4px;
     overflow: hidden;
     padding: 0;
+    margin-right: 16px;
     box-sizing: border-box;        /* include border in width/height */
 }
 
 /* Rounded variant */
 #search-bar-container.rounded {
     display: flex;
-    align-items: center;           /* vertically center input */
+    align-items: center;
     width: 740px;
     height: 48px;
 
     border: 2px solid var(--primary);
-    border-radius: 4px;
     overflow: hidden;
     padding: 0;
-    box-sizing: border-box;        /* include border in width/height */
+    box-sizing: border-box;
     border-radius: 8px;
 }
 
@@ -181,19 +182,21 @@
     font-family: var(--body);
     font-weight: 400;
     font-size: 13px;
-    line-height: 32px;             /* added px unit */
+    line-height: 32px;
     letter-spacing: 1.5%;
     color: var(--text);
 
-    width: 100%;
+    flex: 1;
     height: 100%;
+    padding: 0 16px;
+    border: none;
+    outline: none;
 
     border: none;
     border-radius: 0;
 
-    padding: 0 14px;               /* adjusted top/bottom padding */
-    box-sizing: border-box;        /* ensures padding doesn't break height */
-    outline: none;                 /* remove default focus outline */
+    box-sizing: content-box;
+    outline: none;
 }
 
 /* Optional: placeholder color */
@@ -206,6 +209,8 @@
 
     width: 48px;
     height: 100%;
+
+    padding: 0;
 
     border: none;
     border-radius: 0;

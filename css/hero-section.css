@@ -11,7 +11,7 @@
 
     width: 100%;
 
-    padding: clamp(80px, 12vh, 140px) 24px 80px;
+    padding: 0px 40px 80px;
 
     position: relative;
 
@@ -48,7 +48,7 @@
 
 /* [SECTION] Search */
 .search-container {
-    margin-top: 35px;
+    /* margin-top: 35px; */
     width: 100%;
     max-width: 700px;
     display: flex;
@@ -320,6 +320,12 @@
     margin: 0 auto 40px;
     padding: 0 20px;
     z-index: 2;
+}
+
+#search-bar-container .rounded {
+    border: 4px solid black;
+    padding: 0;
+    margin: 0;
 }
 
 /* ====================== RESPONSIVE BREAKPOINTS ====================== */

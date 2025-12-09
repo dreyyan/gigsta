@@ -11,10 +11,12 @@
 .auth-right-container {
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: center;
+    /* align-items: center; */
 
     height: 100vh;
-    box-sizing: bo/* ======================= GLOBAL FIXES ======================= */
+    box-sizing: box;
+}
 
 .auth-container {
     min-height: 100vh;
@@ -25,6 +27,18 @@
     min-height: 100vh;
     height: auto;
     padding: clamp(40px, 6vw, 80px);
+}
+
+.auth-left-container {
+    padding-left: 110px;
+}
+
+.auth-right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .auth-title {
@@ -170,6 +184,12 @@ rder-box;
     gap: 24px 0;
 }
 
+#header-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .auth-title {
     font-family: var(--header);
     font-weight: bold;
@@ -261,7 +281,6 @@ rder-box;
 
 /* [SECTION] Right: Hero Section */
 .auth-hero {
-    max-width: 560px;
     width: 100%;
     text-align: center;
 }
@@ -283,6 +302,7 @@ rder-box;
     font-size: 36px;
     line-height: 48px;
     letter-spacing: -1%;
+    max-width: 520px;
 
     margin-bottom: 64px;
 }
@@ -290,7 +310,6 @@ rder-box;
 .hero-image {
     width: calc(100% + 160px);
     height: 520px;
-    margin: 0 0 0 -80px;
     overflow: hidden;
     border-radius: 0;
     background: #f0f0f0;

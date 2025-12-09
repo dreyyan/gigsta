@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- [SECTION] Right Auth Container -->
         <section class="auth-right-container">
             <div class="auth-hero">
-                <div>
+                <div id="header-cont">
                     <h2 class="hero-title">Get Gigs Done at &nbsp;<span class="highlight">Lightning Speed.</span></h2>
                     <p class="hero-description">Fixed-price gigs delivered in hours, not weeks.</p>
                 </div>
