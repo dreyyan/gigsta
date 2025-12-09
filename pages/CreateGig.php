@@ -61,8 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Create Gig Gigsta</title>
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/primary-button.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background: #f9fafe; margin: 0; }
         .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }

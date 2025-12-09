@@ -1,4 +1,4 @@
-<?php
+    <?php
 // DEBUG: Remove these 4 lines in production
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -142,7 +142,9 @@ $currentSortText = match ($sort) {
     <link rel="stylesheet" href="../css/dropdown.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/gig-card.css">
-    <link rel="icon" type="image/svg" href="/images/gigsta-logo-minimal.svg">
+     <link rel="stylesheet" href="../css/styles.css">
+
+    <link rel="icon" type="image/svg" href="../images/gigsta-logo-minimal.svg">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <title>Gigsta • Browse Gigs</title>
 
