@@ -111,7 +111,11 @@ $realisticGigs = [
 
 $deliveryTimes = ['24 hours', '3 days', '5 days', '7 days', '10 days', '14 days'];
 
-// Create 20 realistic gigsters
+// CREATE 20 REALISTIC GIGSTERS
+$db->exec("DELETE FROM gig_reviews;");
+$db->exec("DELETE FROM gigs;");
+$db->exec("DELETE FROM users WHERE role = 'gigster';");   // ← This fixes the "no data" problem
+
 for ($i = 0; $i < 20; $i++) {
     $first = $firstNames[array_rand($firstNames)];
     $last  = $lastNames[array_rand($lastNames)];
@@ -123,10 +127,9 @@ for ($i = 0; $i < 20; $i++) {
     $experience = random_int(2, 14);
     $isPro = $i < 6 ? 1 : 0;
 
-    // Random 3–6 unique skills
     $shuffled = $skills;
     shuffle($shuffled);
-    $userSkills = array_slice($shuffled, 0, random_int(3,6));
+    $userSkills = array_slice($shuffled, 0, random_int(3, 6));
     $tagsJson = json_encode($userSkills);
 
     $db->exec("INSERT OR IGNORE INTO users 
@@ -143,8 +146,10 @@ while ($row = $result->fetchArray()) {
 
 // Generate realistic gigs
 foreach ($gigsterIds as $userId) {
-    $numGigs = random_int(2, 5);
-    for ($g = 0; $g < $numGigs; $g--) {
+    $numGigs = random_int(2, 50);
+    
+    // FIXED LINE — was $g-- (decrement) → changed to $g++ (increment)
+    for ($g = 0; $g < $numGigs; $g++) {
         $gig = $realisticGigs[array_rand($realisticGigs)];
         $price = random_int(15, 280);
         $delivery = $deliveryTimes[array_rand($deliveryTimes)];

@@ -6,8 +6,8 @@
     justify-content: center;
 
     min-height: 100vh;
-    min-height: 100svh;  /* ✅ Mobile fix */
-    min-height: 100dvh;  /* ✅ iOS 16+, Chrome 108+ */
+    min-height: 100svh;
+    min-height: 100dvh;
 
     width: 100%;
 
@@ -82,7 +82,7 @@
     line-height: 32px;
     letter-spacing: 1%;
 
-    margin: 40px 0 64px 0;
+    margin: 32px 0 40px 0;
 
     #star-icon {
     color: var(--secondary);
@@ -194,14 +194,13 @@
 
 @import url('styles.css');
 
-/* ====================== HERO SECTION - FULLY RESPONSIVE ====================== */
 .hero-section-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 140px 40px 80px; /* More top space to avoid header overlap */
+    padding: 48px 40px 80px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -294,7 +293,7 @@
 }
 
 /* Trust Line */
-#trust-content-container {
+/* #trust-content-container {
     font-family: var(--header);
     font-weight: 600;
     font-size: clamp(16px, 3vw, 20px);
@@ -302,7 +301,7 @@
     margin: 48px 0 64px;
     opacity: 0.9;
     z-index: 2;
-}
+} */
 
 #star-icon {
     color: #FFD700;

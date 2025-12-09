@@ -134,10 +134,6 @@
     margin-left: auto;
 }
 
-/* =========================================================
-   ✅ MOBILE FIXES (NO OVERFLOW / STACKED LAYOUT)
-========================================================= */
-
 @media (max-width: 768px) {
 
     .filters-section {
@@ -172,10 +168,6 @@
         transform: translateX(-50%) translateY(0) !important;
     }
 }
-
-/* =========================================================
-   ✅ EXTRA SMALL PHONES
-========================================================= */
 
 @media (max-width: 420px) {
 

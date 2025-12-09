@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Hero Image -->
                 <div class="hero-image">
-                    <img src="/images/odette.jpg" alt="Hero image">
+                    <img src="/images/odette.png" alt="Hero image">
                 </div>
             </div>
         </section>

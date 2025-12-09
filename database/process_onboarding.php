@@ -75,7 +75,7 @@ try {
     $_SESSION['onboarding_complete'] = true;
     $_SESSION['user_role'] = $role;
 
-    header("Location: " . ($role === 'gigster' ? '../pages/CreateGig.php' : '../pages/BrowseGigs.php'));
+    header("Location: " . ($role === 'gigster' ? '../pages/BrowseGigs.php' : '../pages/BrowseGigs.php'));
     exit;
 
 } catch (Exception $e) {

@@ -1,5 +1,5 @@
 <?php
-$image       = $image ?? '/images/temp.png';
+$image       = $image ?? '/images/vector-art.jpg';
 $title       = $title ?? 'Default Title';
 $description = $description ?? 'Default description text goes here.';
 ?>

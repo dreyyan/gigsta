@@ -24,8 +24,8 @@ $tags         = is_array($tags) ? $tags : [];
 
 // Avatar
 $avatar = (!empty($user['profile_pic']) && file_exists("../uploads/profiles/{$user['profile_pic']}"))
-    ? "/uploads/profiles/{$user['profile_pic']}"
-    : "/image/temp.jpg";
+    ? "/images/vector-art.jpg"
+    : "/images/vector-art.jpg";
 
 // Rating & reviews
 $stats = $db->querySingle("
@@ -112,6 +112,9 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             <button id="edit-profile-button" class="primary-btn">
                 Edit Profile
             </button>
+            <!-- <button id="delete-account-button" class="primary-btn" style="margin-top: 12px; background:#e74c3c;">
+                Delete Account
+            </button> -->
         </div>
     </div>
 
@@ -121,11 +124,11 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 
         <div class="gigs-grid">
             <?php if (empty($gigs)): ?>
-                <p>No gigs yet. <a id="create-gig-link" href="/pages/CreateGig.php">Create your first gig!</a></p>
+                <p>No gigs yet. <a id="create-gig-link" href="/pages/BrowseGigs.php">Create your first gig!</a></p>
             <?php else: ?>
                 <?php foreach ($gigs as $gig): ?>
                     <div class="gig-card">
-                        <img class="gig-image" src="/image/temp.jpg" alt="Gig">
+                        <img class="gig-image" src="/images/vector-art.jpg" alt="Gig">
 
                         <div class="gig-info">
                             <div class="gig-user">
@@ -147,7 +150,7 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     </section>
 
 </main>
-<script src="/js/dropdown.js"></script>
+<script src="../js/dropdown.js"></script>
 <!-- EDIT PROFILE MODAL (invisible until clicked) -->
 <div id="editModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); z-index:9999; justify-content:center; align-items:center;">
     <div style="background:white; padding:40px; border-radius:20px; width:90%; max-width:500px; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
@@ -189,39 +192,103 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         </form>
     </div>
 </div>
+<!-- DELETE ACCOUNT CONFIRMATION MODAL -->
+<div id="deleteModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); backdrop-filter:blur(10px); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:#fff; padding:40px; border-radius:20px; width:90%; max-width:480px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+        <h3 style="margin:0 0 16px; font-size:24px; color:#e74c3c;">Delete Account Permanently?</h3>
+        <p style="margin:24px 0; color:#555; line-height:1.5;">
+            This action <strong>cannot be undone</strong>.<br>
+            All your gigs, messages, orders, and profile data will be deleted forever.
+        </p>
+        <div style="display:flex; gap:16px; justify-content:center; margin-top:32px;">
+            <button id="confirmDeleteBtn" style="padding:14px 32px; background:#e74c3c; color:white; border:none; border-radius:12px; font-weight:700; cursor:pointer; font-size:16px;">
+                Yes, Delete My Account
+            </button>
+            <button onclick="document.getElementById('deleteModal').style.display='none'" style="padding:14px 32px; background:#f1f1f1; border:none; border-radius:12px; cursor:pointer; font-size:16px;">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/dropdown.js"></script>
 
 <script>
-// Open modal
+// === EDIT PROFILE MODAL (unchanged) ===
 document.getElementById('edit-profile-button')?.addEventListener('click', () => {
     document.getElementById('editModal').style.display = 'flex';
 });
-
-// Close when clicking outside
 window.addEventListener('click', (e) => {
     const modal = document.getElementById('editModal');
     if (e.target === modal) modal.style.display = 'none';
 });
-
-// Submit form
 document.getElementById('editProfileForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
-
-    fetch('../database/update_profile.php', {
-        method: 'POST',
-        body: formData
-    })
+    fetch('../database/update_profile.php', { method: 'POST', body: formData })
     .then(r => r.json())
     .then(data => {
-        if (data.success) {
-            alert('Profile updated!');
-            location.reload();
-        } else {
-            alert('Error: ' + data.message);
-        }
+        if (data.success) { alert('Profile updated!'); location.reload(); }
+        else { alert('Error: ' + data.message); }
     })
     .catch(() => alert('Connection failed'));
 });
+
+// === DELETE ACCOUNT FUNCTIONALITY (NEW & WORKING) ===
+document.getElementById('delete-account-button')?.addEventListener('click', () => {
+    document.getElementById('deleteModal').style.display = 'flex';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    const modal = document.getElementById('deleteModal');
+    if (e.target === modal) modal.style.display = 'none';
+});
+
+// Confirm deletion
+// Confirm deletion
+document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+    fetch('/database/delete_account.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'confirm=1'
+    })
+    .then(response => {
+        // Log the response details
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers.get('content-type'));
+        
+        // Get the raw text
+        return response.text();
+    })
+    .then(text => {
+        // Show what we actually got
+        console.log('Raw response:', text);
+        console.log('First 100 chars:', text.substring(0, 100));
+        
+        // Try to parse as JSON
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                alert('Your account has been permanently deleted.');
+                window.location.href = '/pages/Login.php';
+            } else {
+                alert('Error: ' + (data.message || 'Could not delete account'));
+                document.getElementById('deleteModal').style.display = 'none';
+            }
+        } catch (e) {
+            // Show the parse error and the response
+            alert('JSON Parse Error!\n\nResponse was:\n' + text.substring(0, 200));
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+    })
+    .catch(err => {
+        console.error('Fetch error:', err);
+        alert('Connection failed: ' + err.message);
+        document.getElementById('deleteModal').style.display = 'none';
+    });
+});
 </script>
+
 </body>
 </html>

@@ -159,7 +159,6 @@
     border-radius: 4px;
     overflow: hidden;
     padding: 0;
-    margin-right: 16px;
     box-sizing: border-box;        /* include border in width/height */
 }
 
