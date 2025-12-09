@@ -32,9 +32,16 @@ $userRole   = $_SESSION['role'] ?? '';
                 <?php
                 $links = [
                     ['text' => 'Browse Gigs', 'href' => '/pages/BrowseGigs.php'],
-                    ['text' => 'My Orders', 'href' => '/pages/MyOrders.php'],
-                    ['text' => 'Messages', 'href' => '/pages/Chats.php'],
                 ];
+
+                if ($userRole === 'gigster') {
+                    $links[] = ['text' => 'My Gigs', 'href' => '/pages/MyGigs.php'];
+                } else {
+                    $links[] = ['text' => 'My Orders', 'href' => '/pages/MyOrders.php'];
+                }
+
+                $links[] = ['text' => 'Messages', 'href' => '/pages/Chats.php'];
+
                 foreach ($links as $link) {
                     echo '<a class="header-navigation-link" href="' . htmlspecialchars($link['href']) . '">' 
                         . htmlspecialchars($link['text']) . '</a>';
