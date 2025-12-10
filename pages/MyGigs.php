@@ -121,6 +121,7 @@ h1 {
     font-weight: 700;
     margin-bottom: 10px;
     color: var(--text);
+    height: 70px;
 }
 
 .gig-desc {
